@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Model.EF.Job>
+@using QuickJob.Function;
+
+@{
+    var fu = new FunctionController();
+    ViewBag.Title = "Danh sách tin tuyển dụng";
+    Layout = "~/Areas/Employer/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<section class="section-services section-t8" ng-app="myApp">
+    <div class="container" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-md-12 mt-3 ">
+                <div class=" border" id="top">
+                    <div style="padding: 20px">
+                        <div class="title-box">
+                            <h5 style="font-size: 18px" class="title-a">Tin tuyển dụng (0/3) <a style="font-size: 14px" class="text-danger" href="">Nâng cấp</a></h5>
+
+                            <p>Có <b>{{(list | filter: txtSearch).length}}</b> kết quả tìm kiếm</p>
+                            <hr />
+                            <div class="ui search">
+                                <div class="ui icon input">
+                                    <input class="prompt" ng-model="txtSearch" type="text" placeholder="Tìm kiếm...">
+                                    <i class="search icon"></i>
+                                </div>
+                                <div class="results"></div>
+                            </div>
+                            <br />
+                        </div>
+                        <table class="table table-hover">
+                            <thead class="bg-dark text-white">
+                                <tr>
+                                    <td>Mã</td>
+                                    <td>Tiêu đề</td>
+                                    <td>Nghành nghề</td>
+                                    <td>Tỉnh thành</td>
+                                    <td>Thông tin</td>
+                                    <td>Đơn CV</td>
+                                    <td>Ngày tạo</td>
+                                    <td>Ngày hết hạn</td>
+                                    <td>Cập nhật</td>
+                                    <td>Tình trạng</td>
+                                    <td>Hoạt động</td>
+                                    <td>Tùy chọn</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-show="(list | filter: txtSearch).length == 0">
+                                    <td colspan="10">
+                                        Không có tin tuyển dụng nào!
+                                        <img src="https://tuyendung.topcv.vn/v2/images/empty.svg" style="width: 100%"/>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="list in list | filter: txtSearch" ng-show="(list | filter: txtSearch).length != 0">
+                                    <td>{{list.id}}</td>
+                                    <td>{{list.title}}</td>
+                                    <td>{{list.category}}</td>
+                                    <td>{{list.provice}}</td>
+                                    <td>
+                                        <b>Hình thức: </b>{{list.type}} <br />
+                                        <b>Cấp bậc: </b>{{list.workplace}} <br />
+                                        <b>Kinh nghiệm: </b>{{list.exp}} <br />
+                                        <b>Giới tính: </b>{{list.sex == true ? 'Nam' : 'Nữ'}} <br />
+                                        <b>Số lượng: </b>{{list.amout}} <br />
+                                    </td>
+                                    <td>0</td>
+                                    <td>{{list.datecreate}}</td>
+                                    <td>{{list.deadline}}</td>
+                                    <td>{{list.update}}</td>
+                                    <td>{{list.active == true ? "Hoạt động" : "Đang duyệt"}}</td>
+                                    <td>{{list.option == true ? "Hiển thị" : "Ngưng"}}</td>
+                                    <td>
+                                        <i class="fa fa-eye"></i> | 
+                                        <i class="fa fa-trash"></i> | 
+                                        <i class="fa fa-edit"></i> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+
+</script>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/JobsEmployer/Json"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+            $scope.count = $scope.list.length;
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>

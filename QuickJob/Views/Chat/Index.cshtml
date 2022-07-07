@@ -1,0 +1,76 @@
+﻿@using Model.EF;
+@using QuickJob.Function;
+@{
+    DataQuickJobEntities db = new DataQuickJobEntities();
+    ViewBag.Title = "QuickJobChat";
+    Layout = "~/Views/Shared/_LayoutQuickChat.cshtml";
+
+    var coo = new FunctionController();
+    var idus = coo.CookieID();
+
+    List<User> users = db.Users.Where(n => n.role_id == 2 && n.user_active == true && n.user_option == true).OrderByDescending(n => n.user_datecreate).ToList();
+}
+<nav class="navbar navbar-light sticky-top" data-navbar-darken-on-scroll="900">
+    <div class="container pt-2">
+        <a class="navbar-brand" href="index.html" style="color: white"> QuickJobChat</a>
+        <div class="navbar-nav ms-auto">
+            <a href="/" class="btn btn-secondary"><i class="fa fa-home">&nbsp;</i>Trở về trang chủ</a>
+        </div> &nbsp;&nbsp;
+        <div class="navbar-nav">
+            <a href="/" class="btn btn-secondary"><img src="~/Images/Users/@idus.user_img" style="width: 20px; height: 20px; border-radius: 50%" />&nbsp;&nbsp;Ứng viên: @idus.user_name</a>
+        </div>
+
+    </div>
+</nav>
+<section>
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-5">
+                <div class="border rounded-1 border-700 h-100 features-items">
+                    <div class="p-5">
+                        <h3 class="pt-3 lh-base">Tìm kiếm Nhà tuyển dụng    </h3>
+                        <div class="ui icon input w-100">
+                            <input type="text" placeholder="Tìm kiếm nhà tuyển dụng...">
+                            <i class="inverted circular search link icon"></i>
+                        </div>
+                        @foreach (var item in users)
+                        {
+                            <div class="row mt-2 border" style=" --bs-gutter-x: 0rem;">
+                                <div class="col-lg-8">
+                                    <div style="padding: 10px">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <img src="~/Images/Employers/@item.employer_logo" style="width: 100px; height: 100px" class="rounded" />
+                                            </div>
+                                            <div class="col-lg-6">
+                                                @item.employer_company <br />
+                                                <b>Việc làm: </b> 0 <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <center onclick="window.location.href = '/Chat/QuickChatCandidate?id=@item.user_id'">
+                                        <br />
+                                        <br />
+                                        <i class="fa fa-comment" style="font-size: 30px">&nbsp;</i>
+                                    </center>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="border rounded-1 border-700 h-100 features-items">
+                    <div class="p-5">
+                        <h3 class="pt-3 lh-base">Chat gần đây</h3>
+                        <p class="mb-0">Chưa có tin nhắn nào.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of .container-->
+
+</section>

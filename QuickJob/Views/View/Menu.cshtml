@@ -1,0 +1,62 @@
+﻿@using Model.EF;
+@using QuickJob.Function;
+@{ 
+    DataQuickJobEntities db = new DataQuickJobEntities();
+    var fu = new FunctionController();
+
+}
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" data-navbar-on-scroll="data-navbar-on-scroll">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center fw-semi-bold fs-3" href="/"> QuickJob.com </a>
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto pt-2 pt-lg-0 font-base">
+                <li class="nav-item px-2"><a class="nav-link fw-medium active" aria-current="page" href="/">Trang chủ</a></li>
+                <li class="nav-item px-2" data-anchor="data-anchor"><a class="nav-link" href="">Về QuickJob</a></li>
+                <li class="nav-item px-2"><a class="nav-link" href="/Cvs/IndexThemes">Mẫu cv</a></li>
+                <li class="nav-item px-2"><a class="nav-link" href="/View/IndexJob">Việc làm </a></li>
+                <li class="nav-item px-2" ><a class="nav-link" href="/View/IndexEmployer">Công ty </a></li>
+                <li class="nav-item px-2" ><a target="_blank" class="nav-link" href="/News/Index">Cuộc sống công việc </a></li>
+                @if (fu.Cookie() != null)
+                {
+                    var id = fu.CookieID();
+                    <li class="nav-item px-2 dropdown">
+                        <a style="font-size: 20px" class="dropdown-toggle text-dark" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="~/Images/Users/@id.user_img" style="width: 50px; height: 50px; border-radius: 50%" />
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">@id.user_name</a></li>
+                            <li><a class="dropdown-item" href="#">Mã ứng viên: #27121999</a></li>
+                            <li><a class="dropdown-item" href="#">Số CV: @db.Cvs.Where(n=>n.user_id == id.user_id).Count()/@id.candidate_amoutcv</a></li>
+                            <li><hr /></li>
+                            <li><a class="dropdown-item text-dark" href="/Users/MyInfo?id=@id.user_id"><i class="fa fa-user">&nbsp;</i>Thông tin cá nhân</a></li>
+                            <li><a class="dropdown-item text-dark" href="/Cvs/IndexCvs"><i class="fa fa-address-book">&nbsp;</i>Quản lý CV</a></li>
+                            <li><a class="dropdown-item text-dark" href="#">Cài đặt gợi ý việc làm</a></li>
+                            <li><a class="dropdown-item text-dark" href="/View/EmployerViewCV"><i class="fa fa-eye">&nbsp;</i>NTD xem hồ sơ</a></li>
+                            <li><a class="dropdown-item text-dark" href="/View/AttentionEmployer"><i class="fa fa-book-reader">&nbsp;</i>NTD chú ý</a></li>
+                            <li><a class="dropdown-item text-dark" href="/View/ViewCvEmployer"><i class="fas fa-book-open">&nbsp;</i>Quản lý CV nộp</a></li>
+                            <li><a class="dropdown-item text-dark" href="/Users/IndexFavouriteAll"><i class="fa fa-box">&nbsp;</i>Việc làm đã lưu</a></li>
+                            <li><a class="dropdown-item text-dark" href="/Users/IndexFollowAll"><i class="fa fa-bell">&nbsp;</i>Công ty theo dõi</a></li>
+                            @if (id.version_id == 1)
+                            {
+                                <li><a class="dropdown-item text-dark" href="/Pays/IndexPakage"><i class="fa fa-caret-square-up">&nbsp;</i>Nâng cấp tài khoản</a></li>
+                            }
+                            <li><a class="dropdown-item text-dark" href="/Pays/HistoryPay"><i class="fa fa-history">&nbsp;</i>Lịch sử thanh toán</a></li>
+                            <li><a class="dropdown-item text-dark" href="/Users/ResetPassword"><i class="fa fa-key">&nbsp;</i>Thay đổi mật khẩu</a></li>
+                            <li><a class="dropdown-item text-dark" href="@Url.Action("LogOut","Users")"><i class="fa fa-sign-out-alt">&nbsp;</i>Đăng xuất</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-2"><a style="font-size: 20px" class="nav-link" href=""><i class="fa fa-bell"></i><span style="font-size: 15px" class="text-danger" id="displayShowMess" ></span></a></li>
+                    <li class="nav-item px-2"><a style="font-size: 20px" class="nav-link" href="/Chat/Index"><i class="fa fa-comment"></i><span style="font-size: 15px" class="text-danger"><span id="mess"></span></span></a></li>
+                }
+                else
+                {
+                    <li class="nav-item px-2"><a class="nav-link" href="/Users/Login">Đăng nhập </a></li>
+                }
+            </ul>
+            <div class="ps-lg-5">
+                <button onclick="window.location.href='/Employer/HomeEmployer/Index'" class="btn btn-outline-primary order-0" >Nhà tuyển dụng <br /> Đăng tuyển & tìm hồ sơ</button>
+            </div>
+        </div>
+    </div>
+</nav>

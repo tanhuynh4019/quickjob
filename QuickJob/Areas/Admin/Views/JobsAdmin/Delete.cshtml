@@ -1,0 +1,217 @@
+﻿@model Model.EF.Job
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Job</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.job_title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_addpress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_addpress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_amout)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_amout)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_sex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_sex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_payend)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_payend)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_paystart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_paystart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_datedeline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_datedeline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_describe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_describe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_request)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_request)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_right)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_right)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_option)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_option)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_datecreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_datecreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_dateupdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_dateupdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_bin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_bin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_view)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_view)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_key)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_key)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.job_textprice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.job_textprice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Exp.exp_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Exp.exp_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkPlace.wp_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkPlace.wp_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeJob.type_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeJob.type_name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

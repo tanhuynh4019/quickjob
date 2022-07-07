@@ -1,0 +1,106 @@
+﻿@using QuickJob.Function;
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+
+    var fu = new FunctionController();
+
+}
+<style>
+    .ui.form .field {
+        margin: 0px 0px 30px 40px;
+    }
+</style>
+<link href="~/Content/Login.css" rel="stylesheet" />
+<section class="py-0" id="home">
+    <div class="container" style="max-width: 1200px">
+        <div class="row align-items-center min-vh-md-75 mt-7" style="align-items: inherit !important;">
+            <div class="col-lg-4">
+                <div class="box w-100" style="height: 600px">
+                    <div id="header">
+                        <div id="cont-lock"><i class="material-icons lock" style="font-size: 20px">Đăng nhập sử dụng</i></div>
+                        <button class="ui facebook button w-100" style="border-radius: 0px 0px 0px 0px">
+                            <i class="facebook icon"></i>
+                            Đăng nhập bằng facebook
+                        </button>
+                    </div>
+                    <form action="" method="post" class="ui form">
+                        <P>Hoặc sử dụng Email</P>
+                        <div class="group field">
+                            <input class="inputMaterial" style="width: 88%; height: 60px" type="text" name="email">
+                            <span class="highlight"></span>
+                            <span class="bar" style="width: 88%;"></span>
+                            <label style="color: #009688">Email</label>
+                        </div>
+                        <div class="group field">
+                            <input class="inputMaterial" style="width: 88%; height: 60px" type="password" name="pass">
+                            <span class="highlight"></span>
+                            <span class="bar" style="width: 88%"></span>
+                            <label style="color: #009688">Mật khẩu</label>
+                            <a href="#" style="font-size: 14px; color: black">Quên mật khẩu?</a>
+                        </div>
+                        <button id="" class="submit button">Đăng nhập</button>
+
+                        <div class="ui error message"></div>
+                        <p class="text-danger">@ViewBag.Check</p>
+                        <p class="mt-5">
+                            Bạn không đăng nhập được tài khoản?
+                            Vui lòng gọi tới số <b>0924404019</b> (giờ hành chính) để được hỗ trợ.
+                        </p>
+                    </form>
+                    <div id="footer-box"><p class="footer-text mt-3">Bạn chưa có tài khoản ?<span class="sign-up" onclick="window.location.href='/Users/SignUp'"> Đăng ký ngay</span></p></div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card shadow" style="margin-top: 40px">
+                    <div style="padding: 10px">
+                        <h3>Hướng dẫn sử dụng QuickJob</h3>
+                        <ol>
+                            <li>Đăng nhập (Đăng ký tài khoản mới nếu bạn chưa từng sử dụng QuickJob tại đây).</li>
+                            <li>Viết CV trực tiếp trên QuickJob.</li>
+                            <li>Nộp CV vào công việc.</li>
+                            <li>Chờ tin xét duyệt.</li>
+                            <li>Chờ tin liên hệ từ nhà tuyển dụng.</li>
+                            <li>Đi làm sau khi ứng tuyển thành công.</li>
+                        </ol>
+                        <iframe width="100%" height="370" src="https://www.youtube.com/embed/cLzNaHNPgZM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $('.ui.form')
+        .form({
+            inline: true,
+            on: 'blur',
+            fields: {
+                email: {
+                    identifier: 'email',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Email không bỏ trống'
+                        },
+                        {
+                            type: 'email',
+                            prompt: 'Email không hợp lệ'
+                        }
+                    ]
+                },
+                pass: {
+                    identifier: 'pass',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Mật khẩu không bỏ trống'
+                        }
+                    ]
+                }
+            }
+        })
+        ;
+</script>

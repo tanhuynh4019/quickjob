@@ -1,0 +1,251 @@
+﻿@model Model.EF.Cv
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cv</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_datebirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_datebirth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_sex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_sex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_website)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_website)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_target)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_target)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_interest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_interest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_informatin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_informatin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_referenceperson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_referenceperson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_fullname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_fullname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_option)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_option)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_bin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_bin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_datecreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_datecreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_dateupdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_dateupdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_fakeid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_fakeid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_fontsize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_fontsize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_bg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_bg)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_p)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_p)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_view)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_view)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_point)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_point)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_deadline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_deadline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_addpress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_addpress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cv_f)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cv_f)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Theme.theme_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Theme.theme_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.cv_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

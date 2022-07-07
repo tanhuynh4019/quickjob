@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Model.EF.News>
+@using Model.EF;
+
+@{
+    DataQuickJobEntities db = new DataQuickJobEntities();
+    ViewBag.Title = "Quản lý tin tức";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/LayoutAdmin/vendors/simple-datatables/style.css" rel="stylesheet" />
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            Quản lý tin tức <br />
+            <br />
+            <a class="btn btn-danger"><i class="fa fa-plus-circle"></i>Thêm tin tức</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <td>Mã</td>
+                        <td>Hình ảnh</td>
+                        <td>Tiêu đề</td>
+                        <td>Tag</td>
+                        <td>Nghành nghề</td>
+                        <td>Ngày tạo</td>
+                        <td>Lượt xem</td>
+                        <td>Người đăng</td>
+                        <td>Ngày cập nhật</td>
+                        <td>Hoạt động</td>
+                        <td>Tùy chọn</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderBy(n => n.news_datecreate))
+                    {
+                    <tr>
+                        <td>@item.news_id</td>
+                        <td><img src="~/Images/News/@item.news_image" style="width: 40px; height: 40px" /></td>
+                        <td>@item.news_title</td>
+                        <td>@item.news_tags</td>
+                        <td>@db.Categorys.SingleOrDefault(n => n.cate_id == item.news_genres).cate_name</td>
+                        <td>@item.news_view</td>
+                        <td>@item.User.user_email</td>
+                        <td>@item.news_datecreate</td>
+                        <td>@item.news_dateupdate</td>
+                        <td>
+                            <span class="badge @(item.news_active == true ? "bg-success" : "bg-danger")">@(item.news_active == true ? "Hoạt động" : "Ngưng")</span>
+                        </td>
+                        <td>
+                            <span class="badge @(item.news_option == true ? "bg-success" : "bg-danger")">@(item.news_active == true ? "Hoạt động" : "Ngưng")</span>
+                        </td>
+                        <td>
+                            <a href="#" onclick=""><i class="fa fa-eye"></i></a> |
+                            <a href="#" onclick=""><i class="fa fa-trash"></i></a> |
+                            <a href="/Admin/NewsAdmin/Edit/@item.news_id"><i class="fa fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<script src="~/Content/LayoutAdmin/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+
+    $('#table1 tbody').on('click', 'i.fa.fa-trash', function () {
+        $(this).closest('tr').remove();
+    });
+</script>
+

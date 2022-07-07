@@ -1,0 +1,225 @@
+﻿@using Model.EF
+@{
+    DataQuickJobEntities db = new DataQuickJobEntities();
+    ViewBag.Title = "Thống kê tiền";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    List<User> users = db.Users.ToList();
+    List<Job> jobs = db.Jobs.ToList();
+    List<Cv> cvs = db.Cvs.ToList();
+    List<Bill> bills = db.Bills.ToList();
+}
+<section class="row">
+    <div class="col-12 col-lg-12">
+        <div class="row">
+            <div class="col-6 col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon purple">
+                                    <i class="fa fa-money-check-alt"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Số tiền thu được từ ứng viên</h6>
+                                <h6 class="font-extrabold mb-0">@bills.Where(n=>n.bill_active == true && n.User.role_id == 1).Sum(n=>n.bill_sum).Value.ToString("#,###") VNĐ</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon blue">
+                                    <i class="fa fa-money-check"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Số tiền thu được từ NTD</h6>
+                                <h6 class="font-extrabold mb-0">@bills.Where(n => n.bill_active == true && n.User.role_id == 2).Sum(n => n.bill_sum).Value.ToString("#,###") VNĐ</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon green">
+                                    <i class="fa fa-money-bill-wave-alt"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Tổng số tiền thu được</h6>
+                                <h6 class="font-extrabold mb-0">@bills.Where(n => n.bill_active == true).Sum(n => n.bill_sum).Value.ToString("#,###") VNĐ</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .cr {
+                overflow-y: auto;
+                height: 300px;
+            }
+        </style>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Số tiền nhận được trong ngày</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-primary" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Ứng viên</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@(bills.Where(n => n.bill_active == true && n.User.role_id == 1 && n.bill_datecreate.Value.ToString("dd/MM/yyy") == DateTime.Now.ToString("dd/MM/yyy")).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h5>
+                            </div>
+                            <div class="col-12">
+                                <div id="chart-europe"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-success" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Nhà tuyển dụng</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@(bills.Where(n => n.bill_active == true && n.User.role_id == 2 && n.bill_datecreate.Value.ToString("dd/MM/yyy") == DateTime.Now.ToString("dd/MM/yyy")).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h5>
+                            </div>
+                            <div class="col-12">
+                                <div id="chart-america"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-danger" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Tổng</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@(bills.Where(n => n.bill_active == true && n.bill_datecreate.Value.ToString("dd/MM/yyy") == DateTime.Now.ToString("dd/MM/yyy")).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h5>
+                            </div>
+                            <div class="col-12">
+                                <div id="chart-indonesia"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Số tiền <b class="text-danger">hôm qua</b></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <b>Ứng viên</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate.Value.ToString("dd/MM/yyy") == DateTime.Now.AddDays(-1).ToString("dd/MM/yyy") && n.User.role_id == 1).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                            <b>Nhà tuyển dụng</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate.Value.ToString("dd/MM/yyy") == DateTime.Now.AddDays(-1).ToString("dd/MM/yyy") && n.User.role_id == 2).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                            <b>Tổng cộng</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate.Value.ToString("dd/MM/yyy") == DateTime.Now.AddDays(-1).ToString("dd/MM/yyy")).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Số tiền trong <b class="text-danger">tuần</b> gần đây</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <b>Ứng viên</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate.Value < n.bill_datecreate.Value.AddDays(7) && n.User.role_id == 1).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                            <b>Nhà tuyển dụng</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddDays(7) && n.User.role_id == 2).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                            <b>Tổng cộng</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddDays(7)).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Số tiền trong <b class="text-danger">tháng</b> gần đây</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <b>Ứng viên</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddMonths(1) && n.User.role_id == 1).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                            <b>Nhà tuyển dụng</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddMonths(1) && n.User.role_id == 2).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                            <b>Tổng cộng</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddMonths(1)).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Số tiền trong <b class="text-danger">3 tháng</b> gần đây</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <b>Ứng viên</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddMonths(3) && n.User.role_id == 1).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                            <b>Nhà tuyển dụng</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddMonths(3) && n.User.role_id == 2).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                            <b>Tổng cộng</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddMonths(3)).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Số tiền trong <b class="text-danger">năm</b> gần đây</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <b>Ứng viên</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddMonths(12) && n.User.role_id == 1).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                            <b>Nhà tuyển dụng</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddMonths(12) && n.User.role_id == 2).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                            <b>Tổng cộng</b> <br />
+                            <h4>@(bills.Where(n => n.bill_active == true && n.bill_datecreate < n.bill_datecreate.Value.AddMonths(12)).Sum(n => n.bill_sum).Value.ToString("#,###") + 0) VNĐ</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

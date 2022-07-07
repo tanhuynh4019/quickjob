@@ -1,0 +1,130 @@
+﻿@using Model.EF;
+@using QuickJob.Function;
+@using Common
+@model List<Pakage>
+@{
+    ViewBag.Title = "Nâng cấp tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var cookie = new FunctionController();
+}
+<section class="bg-100" id="country" ng-app="myApp">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mx-auto align-items-center text-dark">
+                @if (cookie.Cookie() != null)
+                {
+                    var id = cookie.CookieID();
+                    if (id.version_id == 2)
+                    {
+                        <div class="row d-flex justify-content-center pb-5">
+                            <div class="col-sm-8 col-md-4 offset-md-1 mobile">
+                                <div class="bg-light rounded d-flex flex-column border rounded">
+                                    <div style="padding: 10px">
+                                        <div class="p-2 ml-3">
+                                            <h4>Bạn được gì khi nâng cấp</h4>
+                                        </div>
+                                        <div class="p-2 d-flex">
+                                            <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Sử dụng tất cả các mẫu CV cao cấp</div>
+                                        </div>
+                                        <div class="p-2 d-flex">
+                                            <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Tải nhanh Cv mà không phải chờ đợi.</div>
+                                        </div>
+                                        <div class="p-2 d-flex">
+                                            <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Tải không giới hạn CV</div>
+                                        </div>
+                                        <div class="p-2 d-flex">
+                                            <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Tạo và quán lý tối đa 10 CV</div>
+                                        </div>
+                                        <div class="p-2 d-flex">
+                                            <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Ưu tiên nhận việc làm tốt.</div>
+                                        </div>
+                                        <div class="p-2 d-flex">
+                                            <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Lưu trữ CV mãi mãi.</div>
+                                        </div>
+                                        <div class="p-2 d-flex">
+                                            <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Sử dụng chức năng chấm điểm CV tối ưu</div>
+                                        </div>
+                                        <div class="p-2 d-flex">
+                                            <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Được sử dụng các phiên bản mới của QuickJob</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            var money = item.pakage_money * (1 - (float)item.pakage_precent / 100);
+                            <div class="row d-flex justify-content-center pb-5">
+                                <div class="col-sm-5 col-md-5 ml-1">
+                                    <div class="py-4 d-flex flex-row">
+                                        <h5><span class="fa fa-check-square-o"></span><b>@item.pakage_name</b> | </h5><span class="pl-2">Thanh toán nhanh chóng</span>
+                                    </div>
+                                    <strike><h4 class="green">Giá gốc: @item.pakage_money.Value.ToString("#,###") VNĐ</h4></strike>
+                                    <h4 class="text-danger">Giá khuyến mãi: <b>@money.Value.ToString("#,###")</b> VNĐ / 12 tháng</h4>
+                                    <div class="d-flex pt-2">
+                                        <div>
+                                            <p><b></b></p>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        Thanh toán siêu nhanh! Tìm việc nhanh chóng
+                                    </p>
+                                    <div class="rounded bg-light d-flex">
+                                        <div class="p-2">QuickJob đảm bảo mọi chức năng của ứng viên. Sau khi nâng cấp, QuickJob sẽ tăng cường khả năng kiếm việc làm đồng thời ứng viên cũng sẽ sở hữu được nhiều trải nghiệm tuyệt vời cùng QuickJob</div>
+                                    </div>
+                                    <hr>
+                                    <div class="pt-2">
+                                        <div> <input onclick="window.location.href = '/Pays/Details?id=@item.pakage_id'" type="button" value="Nâng cấp gói " class="btn btn-primary btn-block"> </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-md-4 offset-md-1 mobile">
+                                    <div class="bg-light rounded d-flex flex-column border rounded">
+                                        <div style="padding: 10px">
+                                            <div class="p-2 ml-3">
+                                                <h4>Bạn được gì khi nâng cấp</h4>
+                                            </div>
+                                            <div class="p-2 d-flex">
+                                                <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Sử dụng tất cả các mẫu CV cao cấp</div>
+                                            </div>
+                                            <div class="p-2 d-flex">
+                                                <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Tải nhanh Cv mà không phải chờ đợi.</div>
+                                            </div>
+                                            <div class="p-2 d-flex">
+                                                <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Tải không giới hạn CV</div>
+                                            </div>
+                                            <div class="p-2 d-flex">
+                                                <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Tạo và quán lý tối đa 10 CV</div>
+                                            </div>
+                                            <div class="p-2 d-flex">
+                                                <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Ưu tiên nhận việc làm tốt.</div>
+                                            </div>
+                                            <div class="p-2 d-flex">
+                                                <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Lưu trữ CV mãi mãi.</div>
+                                            </div>
+                                            <div class="p-2 d-flex">
+                                                <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Sử dụng chức năng chấm điểm CV tối ưu</div>
+                                            </div>
+                                            <div class="p-2 d-flex">
+                                                <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Được sử dụng các phiên bản mới của QuickJob</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

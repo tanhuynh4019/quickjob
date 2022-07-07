@@ -1,0 +1,352 @@
+﻿@using Model.EF
+@model User
+@using QuickJob.Function;
+@{
+
+    var cookie = new FunctionController();
+    var idus = cookie.CookieID();
+
+    ViewBag.Title = "Thông tin " + idus.user_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<section id="services">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 mx-auto text-center mb-4">
+                <h5 class="fw-light fs-3 fs-lg-5 lh-sm mb-3">Chào @Model.user_name, đã quay trở lại</h5>
+                <p class="mb-5">Thông tin cá nhân</p>
+            </div>
+        </div>
+        <div class="row flex-center h-100">
+            <div class="col-xl-9">
+                <div class="row justify-content-center">
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow px-4 px-md-2 px-lg-3 card-span pt-4">
+                            <div class="text-center text-md-start card-hover">
+                                <div class="card-body">
+                                    <h6 class="fw-light fs-1 heading-color"><i class="fa fa-image">&nbsp;</i>Ảnh cá nhân</h6>
+                                    <p class="mt-3 mb-md-0 mb-lg-3"><img src="~/Images/Users/@Model.user_img" style="width: 70px; height: 70px; border-radius: 50%" />    Hình ảnh đại diện </p><a data-bs-toggle="modal" data-bs-target="#img" class="btn btn-lg ps-0 pe-3 text-primary" href="#" role="button">
+                                        <svg class="bi bi-arrow-right-short" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                        </svg>
+                                        Thay đổi ảnh
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="img" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Hình ảnh cá nhân</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="@Url.Action("EditImg","Users")" method="post" enctype="multipart/form-data">
+                                        @Html.AntiForgeryToken()
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <img id="output_image" src="~/Images/Users/@Model.user_img" style="width: 90px; height: 90px; border-radius: 50%" />
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <h5>Chọn hình ảnh</h5>
+                                                    <input type="file" accept="image/*" onchange="preview_image(event)" name="IMG" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-save">&nbsp;</i>Lưu thay đổi</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow px-4 px-md-2 px-lg-3 card-span pt-4">
+                            <div class="text-center text-md-start card-hover">
+                                <div class="card-body">
+                                    <h6 class="fw-light fs-1 heading-color"><i class="fa fa-envelope">&nbsp;</i>Email tài khoản</h6>
+                                    <p class="mt-3 mb-md-0 mb-lg-3">@Model.user_email</p><a class="btn btn-lg ps-0 pe-3 text-danger" style="cursor: not-allowed" href="#" role="button">
+                                        Email không thể thay đổi
+                                        <svg class="bi bi-arrow-right-short text-danger" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow px-4 px-md-2 px-lg-3 card-span pt-4">
+                            <div class="text-center text-md-start card-hover">
+                                <div class="card-body">
+                                    <h6 class="fw-light fs-1 heading-color"><i class="fa fa-phone">&nbsp;</i>Số điện thoại</h6>
+                                    <p class="mt-3 mb-md-0 mb-lg-3">@(Model.user_phone == null ? "Số điện thoại trống! Cập nhật ngay" : Model.user_phone)</p><a class="btn btn-lg ps-0 pe-3 text-primary" href="#" role="button" data-bs-toggle="modal" data-bs-target="#phone">
+                                        Thay đổi số điện thoại
+                                        <svg class="bi bi-arrow-right-short" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="phone" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Số điện thoại</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="@Url.Action("EditAll","Users")" method="post" enctype="multipart/form-data" class="ui form">
+                                        @Html.AntiForgeryToken()
+                                        <div class="modal-body">
+                                            <p>Thay đổi số điện thoại!</p>
+                                            <input type="number" value="@Model.user_phone" name="phone" placeholder="Nhập số điện thoại" />
+                                            <div class="ui error message"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-primary submit"><i class="fa fa-save">&nbsp;</i>Lưu thay đổi</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow px-4 px-md-2 px-lg-3 card-span pt-4">
+                            <div class="text-center text-md-start card-hover">
+                                <div class="card-body">
+                                    <h6 class="fw-light fs-1 heading-color"><i class="fa fa-key">&nbsp;</i>Mật khẩu</h6>
+                                    <p class="mt-3 mb-md-0 mb-lg-3">•••••••• <br /> Thay đổi gần đây @Model.user_dateupdate.Value.ToString("dd") th @Model.user_dateupdate.Value.ToString("MM") , @Model.user_dateupdate.Value.ToString("yyyy")</p><a class="btn btn-lg ps-0 pe-3 text-primary" href="#" role="button">
+                                        Thay đổi mật khẩu
+                                        <svg class="bi bi-arrow-right-short" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow px-4 px-md-2 px-lg-3 card-span pt-4">
+                            <div class="text-center text-md-start card-hover">
+                                <div class="card-body">
+                                    <h6 class="fw-light fs-1 heading-color"><i class="fa fa-genderless">&nbsp;</i>Giới tính</h6>
+                                    <p class="mt-3 mb-md-0 mb-lg-3">@(Model.user_sex == null ? "Chưa cập nhật giới tính" : Model.user_sex == true ? "Nam" : "Nữ") </p><a class="btn btn-lg ps-0 pe-3 text-primary" href="#" role="button" data-bs-toggle="modal" data-bs-target="#sex"> 
+                                        Thay đổi giới tính
+                                        <svg class="bi bi-arrow-right-short" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="sex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Giới tính</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="@Url.Action("EditAll","Users")" method="post" enctype="multipart/form-data" class="ui form">
+                                        @Html.AntiForgeryToken()
+                                        <div class="modal-body">
+                                            <p>Thay đổi giới tính!</p>
+                                            <select class="field" name="sex">
+                                                <option value="">Chọn giới tính</option>
+                                                <option value="true" @(Model.user_sex == true ? "selected" : "")>Nam</option>
+                                                <option value="false" @(Model.user_sex == false ? "selected" : "")>Nữ</option>
+                                            </select>
+                                            <div class="ui error message"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-primary submit"><i class="fa fa-save">&nbsp;</i>Lưu thay đổi</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow px-4 px-md-2 px-lg-3 card-span pt-4">
+                            <div class="text-center text-md-start card-hover">
+                                <div class="card-body">
+                                    <h6 class="fw-light fs-1 heading-color"><i class="fa fa-birthday-cake">&nbsp;</i>Ngày sinh</h6>
+                                    <p class="mt-3 mb-md-0 mb-lg-3">@(Model.user_birth == null ? "Chưa cập nhật ngày sinh" : Model.user_birth.Value.ToString("dd/MM/yyyy")) </p><a class="btn btn-lg ps-0 pe-3 text-primary" href="#" role="button" data-bs-toggle="modal" data-bs-target="#birth">
+                                        Thay đổi ngày sinh
+                                        <svg class="bi bi-arrow-right-short" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="birth" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ngày sinh</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="@Url.Action("EditBirth","Users")" method="post" enctype="multipart/form-data" class="ui form">
+                                        @Html.AntiForgeryToken()
+                                        <div class="modal-body">
+                                            <p>Thay đổi ngày sinh!</p>
+                                            <input type="date" name="birth" class="field" value="@(Model.user_birth != null ? Model.user_birth.Value.ToString("yyyy") + "-" + Model.user_birth.Value.ToString("MM") + "-" + Model.user_birth.Value.ToString("dd") : "")" />
+                                            <div class="ui error message"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-primary submit"><i class="fa fa-save">&nbsp;</i>Lưu thay đổi</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 shadow px-4 px-md-2 px-lg-3 card-span pt-4">
+                            <div class="text-center text-md-start card-hover">
+                                <div class="card-body">
+                                    <h6 class="fw-light fs-1 heading-color"><i class="fa fa-heart">&nbsp;</i>Sở thích</h6>
+                                    <p class="mt-3 mb-md-0 mb-lg-3">@(Model.user_favourite == null ? "Chưa cập nhật sở thích" : Model.user_favourite) </p><a class="btn btn-lg ps-0 pe-3 text-primary" href="#" role="button" data-bs-toggle="modal" data-bs-target="#fa">
+                                        Thay đổi
+                                        <svg class="bi bi-arrow-right-short" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="fa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Sở thích</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="@Url.Action("EditAll","Users")" method="post" enctype="multipart/form-data" class="ui form">
+                                        @Html.AntiForgeryToken()
+                                        <div class="modal-body">
+                                            <p>Thay đổi sở thích!</p>
+                                            <textarea placeholder="Điền sở thích cá nhân! QuickJob có thể dựa vào yêu thích này để tìm kiếm công việc tốt nhất cho bạn" name="fa" class="field">@Model.user_favourite</textarea>
+                                            <div class="ui error message"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-primary submit"><i class="fa fa-save">&nbsp;</i>Lưu thay đổi</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 shadow px-4 px-md-2 px-lg-3 card-span pt-4">
+                            <div class="text-center text-md-start card-hover">
+                                <div class="card-body">
+                                    <h6 class="fw-light fs-1 heading-color"><i class="fa fa-briefcase">&nbsp;</i>Cài đặt nghành nghề yêu thích</h6>
+                                    <p class="mt-3 mb-md-0 mb-lg-3">Chưa yêu thích nghành nào </p><a class="btn btn-lg ps-0 pe-3 text-primary" href="#" role="button">
+                                        Thay đổi nghành nghề yêu thích
+                                        <svg class="bi bi-arrow-right-short" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- end of .container-->
+
+</section>
+<script>
+    function preview_image(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output_image');
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+<script>
+    $('.ui.form')
+        .form({
+            fields: {
+                phone: {
+                    identifier: 'phone',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập số điện thoại'
+                        },
+                        {
+                            type: 'maxLength[14]',
+                            prompt: 'Số điện thoại không vượt quá 4 ký tự'
+                        }
+                    ]
+                },
+                skills: {
+                    identifier: 'skills',
+                    rules: [
+                        {
+                            type: 'minCount[2]',
+                            prompt: 'Please select at least two skills'
+                        }
+                    ]
+                },
+                gender: {
+                    identifier: 'gender',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Please select a gender'
+                        }
+                    ]
+                },
+                username: {
+                    identifier: 'username',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Please enter a username'
+                        }
+                    ]
+                },
+                password: {
+                    identifier: 'password',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Please enter a password'
+                        },
+                        {
+                            type: 'minLength[6]',
+                            prompt: 'Your password must be at least {ruleValue} characters'
+                        }
+                    ]
+                },
+                terms: {
+                    identifier: 'terms',
+                    rules: [
+                        {
+                            type: 'checked',
+                            prompt: 'You must agree to the terms and conditions'
+                        }
+                    ]
+                }
+            }
+        })
+        ;
+</script>

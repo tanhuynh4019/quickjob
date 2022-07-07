@@ -1,0 +1,338 @@
+﻿@using Model.EF;
+@using QuickJob.Function;
+@{
+    ViewBag.Title = "Việc làm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var coo = new FunctionController();
+
+    DataQuickJobEntities db = new DataQuickJobEntities();
+}
+
+<section id="services" ng-app="myApp">
+
+    <div class="container" ng-controller="myCtrl">
+        <section class="bg-100 py-5">
+            <div class="">
+                <div class="row">
+                    <div class="col-12">
+                        <div style="padding: 10px">
+                            <b class="text-dark">Khám phá ngay 30.000+ việc làm tốt nhất trên QuickJob</b>
+                            <div class="ui action input w-100 mt-2">
+                                <input ng-model="txtText.company" type="text" placeholder="Tên công việc, vị trí bạn muốn ứng viên..." style="height: 60px" class="border border-primary">
+                                <select class="ui compact selection dropdown border border-primary w-25" style="height: 60px;" ng-model="txtText.provice"s>
+                                    <option selected="" value="">Tất cả địa điểm</option>
+                                    @foreach (var item in db.Provices.OrderBy(n => n.provice_name))
+                                    {
+                                        <option value="@item.provice_name">@item.provice_name</option>
+                                    }
+                                </select>
+                                <div class="ui button primary"><i class="fa fa-search">&nbsp;</i>Tìm kiếm ngay</div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="ui dropdown">
+                                    <span class="text">Tất cả nghành nghề</span>
+                                    <div class="menu">
+                                        <div class="ui icon search input">
+                                            <i class="search icon"></i>
+                                            <input type="text" placeholder="Search tags...">
+                                        </div>
+                                        <div class="divider"></div>
+                                        <div class="header">
+                                            <i class="tags icon"></i>
+                                            Tag Label
+                                        </div>
+                                        <div class="scrolling menu">
+                                            <div class="item">
+                                                <div class="ui red empty circular label"></div>
+                                                Important
+                                            </div>
+                                            <div class="item">
+                                                <div class="ui blue empty circular label"></div>
+                                                Announcement
+                                            </div>
+                                            <div class="item">
+                                                <div class="ui black empty circular label"></div>
+                                                Cannot Fix
+                                            </div>
+                                            <div class="item">
+                                                <div class="ui purple empty circular label"></div>
+                                                News
+                                            </div>
+                                            <div class="item">
+                                                <div class="ui orange empty circular label"></div>
+                                                Enhancement
+                                            </div>
+                                            <div class="item">
+                                                <div class="ui empty circular label"></div>
+                                                Change Declined
+                                            </div>
+                                            <div class="item">
+                                                <div class="ui yellow empty circular label"></div>
+                                                Off Topic
+                                            </div>
+                                            <div class="item">
+                                                <div class="ui pink empty circular label"></div>
+                                                Interesting
+                                            </div>
+                                            <div class="item">
+                                                <div class="ui green empty circular label"></div>
+                                                Discussion
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                &nbsp; &nbsp;
+                                <div class="ui dropdown">
+                                    <div class="text">Cấp bậc</div>
+                                    <i class="dropdown icon"></i>
+                                    <div class="menu">
+                                        <div class="item">New</div>
+                                        <div class="item">
+                                            <span class="description">ctrl + o</span>
+                                            Open...
+                                        </div>
+                                        <div class="item">
+                                            <span class="description">ctrl + s</span>
+                                            Save as...
+                                        </div>
+                                        <div class="item">
+                                            <span class="description">ctrl + r</span>
+                                            Rename
+                                        </div>
+                                        <div class="item">Make a copy</div>
+                                        <div class="item">
+                                            <i class="folder icon"></i>
+                                            Move to folder
+                                        </div>
+                                        <div class="item">
+                                            <i class="trash icon"></i>
+                                            Move to trash
+                                        </div>
+                                        <div class="divider"></div>
+                                        <div class="item">Download As...</div>
+                                        <div class="item">
+                                            <i class="dropdown icon"></i>
+                                            Publish To Web
+                                            <div class="menu">
+                                                <div class="item">Google Docs</div>
+                                                <div class="item">Google Drive</div>
+                                                <div class="item">Dropbox</div>
+                                                <div class="item">Adobe Creative Cloud</div>
+                                                <div class="item">Private FTP</div>
+                                                <div class="item">Another Service...</div>
+                                            </div>
+                                        </div>
+                                        <div class="item">E-mail Collaborators</div>
+                                    </div>
+                                </div>
+                                &nbsp; &nbsp;
+                                <div class="ui dropdown">
+                                    <div class="text">Cấp bậc</div>
+                                    <i class="dropdown icon"></i>
+                                    <div class="menu">
+                                        <div class="item">New</div>
+                                        <div class="item">
+                                            <span class="description">ctrl + o</span>
+                                            Open...
+                                        </div>
+                                        <div class="item">
+                                            <span class="description">ctrl + s</span>
+                                            Save as...
+                                        </div>
+                                        <div class="item">
+                                            <span class="description">ctrl + r</span>
+                                            Rename
+                                        </div>
+                                        <div class="item">Make a copy</div>
+                                        <div class="item">
+                                            <i class="folder icon"></i>
+                                            Move to folder
+                                        </div>
+                                        <div class="item">
+                                            <i class="trash icon"></i>
+                                            Move to trash
+                                        </div>
+                                        <div class="divider"></div>
+                                        <div class="item">Download As...</div>
+                                        <div class="item">
+                                            <i class="dropdown icon"></i>
+                                            Publish To Web
+                                            <div class="menu">
+                                                <div class="item">Google Docs</div>
+                                                <div class="item">Google Drive</div>
+                                                <div class="item">Dropbox</div>
+                                                <div class="item">Adobe Creative Cloud</div>
+                                                <div class="item">Private FTP</div>
+                                                <div class="item">Another Service...</div>
+                                            </div>
+                                        </div>
+                                        <div class="item">E-mail Collaborators</div>
+                                    </div>
+                                </div>
+                                &nbsp; &nbsp;
+                                <div class="ui checkbox">
+                                    <input type="radio" value="" checked name="t" ng-model="txtText.typename" tabindex="0" class="hidden">
+                                    <label>Tất cả</label>
+                                </div>
+                                &nbsp; &nbsp;
+                                <div class="ui checkbox">
+                                    <input type="radio" value="totnhat" name="t" ng-model="txtText.typename" tabindex="0" class="hidden">
+                                    <label>Việc làm tốt nhất</label>
+                                </div>
+                                &nbsp; &nbsp;
+                                <div class="ui checkbox">
+                                    <input type="radio" value="hapdan" name="t" ng-model="txtText.typename" tabindex="0" class="hidden">
+                                    <label>Việc làm hấp dẫn</label>
+                                </div>
+                                &nbsp; &nbsp;
+                                <div class="ui checkbox">
+                                    <input type="radio" value="nenlam" name="t" ng-model="txtText.typename" tabindex="0" class="hidden">
+                                    <label>Việc làm nên làm</label>
+                                </div>
+                                &nbsp; &nbsp;
+                                <div class="ui checkbox">
+                                    <input type="radio" name="" tabindex="0" class="hidden">
+                                    <label>Việc làm quản lý</label>
+                                </div>
+                                <hr />
+                                Xu hướng việc làm:
+                                @foreach (var item in db.Categorys.OrderByDescending(n => n.cate_view).Take(10))
+                                {
+                                    <button style="font-size: 12px" class="ui negative basic button mt-1 ml-1">@item.cate_name</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end of .container-->
+        </section>
+        <div class="row flex-center h-100 mt-3">
+            <div class="col-12">
+                <div style="padding: 10px">
+                    <div class="row">
+                        <div class="col-lg-6" style="font-size: 20px">
+                            <b>11187</b> việc làm phù hợp
+                        </div>
+                        <div class="col-lg-6">
+                            <div style="float: right">
+                                <b>Sắp xếp theo: </b>
+                                <div class="ui dropdown">
+                                    <div class="text">Mặc định</div>
+                                    <i class="dropdown icon"></i>
+                                    <div class="menu">
+                                        <div class="item">New</div>
+                                        <div class="item">
+                                            <span class="description">ctrl + o</span>
+                                            Open...
+                                        </div>
+                                        <div class="item">
+                                            <span class="description">ctrl + s</span>
+                                            Save as...
+                                        </div>
+                                        <div class="item">
+                                            <span class="description">ctrl + r</span>
+                                            Rename
+                                        </div>
+                                        <div class="item">Make a copy</div>
+                                        <div class="item">
+                                            <i class="folder icon"></i>
+                                            Move to folder
+                                        </div>
+                                        <div class="item">
+                                            <i class="trash icon"></i>
+                                            Move to trash
+                                        </div>
+                                        <div class="divider"></div>
+                                        <div class="item">Download As...</div>
+                                        <div class="item">
+                                            <i class="dropdown icon"></i>
+                                            Publish To Web
+                                            <div class="menu">
+                                                <div class="item">Google Docs</div>
+                                                <div class="item">Google Drive</div>
+                                                <div class="item">Dropbox</div>
+                                                <div class="item">Adobe Creative Cloud</div>
+                                                <div class="item">Private FTP</div>
+                                                <div class="item">Another Service...</div>
+                                            </div>
+                                        </div>
+                                        <div class="item">E-mail Collaborators</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12">
+                <div class="row justify-content-center">
+                    <div class="col-md-3 mb-4" ng-repeat="list in list | filter: txtText">
+                        <div class="card h-100 shadow px-4 px-md-2 px-lg-3 card-span pt-4 {{list.ver}}">
+                            <div class="text-center text-md-start card-hover">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <img class="ps-3 icons" style="border-radius: 50%; width: 60px; height: 50px" src="~/Images/Employers/{{list.logo}}" height="60" width="60" alt="services" />
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <b><a class="text-dark" style="text-decoration: none" href="/View/DetailsEmployer?id={{list.idem}}">{{list.company}}</a></b>
+                                        <p>
+                                            @if (coo.Cookie() != null)
+                                            {
+                                                <span class="text-danger">{{list.textprice}} {{list.paystart}} triệu  {{list.payend}} triệu</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">Đăng nhập xem lương</span>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="fw-light fs-1 heading-color">{{list.title}}</h6>
+                                    <p>Cần tuyển: <b>{{list.amout}}</b> người và kinh nghiệm {{list.exp}}</p>
+                                    <div>
+                                        <center>
+                                            <button ng-show="list.category[0] != null" style="font-size: 10px" class="ui primary basic button mt-1">{{list.category[0]}}</button>
+                                            <button ng-show="list.category[1] != null" style="font-size: 10px" class="ui primary basic button mt-1">{{list.category[1]}}</button>
+                                            <button ng-show="list.category[2] != null" style="font-size: 10px" class="ui primary basic button mt-1">{{list.category[2]}}</button>
+                                            <button ng-show="list.category[3] != null" style="font-size: 10px" class="ui primary basic button mt-1">{{list.category[3]}}</button>
+                                            <button ng-show="list.category[4] != null" style="font-size: 10px" class="ui primary basic button mt-1">{{list.category[4]}}</button>
+                                        </center>
+                                    </div>
+                                    <a class="btn btn-lg ps-0 pe-3 text-primary" href="/View/DetailsJob?id={{list.id}}" role="button">
+                                        Xem và ứng tuyển ngay
+                                        <svg class="bi bi-arrow-right-short" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- end of .container-->
+</section>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/View/JsonIndexJob"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>
+<script>
+    $('.ui.dropdown')
+        .dropdown()
+        ;
+
+    $('.ui.checkbox')
+        .checkbox()
+        ;
+</script>

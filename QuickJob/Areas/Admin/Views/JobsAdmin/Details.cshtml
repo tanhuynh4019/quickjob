@@ -1,0 +1,264 @@
+﻿@model Model.EF.Job
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var sttcvcn = 1;
+    var sttcvtc = 1;
+}
+
+<h2>Details</h2>
+
+<div class="row">
+    <div class="col-md-2">
+        <span>Tiêu đề</span>
+    </div>
+    <div class="col-md-10">
+        <span>@Model.job_title</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Số lượng tuyển</span>
+    </div>
+    <div class="col-md-10">
+        <span>@Model.job_amout</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Giới tính yêu cầu</span>
+    </div>
+    <div class="col-md-10">
+        <span>@(Model.job_sex == null ? "Không yêu cầu" : (Model.job_sex == true ? "Nam" : "Nữ"))</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Chức vụ</span>
+    </div>
+    <div class="col-md-10">
+        <span>@Model.WorkPlace.wp_name</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Thời gian làm</span>
+    </div>
+    <div class="col-md-10">
+        <span>@Model.TypeJob.type_name</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Kinh nghiệm</span>
+    </div>
+    <div class="col-md-10">
+        <span>@Model.Exp.exp_name</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Ngày hết hạn</span>
+    </div>
+    <div class="col-md-10">
+        <span>@Model.job_datedeline.Value.ToLongDateString()</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Tên người đăng tuyển dụng</span>
+    </div>
+    <div class="col-md-10">
+        <span>@Model.job_name</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Số điện thoại</span>
+    </div>
+    <div class="col-md-10">
+        <span>@Model.job_phone</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Mô tả</span>
+    </div>
+    <div class="col-md-10">
+        <span>@Html.Raw(Model.job_describe)</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Yêu cầu</span>
+    </div>
+    <div class="col-md-10">
+        <span>@Html.Raw(Model.job_request)</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Quyền lợi</span>
+    </div>
+    <div class="col-md-10">
+        <span>@Html.Raw(Model.job_right)</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Hoạt động</span>
+    </div>
+    <div class="col-md-10">
+        <span>@(Model.job_active == true ? "Enable" : "Disable")</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Tình trạng</span>
+    </div>
+    <div class="col-md-10">
+        <span>@(Model.job_option == true ? "Enable" : "Disable")</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Ngày tạo</span>
+    </div>
+    <div class="col-md-10">
+        <span>@Model.job_datecreate.Value.ToLongDateString()</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Ngày cập nhật</span>
+    </div>
+    <div class="col-md-10">
+        <span>@(Model.job_dateupdate != null ? Model.job_dateupdate.Value.ToLongDateString() : "Chưa có cập nhật") </span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Lượt xem</span>
+    </div>
+    <div class="col-md-10">
+        <span>@Model.job_view</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Lương </span>
+    </div>
+    <div class="col-md-10">
+        <span>@Model.job_textprice @Model.job_paystart triệu @Model.job_payend triệu</span>
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Ngành nghề </span>
+    </div>
+    <div class="col-md-10">
+        @{
+            var countcate = 1;
+        }
+        @foreach (var item in Model.Groups.Where(t => t.category_id != null))
+        {
+            <span>@(countcate == Model.Groups.Where(t => t.category_id != null).Count() ? item.Category.cate_name : item.Category.cate_name + " | " )</span>
+            countcate++;
+        }
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Tuyển dụng các tỉnh thành</span>
+    </div>
+    <div class="col-md-10">
+        @{
+            var countprovinces = 1;
+        }
+        @foreach (var item in Model.Groups.Where(t => t.provice_id != null))
+        {
+            <span>@(countprovinces == Model.Groups.Where(t => t.provice_id != null).Count() ? item.Provice.provice_name : item.Provice.provice_name + " | " )</span>
+            countprovinces++;
+        }
+    </div>
+    <br />
+
+    <div class="col-md-2">
+        <span>Số lượng nộp CV </span>
+    </div>
+    <div class="col-md-10">
+        <span>@Model.SubmitCvs.Count()</span>
+    </div>
+    <br />
+</div>
+
+<div>
+    <h3>Ứng viên được chấp nhận</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>STT</td>
+                <td>Tên</td>
+                <td>Ảnh</td>
+                <td>Ngày nộp</td>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.SubmitCvs.Where(t => t.sb_active == 3).Count() > 0)
+            {
+                foreach (var item in Model.SubmitCvs.Where(t => t.sb_active == 3))
+                {
+                    <tr>
+                        <td>@sttcvcn</td>
+                        <td>@item.User.user_name</td>
+                        <td><img src="~/Images/Users/@item.User.user_img" /></td>
+                        <td>@item.sb_datecreate.Value.ToLongDateString()</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="text-center">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<div>
+    <h3>Ứng viên được từ chối</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>STT</td>
+                <td>Tên</td>
+                <td>Ảnh</td>
+                <td>Ngày nộp</td>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.SubmitCvs.Where(t => t.sb_active == 3).Count() > 0)
+            {
+                foreach (var item in Model.SubmitCvs.Where(t => t.sb_active == 4))
+                {
+                    <tr>
+                        <td>@sttcvcn</td>
+                        <td>@item.User.user_name</td>
+                        <td><img src="~/Images/Users/@item.User.user_img" /></td>
+                        <td>@item.sb_datecreate.Value.ToLongDateString()</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="text-center">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

@@ -1,0 +1,210 @@
+﻿@using Model.EF
+@using QuickJob.Function;
+@model User
+@{
+    ViewBag.Title = "QuickChatEmployer";
+    Layout = "~/Views/Shared/_LayoutQuickChat.cshtml";
+
+    var fu = new FunctionController();
+    var id = fu.CookieIDEm();
+
+    DataQuickJobEntities db = new DataQuickJobEntities();
+
+    List<User> users = db.Users.Where(n => n.role_id == 1 && n.user_active == true && n.user_option == true).OrderByDescending(n => n.user_datecreate).ToList();
+    List<Cv> cvs = db.Cvs.Where(n => n.cv_active == 1 && n.cv_option == true && n.cv_bin == false && n.User.user_active == true && n.User.user_option == true && n.user_id == Model.user_id).OrderByDescending(n => n.cv_datecreate).ToList();
+}
+<style>
+    .scr {
+        overflow: auto;
+        height: 600px;
+    }
+</style>
+<nav class="navbar navbar-light sticky-top" data-navbar-darken-on-scroll="900">
+    <div class="container pt-2">
+        <a class="navbar-brand" href="index.html" style="color: white"> QuickJobChat</a>
+        <div class="navbar-nav ms-auto">
+            <a href="/Employer/HomeEmployer/Index" class="btn btn-secondary"><i class="fa fa-home">&nbsp;</i>Trở về trang chủ</a>
+        </div> &nbsp;&nbsp;
+        <div class="navbar-nav">
+            <a href="/" class="btn btn-secondary"><img src="~/Images/Employers/@id.employer_logo" style="width: 20px; height: 20px; border-radius: 50%" />&nbsp;&nbsp;Nhà tuyển dụng: @id.employer_company</a>
+        </div>
+
+    </div>
+</nav>
+<section ng-app="myApp">
+    <div class="container" ng-controller="myCtrl">
+        <div class="row mb-4">
+            <div class="col-md-5">
+                <div class="border rounded-1 border-700 h-100 features-items">
+                    <div class="p-5">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <a href="/Chat/IndexEmployer" class="ui button red"><i class="fa fa-user">&nbsp;</i>Tìm kiếm ứng viên khác</a>
+                            </div>
+                        </div>
+                        <div class="row mt-2 border" style=" --bs-gutter-x: 0rem;">
+                            <div class="col-lg-3">
+                                <div style="padding: 10px">
+                                    <img src="~/Images/Users/@Model.user_img" style="width: 100px; height: 100px" />
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div style="padding: 10px">
+                                    <h6>@Model.user_name</h6>
+                                    <p><b>Mã ứng viên:</b> @Model.user_key</p>
+                                    <p><b>Số lượng Cv: </b>2 CV</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="pt-3 lh-base">Các CV của ứng viên này</h3>
+                        @foreach (var item in cvs)
+                        {
+                            <div class="row mt-2 border" style=" --bs-gutter-x: 0rem;">
+                                <div class="col-lg-8">
+                                    <div style="padding: 10px">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img src="~/Images/Cvs/@item.cv_img" style="width: 100px; height: 100px" class="rounded" />
+                                            </div>
+                                            <div class="col-lg-8">
+                                                @item.cv_fullname <br />
+                                                <b>Vị trí ứng tuyển: </b>@item.cv_location <br />
+                                                <p>@(item.User.version_id == 2 ? "Ứng viên tốt" : "")</p>
+                                                <p><b>Điểm cv: </b> 100 đ</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <center onclick="window.location.href = '/Employer/CvsEmployer/DetailsCvs?id=@item.cv_id'">
+                                        <br />
+                                        <br />
+                                        <i class="fa fa-eye" style="font-size: 30px">&nbsp;</i>
+                                    </center>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="border rounded-1 border-700 h-100 features-items">
+                    <div class="p-5">
+                        <div class="scr" id="displayShowChatEmployer">
+                            
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-lg-10">
+                                <input id="content" name="content" type="text" placeholder="Nhập nội dung" class="w-100" style="background-color: #162044; height: 50px; border: none; color: white" />
+                            </div>
+                            <div class="col-lg-2">
+                                <button id="myBtn" ng-click="chat(@Model.user_id)" class="btn btn-danger w-100"><i class="fa fa-paper-plane">&nbsp;</i>Gửi</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of .container-->
+
+</section>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $scope.chat = function (id) {
+            var content = document.getElementsByName("content")[0].value;
+
+            $http({
+                method: "GET",
+                url: "/Chat/ChatEmployer?idcan=" + id
+                    + "&content=" + content
+            }).then(function mySuccess(response) {
+                $scope.myWelcome = response.data;
+            }, function myError(response) {
+                $scope.myWelcome = response.statusText;
+            });
+
+
+            document.getElementsByName("content")[0].value = "";
+        }
+
+        $(function () {
+            // Proxy created on the fly
+            var cus = $.connection.chatHub;
+            // Declare a function on the job hub so the server can invoke it
+            cus.client.displayShowChatEmployer = function () {
+                getData();
+            };
+            // Start the connection
+            $.connection.hub.start();
+            getData();
+        });
+        function getData() {
+            var $tbl = $('#displayShowChatEmployer');
+            $.ajax({
+                url: '/Chat/GetEmployer?idcan=@Model.user_id',
+                type: 'GET',
+                datatype: 'json',
+                success: function (data) {
+                    $tbl.empty();
+                    $.each(data.list, function (i, model) {
+                        if (model.send == @id.user_id) {
+                            $tbl.append
+                                (
+                                    '<div class="row mt-2">' +
+                                        '<div class="col-lg-11">' +
+                                            '<div class="card bg-primary text-white w-50" style=" float: right">' +
+                                                '<div style="padding: 10px;">' +
+                                                     model.content +
+                                                    '<br />' +
+                                                    '<hr />' +
+                                                    '<p>Lúc '+model.date+'</p>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>'+
+                                        '<div class="col-lg-1">' +
+                                            '<div style="float: right">'+
+                                                '<img src="/Images/Employers/@id.employer_logo" style="width: 40px; height: 40px; border-radius: 50%" />'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'
+                                );
+                        }
+                        else {
+                            $tbl.append
+                                (
+                                   '<div class="row mt-2">' +
+                                        '<div class="col-lg-1">' +
+                                            '<div style="float: left">' +
+                                                ' <img src="/Images/Users/@Model.user_img" style="width: 40px; height: 40px; border-radius: 50%" />'+
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="col-lg-11">' +
+                                            '<div class="card bg-dark text-white w-50" style=" float: left">' +
+                                                '<div style="padding: 10px;">' +
+                                                   model.content +
+                                                    ' <br />'+
+                                                    '<hr />'+
+                                                    '<p>Lúc '+model.date+'</p>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'
+                                );
+                        }
+                    });
+                }
+            });
+        }
+    });
+</script>
+<script>
+    var input = document.getElementById("content");
+    input.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("myBtn").click();
+        }
+    });
+</script>

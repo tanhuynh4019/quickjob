@@ -1,0 +1,27 @@
+﻿@model Model.EF.Provice
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Provice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.provice_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.provice_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.provice_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

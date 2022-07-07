@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Model.EF.Exp>
+
+@{
+    ViewBag.Title = "Cài đặt kinh nghiệm việc làm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/LayoutAdmin/vendors/simple-datatables/style.css" rel="stylesheet" />
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            Quản lý kinh nghiệm việc làm <br />
+            <br />
+            <a href="/Admin/Exps/Create" class="btn btn-danger"><i class="fa fa-plus-circle"></i>Thêm kinh nghiệm</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <td>Mã</td>
+                        <td>Kinh nghiệm</td>
+                        <td>Tùy chọn</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderBy(n => n.exp_name))
+                    {
+                        <tr>
+                            <td>@item.exp_id</td>
+                            <td>@item.exp_name</td>
+                            <td>
+                                <a href="/Admin/Exps/Delete/@item.exp_id" onclick=""><i class="fa fa-trash"></i></a> |
+                                <a href="/Admin/Exps/Edit/@item.exp_id"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+<script src="~/Content/LayoutAdmin/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+
+    $('#table1 tbody').on('click', 'i.fa.fa-trash', function () {
+        $(this).closest('tr').remove();
+    });
+</script>

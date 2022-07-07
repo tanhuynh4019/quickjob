@@ -1,0 +1,144 @@
+﻿@using QuickJob.Function;
+@using Model.EF;
+@{
+    var cookie = new FunctionController();
+    var idus = cookie.CookieID();
+
+    DataQuickJobEntities db = new DataQuickJobEntities();
+
+    ViewBag.Title = "Quản lý CV";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<Cv> cvs = db.Cvs.Where(n => n.user_id == idus.user_id).ToList();
+}
+
+<section id="services" class="text-dark" ng-app="myApp">
+    <div class="container" ng-controller="myCtrl">
+        <div class="row flex-center h-100">
+            <div class="col-xl-9">
+                <div class="row h-100" style="background-color: white">
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="ui icon input w-100">
+                                    <input type="text" placeholder="Tìm kiếm...">
+                                    <i class="inverted circular search link icon"></i>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <select class="ui search dropdown w-100">
+                                    <option value="">Tất cả mẫu</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="border text-dark rounded mt-3">
+                                    <div style="padding: 10px">
+                                        <a class="ui red button" style="float: right" href="/Cvs/IndexThemes"><i class="fa fa-plus-circle">&nbsp;</i>Tạo mới</a>
+                                        <p>Đang có @cvs.Count/<b>@idus.candidate_amoutcv</b> CV</p>
+                                    </div>
+                                    <table class="table mt-3" style="font-size: 12px">
+                                        <tr ng-repeat="list in list | filter: textSearch">
+                                            <td width="20%">
+                                                <img src="~/Images/Cvs/{{list.img}}" style="width: 100%; height: 140px" class="rounded" />
+                                            </td>
+                                            <td width="100%">
+                                                <h4>{{list.title}}</h4>
+                                                <p>Điểm Cv: <b>{{list.point}}%</b> <div ng-show="list.point != 100">(Xem lỗi sai để đạt 100%)</div></p>
+                                                <div style="border: 1px dashed black">
+                                                    <div style="padding: 10px">
+                                                        {{list.fakeid}}
+                                                    </div>
+                                                </div>
+                                                <div style="border: 1px dashed black" class="mt-2">
+                                                    <div style="padding: 10px">
+                                                        <a style="color: black" href="#">https://quickjon.com/Cvs/Detail?key={{list.fakeid}}</a>
+                                                    </div>
+                                                </div>
+                                                <br />
+
+                                                <button class="ui inverted secondary button bg-danger" style="color: white; font-size: 12px" ng-show="list.option == true"><i class="fa fa-toggle-up">&nbsp;</i>Bật</button>
+                                                <button style="font-size: 12px" class="ui inverted secondary button" ng-show="list.option == false"><i class="fa fa-toggle-down">&nbsp;</i>Tắt</button>
+                                                <a style="font-size: 12px" class="ui inverted secondary button" href="/Cvs/Details?id={{list.id}}"><i class="fa fa-eye">&nbsp;</i>Xem</a>
+                                                <button style="font-size: 12px" class="ui inverted secondary button"><i class="fa fa-trash">&nbsp;</i>Xóa</button>
+                                                <button style="font-size: 12px" class="ui inverted secondary button" ng-click="edit(list.themeid)"><i class="fa fa-edit">&nbsp;</i>Sửa</button>
+                                                <button data-bs-toggle="modal" data-bs-target="#key-{{list.id}}" style="font-size: 12px" class="ui inverted secondary button"><i class="fa fa-key">&nbsp;</i>Tải nhanh</button>
+                                                <button style="font-size: 12px" class="ui inverted secondary button"><i class="fa fa-download">&nbsp;</i>Tải về</button>
+                                            </td>
+                                            <td>
+                                                <div class="modal fade" id="key-{{list.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Đặt mật khẩu và tải khoản cho cv mã "{{list.key}}"</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <form method="post" action="@Url.Action("ChangeKey","Cvs")">
+                                                                @Html.AntiForgeryToken()
+                                                                <div class="modal-body">
+                                                                    <div class="alert alert-danger" role="alert">
+                                                                        Cài đặt tài khoản và Mật khẩu riêng cho CV. Bạn có thể tải bất kỳ đâu cho CV của bạn tại nút tải nhanh dưới màn hình QuickJob.com! Hãy chụp hình lại <b style="color: red">mã key : {{list.key}}</b> và mật khẩu để tải nhanh.
+                                                                    </div>
+                                                                    <b>Key</b> <br />
+                                                                    <input class="form-control" value="{{list.key}}" type="text" disabled />
+                                                                    <b>Nhập mật khẩu</b> <br />
+                                                                    <input class="form-control" name="pass" value="{{list.pass}}" placeholder="Nhập mật khẩu" type="password" required />
+                                                                    <input class="form-control" name="id" value="{{list.id}}" placeholder="Nhập mật khẩu" type="hidden" required />
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                                    <button type="submit" class="btn btn-primary">Cài đặt</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.Action("All", "Users")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modal -->
+<!-- Modal -->
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/Cvs/JsonIndexCvs"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+            $scope.count = $scope.list.length;
+
+            $scope.edit = function (id) {
+                window.location.href = "/Cvs/Theme/" + id + "";
+            }
+
+            $scope.details = function (id) {
+                window.location.href = "/Cvs/Details/" + id + "";
+            }
+
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>
+<script>
+    $('.ui.dropdown')
+        .dropdown()
+        ;
+</script>

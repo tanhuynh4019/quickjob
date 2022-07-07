@@ -1,0 +1,56 @@
+﻿@using QuickJob.Function;
+@using Model.EF;
+@using Common;  
+@{
+    DataQuickJobEntities db = new DataQuickJobEntities();
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Areas/Employer/Views/Shared/_Layout.cshtml";
+    List<Pakage> pakeges = db.Pakages.ToList();
+}
+<link href="~/Content/Price.css" rel="stylesheet" />
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single">Nâng cấp tài khoản</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ Intro Single End /-->
+<!--/ News Grid Star /-->
+<section class="news-grid grid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="snip1223" style="max-width:inherit">
+                    @foreach (var item in pakeges.Where(n => n.pakage_active == true && n.role_id == 2))
+                    {
+                        var money = item.pakage_money * (1 - (float)item.pakage_precent / 100);
+                        <div class="plan @(item.pakage_id == 5 ? "featured" : "")">
+                            <header>
+                                <h3 class="plan-title">@item.pakage_name</h3>
+                                @if (item.pakage_id == 5)
+                                {
+                                    <h3 class="text-white"><strike>@item.pakage_money.Value.ToString("#,###")</strike> VNĐ</h3>
+                                    <h3 class="font-weight-bold text-white">@money.Value.ToString("#,###") VNĐ</h3>
+                                }
+                                else
+                                {
+                                    <h3><strike>@item.pakage_money.Value.ToString("#,###")</strike> VNĐ</h3>
+                                    <h3 class="font-weight-bold">@money.Value.ToString("#,###") VNĐ</h3>
+                                }
+                                <div class="plan-cost"><span class="plan-price">@item.pakage_precent</span><span class="plan-type">%</span></div>
+                            </header>
+                            @Html.Raw(item.pakage_note)
+                            <div class="plan-select"><a href="@Url.Action("Details","PayEmployer", new { id = item.pakage_id })">Nâng cấp ngay</a></div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ News Grid End /-->

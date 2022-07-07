@@ -1,0 +1,2022 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DataQuickJobModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bills">
+          <Key>
+            <PropertyRef Name="bill_id" />
+          </Key>
+          <Property Name="bill_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="bill_datecreate" Type="datetime" />
+          <Property Name="bill_sum" Type="int" />
+          <Property Name="bill_active" Type="bit" />
+          <Property Name="bill_dealine" Type="datetime" />
+          <Property Name="pakege_id" Type="int" />
+          <Property Name="bill_key" Type="nvarchar(max)" />
+          <Property Name="bill_orderid" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Categorys">
+          <Key>
+            <PropertyRef Name="cate_id" />
+          </Key>
+          <Property Name="cate_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cate_name" Type="nvarchar" MaxLength="300" />
+          <Property Name="cate_view" Type="int" />
+        </EntityType>
+        <EntityType Name="Chats">
+          <Key>
+            <PropertyRef Name="chat_id" />
+          </Key>
+          <Property Name="chat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="chat_sender" Type="int" />
+          <Property Name="chat_receiver" Type="int" />
+          <Property Name="chat_content" Type="nvarchar(max)" />
+          <Property Name="chat_datecreate" Type="datetime" />
+          <Property Name="chat_color" Type="nvarchar" MaxLength="400" />
+          <Property Name="chat_key" Type="nvarchar(max)" />
+          <Property Name="chat_active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Cvs">
+          <Key>
+            <PropertyRef Name="cv_id" />
+          </Key>
+          <Property Name="cv_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cv_img" Type="nvarchar(max)" />
+          <Property Name="cv_location" Type="nvarchar" MaxLength="300" />
+          <Property Name="cv_datebirth" Type="nvarchar" MaxLength="200" />
+          <Property Name="cv_sex" Type="nvarchar" MaxLength="5" />
+          <Property Name="cv_website" Type="nvarchar(max)" />
+          <Property Name="cv_target" Type="nvarchar(max)" />
+          <Property Name="cv_interest" Type="nvarchar(max)" />
+          <Property Name="cv_informatin" Type="nvarchar(max)" />
+          <Property Name="cv_referenceperson" Type="nvarchar(max)" />
+          <Property Name="cv_title" Type="nvarchar" MaxLength="200" />
+          <Property Name="cv_email" Type="varchar" MaxLength="200" />
+          <Property Name="cv_phone" Type="varchar" MaxLength="15" />
+          <Property Name="cv_fullname" Type="nvarchar" MaxLength="300" />
+          <Property Name="cv_active" Type="int" />
+          <Property Name="cv_option" Type="bit" />
+          <Property Name="cv_bin" Type="bit" />
+          <Property Name="cv_datecreate" Type="datetime" />
+          <Property Name="cv_dateupdate" Type="datetime" />
+          <Property Name="cv_fakeid" Type="nvarchar(max)" />
+          <Property Name="cv_fontsize" Type="int" />
+          <Property Name="cv_bg" Type="nvarchar" MaxLength="60" />
+          <Property Name="cv_p" Type="int" />
+          <Property Name="cv_view" Type="int" />
+          <Property Name="cv_point" Type="int" />
+          <Property Name="cv_deadline" Type="datetime" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="theme_id" Type="int" />
+          <Property Name="cv_addpress" Type="nvarchar" MaxLength="30" />
+          <Property Name="cv_f" Type="nvarchar" MaxLength="100" />
+          <Property Name="cv_pass" Type="nvarchar(max)" />
+          <Property Name="cv_submitkey" Type="int" />
+        </EntityType>
+        <EntityType Name="Exps">
+          <Key>
+            <PropertyRef Name="exp_id" />
+          </Key>
+          <Property Name="exp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="exp_name" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="group_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="category_id" Type="int" />
+          <Property Name="datecreate" Type="datetime" />
+          <Property Name="group_item" Type="int" />
+          <Property Name="job_id" Type="int" />
+          <Property Name="provice_id" Type="int" />
+          <Property Name="email" Type="varchar" MaxLength="3000" />
+          <Property Name="skill" Type="nvarchar(max)" />
+          <Property Name="em_id" Type="int" />
+        </EntityType>
+        <EntityType Name="ItemCvs">
+          <Key>
+            <PropertyRef Name="ic_id" />
+          </Key>
+          <Property Name="ic_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ic_name" Type="nvarchar(max)" />
+          <Property Name="ic_mid" Type="nvarchar(max)" />
+          <Property Name="ic_content" Type="nvarchar(max)" />
+          <Property Name="ic_fakeid" Type="int" />
+          <Property Name="ic_theme_id" Type="int" />
+          <Property Name="ic_usid" Type="int" />
+          <Property Name="ic_stt" Type="int" />
+          <Property Name="ic_enddate" Type="nvarchar(max)" />
+          <Property Name="ic_todate" Type="nvarchar(max)" />
+          <Property Name="ic_fake" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Jobs">
+          <Key>
+            <PropertyRef Name="job_id" />
+          </Key>
+          <Property Name="job_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="job_title" Type="nvarchar" MaxLength="2000" />
+          <Property Name="job_addpress" Type="nvarchar" MaxLength="2000" />
+          <Property Name="job_amout" Type="int" />
+          <Property Name="wp_id" Type="int" />
+          <Property Name="type_id" Type="int" />
+          <Property Name="job_sex" Type="bit" />
+          <Property Name="exp_id" Type="int" />
+          <Property Name="job_payend" Type="varchar" MaxLength="50" />
+          <Property Name="job_paystart" Type="varchar" MaxLength="50" />
+          <Property Name="job_datedeline" Type="datetime" />
+          <Property Name="job_name" Type="nvarchar" MaxLength="1000" />
+          <Property Name="job_phone" Type="varchar" MaxLength="15" />
+          <Property Name="job_describe" Type="nvarchar(max)" />
+          <Property Name="job_request" Type="nvarchar(max)" />
+          <Property Name="job_right" Type="nvarchar(max)" />
+          <Property Name="job_active" Type="bit" />
+          <Property Name="job_option" Type="bit" />
+          <Property Name="job_datecreate" Type="datetime" />
+          <Property Name="job_dateupdate" Type="datetime" />
+          <Property Name="job_bin" Type="bit" />
+          <Property Name="job_view" Type="int" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="job_key" Type="nvarchar(max)" />
+          <Property Name="job_textprice" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="news_id" />
+          </Key>
+          <Property Name="news_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="news_title" Type="nvarchar" MaxLength="255" />
+          <Property Name="news_contents" Type="nvarchar(max)" />
+          <Property Name="news_image" Type="nvarchar(max)" />
+          <Property Name="cate_id" Type="int" />
+          <Property Name="news_tags" Type="nvarchar(max)" />
+          <Property Name="news_genres" Type="int" />
+          <Property Name="news_datecreate" Type="datetime" />
+          <Property Name="news_dateupdate" Type="datetime" />
+          <Property Name="news_active" Type="bit" />
+          <Property Name="news_option" Type="bit" />
+          <Property Name="news_bin" Type="bit" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="news_view" Type="int" />
+        </EntityType>
+        <EntityType Name="Pakages">
+          <Key>
+            <PropertyRef Name="pakage_id" />
+          </Key>
+          <Property Name="pakage_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pakage_name" Type="nvarchar(max)" />
+          <Property Name="pakage_note" Type="nvarchar(max)" />
+          <Property Name="pakage_money" Type="int" />
+          <Property Name="pakage_precent" Type="int" />
+          <Property Name="pakage_active" Type="bit" />
+          <Property Name="role_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Provices">
+          <Key>
+            <PropertyRef Name="provice_id" />
+          </Key>
+          <Property Name="provice_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="provice_name" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Ratings">
+          <Key>
+            <PropertyRef Name="rating_id" />
+          </Key>
+          <Property Name="rating_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="idem" Type="int" />
+          <Property Name="rating_datecreate" Type="datetime" />
+          <Property Name="rating_sum" Type="int" />
+          <Property Name="rating_title" Type="nvarchar(max)" />
+          <Property Name="rating_like" Type="nvarchar(max)" />
+          <Property Name="rating_improve" Type="nvarchar(max)" />
+          <Property Name="rating_ltpl" Type="int" />
+          <Property Name="rating_dthh" Type="int" />
+          <Property Name="rating_sqtdnv" Type="int" />
+          <Property Name="rating_vhct" Type="int" />
+          <Property Name="rating_vplv" Type="int" />
+          <Property Name="rating_intro" Type="bit" />
+          <Property Name="rating_level" Type="bit" />
+          <Property Name="rating_satisfied" Type="nvarchar(max)" />
+          <Property Name="rating_unsatisfied" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_name" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="SubmitCv">
+          <Key>
+            <PropertyRef Name="sb_id" />
+          </Key>
+          <Property Name="sb_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="job_id" Type="int" />
+          <Property Name="sb_datecreate" Type="datetime" />
+          <Property Name="sb_active" Type="int" />
+          <Property Name="sb_notecandidate" Type="nvarchar(max)" />
+          <Property Name="sb_noteemployer" Type="nvarchar(max)" />
+          <Property Name="sb_update" Type="datetime" />
+          <Property Name="cv_id" Type="int" />
+        </EntityType>
+        <EntityType Name="SubmitJob">
+          <Key>
+            <PropertyRef Name="sj_id" />
+          </Key>
+          <Property Name="sj_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="job_id" Type="int" />
+          <Property Name="sj_note" Type="nvarchar(max)" />
+          <Property Name="sj_datecreate" Type="datetime" />
+          <Property Name="cv_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Themes">
+          <Key>
+            <PropertyRef Name="theme_id" />
+          </Key>
+          <Property Name="theme_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="theme_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="theme_img" Type="nvarchar(max)" />
+          <Property Name="theme_note" Type="nvarchar(max)" />
+          <Property Name="theme_view" Type="int" />
+          <Property Name="theme_datecreate" Type="datetime" />
+          <Property Name="theme_active" Type="bit" />
+          <Property Name="theme_version" Type="bit" />
+        </EntityType>
+        <EntityType Name="TypeJobs">
+          <Key>
+            <PropertyRef Name="type_id" />
+          </Key>
+          <Property Name="type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type_name" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_email" Type="varchar" MaxLength="300" />
+          <Property Name="user_pass" Type="nvarchar(max)" />
+          <Property Name="user_active" Type="bit" />
+          <Property Name="user_option" Type="bit" />
+          <Property Name="user_datecreate" Type="datetime" />
+          <Property Name="user_dateupdate" Type="datetime" />
+          <Property Name="user_img" Type="nvarchar(max)" />
+          <Property Name="user_sex" Type="bit" />
+          <Property Name="user_birth" Type="datetime" />
+          <Property Name="user_favourite" Type="nvarchar(max)" />
+          <Property Name="role_id" Type="int" />
+          <Property Name="user_name" Type="nvarchar" MaxLength="600" />
+          <Property Name="user_phone" Type="varchar" MaxLength="15" />
+          <Property Name="employer_company" Type="nvarchar" MaxLength="300" />
+          <Property Name="provice_id" Type="int" />
+          <Property Name="employer_banner" Type="nvarchar(max)" />
+          <Property Name="employer_logo" Type="nvarchar(max)" />
+          <Property Name="employer_introduce" Type="nvarchar(max)" />
+          <Property Name="employer_favourite" Type="nvarchar(max)" />
+          <Property Name="employer_amount" Type="int" />
+          <Property Name="user_note" Type="nvarchar(max)" />
+          <Property Name="employer_pageload" Type="bit" />
+          <Property Name="employer_youtube" Type="nvarchar(max)" />
+          <Property Name="user_key" Type="nvarchar(max)" />
+          <Property Name="wp_id" Type="int" />
+          <Property Name="employer_addpress" Type="nvarchar" MaxLength="300" />
+          <Property Name="version_id" Type="int" />
+          <Property Name="user_deadline" Type="datetime" />
+          <Property Name="employer_amoutjob" Type="int" />
+          <Property Name="user_bin" Type="bit" />
+          <Property Name="candidate_amoutcv" Type="int" />
+        </EntityType>
+        <EntityType Name="Versions">
+          <Key>
+            <PropertyRef Name="version_id" />
+          </Key>
+          <Property Name="version_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version_name" Type="nvarchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="ViewCvs">
+          <Key>
+            <PropertyRef Name="view_id" />
+          </Key>
+          <Property Name="view_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="view_view" Type="int" />
+          <Property Name="cv_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="view_dateupdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Words">
+          <Key>
+            <PropertyRef Name="word_id" />
+          </Key>
+          <Property Name="word_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="word_name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="WorkPlaces">
+          <Key>
+            <PropertyRef Name="wp_id" />
+          </Key>
+          <Property Name="wp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="wp_name" Type="nvarchar" MaxLength="900" />
+        </EntityType>
+        <Association Name="FK_Bills_Pakages">
+          <End Role="Pakages" Type="Self.Pakages" Multiplicity="0..1" />
+          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pakages">
+              <PropertyRef Name="pakage_id" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="pakege_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cvs_Themes">
+          <End Role="Themes" Type="Self.Themes" Multiplicity="0..1" />
+          <End Role="Cvs" Type="Self.Cvs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="theme_id" />
+            </Principal>
+            <Dependent Role="Cvs">
+              <PropertyRef Name="theme_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cvs_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Cvs" Type="Self.Cvs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Cvs">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Categorys">
+          <End Role="Categorys" Type="Self.Categorys" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorys">
+              <PropertyRef Name="cate_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Jobs">
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="job_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="job_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Provices">
+          <End Role="Provices" Type="Self.Provices" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provices">
+              <PropertyRef Name="provice_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="provice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jobs_Exps">
+          <End Role="Exps" Type="Self.Exps" Multiplicity="0..1" />
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exps">
+              <PropertyRef Name="exp_id" />
+            </Principal>
+            <Dependent Role="Jobs">
+              <PropertyRef Name="exp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jobs_Types">
+          <End Role="TypeJobs" Type="Self.TypeJobs" Multiplicity="0..1" />
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeJobs">
+              <PropertyRef Name="type_id" />
+            </Principal>
+            <Dependent Role="Jobs">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jobs_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Jobs">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jobs_WorkPlaces">
+          <End Role="WorkPlaces" Type="Self.WorkPlaces" Multiplicity="0..1" />
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkPlaces">
+              <PropertyRef Name="wp_id" />
+            </Principal>
+            <Dependent Role="Jobs">
+              <PropertyRef Name="wp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pakages_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Pakages" Type="Self.Pakages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Pakages">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratings_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Ratings" Type="Self.Ratings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Ratings">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitCv_Cvs">
+          <End Role="Cvs" Type="Self.Cvs" Multiplicity="0..1" />
+          <End Role="SubmitCv" Type="Self.SubmitCv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cvs">
+              <PropertyRef Name="cv_id" />
+            </Principal>
+            <Dependent Role="SubmitCv">
+              <PropertyRef Name="cv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitCv_Jobs">
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="0..1" />
+          <End Role="SubmitCv" Type="Self.SubmitCv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="job_id" />
+            </Principal>
+            <Dependent Role="SubmitCv">
+              <PropertyRef Name="job_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitCv_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="SubmitCv" Type="Self.SubmitCv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="SubmitCv">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitJob_Cvs">
+          <End Role="Cvs" Type="Self.Cvs" Multiplicity="0..1" />
+          <End Role="SubmitJob" Type="Self.SubmitJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cvs">
+              <PropertyRef Name="cv_id" />
+            </Principal>
+            <Dependent Role="SubmitJob">
+              <PropertyRef Name="cv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitJob_Jobs">
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="0..1" />
+          <End Role="SubmitJob" Type="Self.SubmitJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="job_id" />
+            </Principal>
+            <Dependent Role="SubmitJob">
+              <PropertyRef Name="job_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitJob_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="SubmitJob" Type="Self.SubmitJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="SubmitJob">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Provices">
+          <End Role="Provices" Type="Self.Provices" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provices">
+              <PropertyRef Name="provice_id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="provice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Versions">
+          <End Role="Versions" Type="Self.Versions" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Versions">
+              <PropertyRef Name="version_id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="version_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_WorkPlaces">
+          <End Role="WorkPlaces" Type="Self.WorkPlaces" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkPlaces">
+              <PropertyRef Name="wp_id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="wp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ViewCvs_Cvs">
+          <End Role="Cvs" Type="Self.Cvs" Multiplicity="0..1" />
+          <End Role="ViewCvs" Type="Self.ViewCvs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cvs">
+              <PropertyRef Name="cv_id" />
+            </Principal>
+            <Dependent Role="ViewCvs">
+              <PropertyRef Name="cv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ViewCvs_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="ViewCvs" Type="Self.ViewCvs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="ViewCvs">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataQuickJobModelStoreContainer">
+          <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categorys" EntityType="Self.Categorys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chats" EntityType="Self.Chats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cvs" EntityType="Self.Cvs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exps" EntityType="Self.Exps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemCvs" EntityType="Self.ItemCvs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pakages" EntityType="Self.Pakages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provices" EntityType="Self.Provices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ratings" EntityType="Self.Ratings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubmitCv" EntityType="Self.SubmitCv" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubmitJob" EntityType="Self.SubmitJob" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Themes" EntityType="Self.Themes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeJobs" EntityType="Self.TypeJobs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Versions" EntityType="Self.Versions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ViewCvs" EntityType="Self.ViewCvs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Words" EntityType="Self.Words" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkPlaces" EntityType="Self.WorkPlaces" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bills_Pakages" Association="Self.FK_Bills_Pakages">
+            <End Role="Pakages" EntitySet="Pakages" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Users" Association="Self.FK_Bills_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cvs_Themes" Association="Self.FK_Cvs_Themes">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="Cvs" EntitySet="Cvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cvs_Users" Association="Self.FK_Cvs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Cvs" EntitySet="Cvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Categorys" Association="Self.FK_Groups_Categorys">
+            <End Role="Categorys" EntitySet="Categorys" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Jobs" Association="Self.FK_Groups_Jobs">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Provices" Association="Self.FK_Groups_Provices">
+            <End Role="Provices" EntitySet="Provices" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Users" Association="Self.FK_Groups_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobs_Exps" Association="Self.FK_Jobs_Exps">
+            <End Role="Exps" EntitySet="Exps" />
+            <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobs_Types" Association="Self.FK_Jobs_Types">
+            <End Role="TypeJobs" EntitySet="TypeJobs" />
+            <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobs_Users" Association="Self.FK_Jobs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobs_WorkPlaces" Association="Self.FK_Jobs_WorkPlaces">
+            <End Role="WorkPlaces" EntitySet="WorkPlaces" />
+            <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_Users" Association="Self.FK_News_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pakages_Roles" Association="Self.FK_Pakages_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Pakages" EntitySet="Pakages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratings_Users" Association="Self.FK_Ratings_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Ratings" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitCv_Cvs" Association="Self.FK_SubmitCv_Cvs">
+            <End Role="Cvs" EntitySet="Cvs" />
+            <End Role="SubmitCv" EntitySet="SubmitCv" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitCv_Jobs" Association="Self.FK_SubmitCv_Jobs">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="SubmitCv" EntitySet="SubmitCv" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitCv_Users" Association="Self.FK_SubmitCv_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SubmitCv" EntitySet="SubmitCv" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitJob_Cvs" Association="Self.FK_SubmitJob_Cvs">
+            <End Role="Cvs" EntitySet="Cvs" />
+            <End Role="SubmitJob" EntitySet="SubmitJob" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitJob_Jobs" Association="Self.FK_SubmitJob_Jobs">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="SubmitJob" EntitySet="SubmitJob" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitJob_Users" Association="Self.FK_SubmitJob_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SubmitJob" EntitySet="SubmitJob" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Provices" Association="Self.FK_Users_Provices">
+            <End Role="Provices" EntitySet="Provices" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Versions" Association="Self.FK_Users_Versions">
+            <End Role="Versions" EntitySet="Versions" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_WorkPlaces" Association="Self.FK_Users_WorkPlaces">
+            <End Role="WorkPlaces" EntitySet="WorkPlaces" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ViewCvs_Cvs" Association="Self.FK_ViewCvs_Cvs">
+            <End Role="Cvs" EntitySet="Cvs" />
+            <End Role="ViewCvs" EntitySet="ViewCvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ViewCvs_Users" Association="Self.FK_ViewCvs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ViewCvs" EntitySet="ViewCvs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataQuickJobModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DataQuickJobEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bills" EntityType="DataQuickJobModel.Bill" />
+          <EntitySet Name="Categorys" EntityType="DataQuickJobModel.Category" />
+          <EntitySet Name="Chats" EntityType="DataQuickJobModel.Chat" />
+          <EntitySet Name="Cvs" EntityType="DataQuickJobModel.Cv" />
+          <EntitySet Name="Exps" EntityType="DataQuickJobModel.Exp" />
+          <EntitySet Name="Groups" EntityType="DataQuickJobModel.Group" />
+          <EntitySet Name="ItemCvs" EntityType="DataQuickJobModel.ItemCv" />
+          <EntitySet Name="Jobs" EntityType="DataQuickJobModel.Job" />
+          <EntitySet Name="News" EntityType="DataQuickJobModel.News" />
+          <EntitySet Name="Pakages" EntityType="DataQuickJobModel.Pakage" />
+          <EntitySet Name="Provices" EntityType="DataQuickJobModel.Provice" />
+          <EntitySet Name="Roles" EntityType="DataQuickJobModel.Role" />
+          <EntitySet Name="SubmitCvs" EntityType="DataQuickJobModel.SubmitCv" />
+          <EntitySet Name="SubmitJobs" EntityType="DataQuickJobModel.SubmitJob" />
+          <EntitySet Name="Themes" EntityType="DataQuickJobModel.Theme" />
+          <EntitySet Name="TypeJobs" EntityType="DataQuickJobModel.TypeJob" />
+          <EntitySet Name="Users" EntityType="DataQuickJobModel.User" />
+          <EntitySet Name="Versions" EntityType="DataQuickJobModel.Version" />
+          <EntitySet Name="ViewCvs" EntityType="DataQuickJobModel.ViewCv" />
+          <EntitySet Name="Words" EntityType="DataQuickJobModel.Word" />
+          <EntitySet Name="WorkPlaces" EntityType="DataQuickJobModel.WorkPlace" />
+          <AssociationSet Name="FK_Bills_Pakages" Association="DataQuickJobModel.FK_Bills_Pakages">
+            <End Role="Pakage" EntitySet="Pakages" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Users" Association="DataQuickJobModel.FK_Bills_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Categorys" Association="DataQuickJobModel.FK_Groups_Categorys">
+            <End Role="Category" EntitySet="Categorys" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cvs_Themes" Association="DataQuickJobModel.FK_Cvs_Themes">
+            <End Role="Theme" EntitySet="Themes" />
+            <End Role="Cv" EntitySet="Cvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cvs_Users" Association="DataQuickJobModel.FK_Cvs_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Cv" EntitySet="Cvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitCv_Cvs" Association="DataQuickJobModel.FK_SubmitCv_Cvs">
+            <End Role="Cv" EntitySet="Cvs" />
+            <End Role="SubmitCv" EntitySet="SubmitCvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitJob_Cvs" Association="DataQuickJobModel.FK_SubmitJob_Cvs">
+            <End Role="Cv" EntitySet="Cvs" />
+            <End Role="SubmitJob" EntitySet="SubmitJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ViewCvs_Cvs" Association="DataQuickJobModel.FK_ViewCvs_Cvs">
+            <End Role="Cv" EntitySet="Cvs" />
+            <End Role="ViewCv" EntitySet="ViewCvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobs_Exps" Association="DataQuickJobModel.FK_Jobs_Exps">
+            <End Role="Exp" EntitySet="Exps" />
+            <End Role="Job" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Jobs" Association="DataQuickJobModel.FK_Groups_Jobs">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Provices" Association="DataQuickJobModel.FK_Groups_Provices">
+            <End Role="Provice" EntitySet="Provices" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Users" Association="DataQuickJobModel.FK_Groups_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobs_Types" Association="DataQuickJobModel.FK_Jobs_Types">
+            <End Role="TypeJob" EntitySet="TypeJobs" />
+            <End Role="Job" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobs_Users" Association="DataQuickJobModel.FK_Jobs_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Job" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobs_WorkPlaces" Association="DataQuickJobModel.FK_Jobs_WorkPlaces">
+            <End Role="WorkPlace" EntitySet="WorkPlaces" />
+            <End Role="Job" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitCv_Jobs" Association="DataQuickJobModel.FK_SubmitCv_Jobs">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="SubmitCv" EntitySet="SubmitCvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitJob_Jobs" Association="DataQuickJobModel.FK_SubmitJob_Jobs">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="SubmitJob" EntitySet="SubmitJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_Users" Association="DataQuickJobModel.FK_News_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pakages_Roles" Association="DataQuickJobModel.FK_Pakages_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Pakage" EntitySet="Pakages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Provices" Association="DataQuickJobModel.FK_Users_Provices">
+            <End Role="Provice" EntitySet="Provices" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="DataQuickJobModel.FK_Users_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitCv_Users" Association="DataQuickJobModel.FK_SubmitCv_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SubmitCv" EntitySet="SubmitCvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitJob_Users" Association="DataQuickJobModel.FK_SubmitJob_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SubmitJob" EntitySet="SubmitJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Versions" Association="DataQuickJobModel.FK_Users_Versions">
+            <End Role="Version" EntitySet="Versions" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_WorkPlaces" Association="DataQuickJobModel.FK_Users_WorkPlaces">
+            <End Role="WorkPlace" EntitySet="WorkPlaces" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ViewCvs_Users" Association="DataQuickJobModel.FK_ViewCvs_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ViewCv" EntitySet="ViewCvs" />
+          </AssociationSet>
+          <EntitySet Name="Ratings" EntityType="DataQuickJobModel.Rating" />
+          <EntitySet Name="sysdiagrams" EntityType="DataQuickJobModel.sysdiagram" />
+          <AssociationSet Name="FK_Ratings_Users" Association="DataQuickJobModel.FK_Ratings_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="bill_id" />
+          </Key>
+          <Property Name="bill_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="bill_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="bill_sum" Type="Int32" />
+          <Property Name="bill_active" Type="Boolean" />
+          <Property Name="bill_dealine" Type="DateTime" Precision="3" />
+          <Property Name="pakege_id" Type="Int32" />
+          <Property Name="bill_key" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="bill_orderid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pakage" Relationship="DataQuickJobModel.FK_Bills_Pakages" FromRole="Bill" ToRole="Pakage" />
+          <NavigationProperty Name="User" Relationship="DataQuickJobModel.FK_Bills_Users" FromRole="Bill" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="cate_id" />
+          </Key>
+          <Property Name="cate_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cate_name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="cate_view" Type="Int32" />
+          <NavigationProperty Name="Groups" Relationship="DataQuickJobModel.FK_Groups_Categorys" FromRole="Category" ToRole="Group" />
+        </EntityType>
+        <EntityType Name="Chat">
+          <Key>
+            <PropertyRef Name="chat_id" />
+          </Key>
+          <Property Name="chat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="chat_sender" Type="Int32" />
+          <Property Name="chat_receiver" Type="Int32" />
+          <Property Name="chat_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="chat_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="chat_color" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="chat_key" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="chat_active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Cv">
+          <Key>
+            <PropertyRef Name="cv_id" />
+          </Key>
+          <Property Name="cv_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cv_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_location" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="cv_datebirth" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_sex" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="cv_website" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_target" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_interest" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_informatin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_referenceperson" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cv_phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="cv_fullname" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="cv_active" Type="Int32" />
+          <Property Name="cv_option" Type="Boolean" />
+          <Property Name="cv_bin" Type="Boolean" />
+          <Property Name="cv_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="cv_dateupdate" Type="DateTime" Precision="3" />
+          <Property Name="cv_fakeid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_fontsize" Type="Int32" />
+          <Property Name="cv_bg" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="cv_p" Type="Int32" />
+          <Property Name="cv_view" Type="Int32" />
+          <Property Name="cv_point" Type="Int32" />
+          <Property Name="cv_deadline" Type="DateTime" Precision="3" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="theme_id" Type="Int32" />
+          <Property Name="cv_addpress" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="cv_f" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Theme" Relationship="DataQuickJobModel.FK_Cvs_Themes" FromRole="Cv" ToRole="Theme" />
+          <NavigationProperty Name="User" Relationship="DataQuickJobModel.FK_Cvs_Users" FromRole="Cv" ToRole="User" />
+          <NavigationProperty Name="SubmitCvs" Relationship="DataQuickJobModel.FK_SubmitCv_Cvs" FromRole="Cv" ToRole="SubmitCv" />
+          <NavigationProperty Name="SubmitJobs" Relationship="DataQuickJobModel.FK_SubmitJob_Cvs" FromRole="Cv" ToRole="SubmitJob" />
+          <NavigationProperty Name="ViewCvs" Relationship="DataQuickJobModel.FK_ViewCvs_Cvs" FromRole="Cv" ToRole="ViewCv" />
+          <Property Name="cv_pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_submitkey" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Exp">
+          <Key>
+            <PropertyRef Name="exp_id" />
+          </Key>
+          <Property Name="exp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="exp_name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Jobs" Relationship="DataQuickJobModel.FK_Jobs_Exps" FromRole="Exp" ToRole="Job" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="group_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="category_id" Type="Int32" />
+          <Property Name="datecreate" Type="DateTime" Precision="3" />
+          <Property Name="group_item" Type="Int32" />
+          <Property Name="job_id" Type="Int32" />
+          <Property Name="provice_id" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="skill" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="em_id" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="DataQuickJobModel.FK_Groups_Categorys" FromRole="Group" ToRole="Category" />
+          <NavigationProperty Name="Job" Relationship="DataQuickJobModel.FK_Groups_Jobs" FromRole="Group" ToRole="Job" />
+          <NavigationProperty Name="Provice" Relationship="DataQuickJobModel.FK_Groups_Provices" FromRole="Group" ToRole="Provice" />
+          <NavigationProperty Name="User" Relationship="DataQuickJobModel.FK_Groups_Users" FromRole="Group" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ItemCv">
+          <Key>
+            <PropertyRef Name="ic_id" />
+          </Key>
+          <Property Name="ic_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ic_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ic_mid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ic_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ic_fakeid" Type="Int32" />
+          <Property Name="ic_theme_id" Type="Int32" />
+          <Property Name="ic_usid" Type="Int32" />
+          <Property Name="ic_stt" Type="Int32" />
+          <Property Name="ic_enddate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ic_todate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ic_fake" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="job_id" />
+          </Key>
+          <Property Name="job_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="job_title" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="job_addpress" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="job_amout" Type="Int32" />
+          <Property Name="wp_id" Type="Int32" />
+          <Property Name="type_id" Type="Int32" />
+          <Property Name="job_sex" Type="Boolean" />
+          <Property Name="exp_id" Type="Int32" />
+          <Property Name="job_payend" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="job_paystart" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="job_datedeline" Type="DateTime" Precision="3" />
+          <Property Name="job_name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="job_phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="job_describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="job_request" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="job_right" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="job_active" Type="Boolean" />
+          <Property Name="job_option" Type="Boolean" />
+          <Property Name="job_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="job_dateupdate" Type="DateTime" Precision="3" />
+          <Property Name="job_bin" Type="Boolean" />
+          <Property Name="job_view" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="job_key" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="job_textprice" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Exp" Relationship="DataQuickJobModel.FK_Jobs_Exps" FromRole="Job" ToRole="Exp" />
+          <NavigationProperty Name="Groups" Relationship="DataQuickJobModel.FK_Groups_Jobs" FromRole="Job" ToRole="Group" />
+          <NavigationProperty Name="TypeJob" Relationship="DataQuickJobModel.FK_Jobs_Types" FromRole="Job" ToRole="TypeJob" />
+          <NavigationProperty Name="User" Relationship="DataQuickJobModel.FK_Jobs_Users" FromRole="Job" ToRole="User" />
+          <NavigationProperty Name="WorkPlace" Relationship="DataQuickJobModel.FK_Jobs_WorkPlaces" FromRole="Job" ToRole="WorkPlace" />
+          <NavigationProperty Name="SubmitCvs" Relationship="DataQuickJobModel.FK_SubmitCv_Jobs" FromRole="Job" ToRole="SubmitCv" />
+          <NavigationProperty Name="SubmitJobs" Relationship="DataQuickJobModel.FK_SubmitJob_Jobs" FromRole="Job" ToRole="SubmitJob" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="news_id" />
+          </Key>
+          <Property Name="news_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="news_title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="news_contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="news_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cate_id" Type="Int32" />
+          <Property Name="news_tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="news_genres" Type="Int32" />
+          <Property Name="news_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="news_dateupdate" Type="DateTime" Precision="3" />
+          <Property Name="news_active" Type="Boolean" />
+          <Property Name="news_option" Type="Boolean" />
+          <Property Name="news_bin" Type="Boolean" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="news_view" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="DataQuickJobModel.FK_News_Users" FromRole="News" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Pakage">
+          <Key>
+            <PropertyRef Name="pakage_id" />
+          </Key>
+          <Property Name="pakage_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pakage_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pakage_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pakage_money" Type="Int32" />
+          <Property Name="pakage_precent" Type="Int32" />
+          <Property Name="pakage_active" Type="Boolean" />
+          <Property Name="role_id" Type="Int32" />
+          <NavigationProperty Name="Bills" Relationship="DataQuickJobModel.FK_Bills_Pakages" FromRole="Pakage" ToRole="Bill" />
+          <NavigationProperty Name="Role" Relationship="DataQuickJobModel.FK_Pakages_Roles" FromRole="Pakage" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Provice">
+          <Key>
+            <PropertyRef Name="provice_id" />
+          </Key>
+          <Property Name="provice_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="provice_name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Groups" Relationship="DataQuickJobModel.FK_Groups_Provices" FromRole="Provice" ToRole="Group" />
+          <NavigationProperty Name="Users" Relationship="DataQuickJobModel.FK_Users_Provices" FromRole="Provice" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pakages" Relationship="DataQuickJobModel.FK_Pakages_Roles" FromRole="Role" ToRole="Pakage" />
+          <NavigationProperty Name="Users" Relationship="DataQuickJobModel.FK_Users_Roles" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="SubmitCv">
+          <Key>
+            <PropertyRef Name="sb_id" />
+          </Key>
+          <Property Name="sb_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="job_id" Type="Int32" />
+          <Property Name="sb_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="sb_active" Type="Int32" />
+          <Property Name="sb_notecandidate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sb_noteemployer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sb_update" Type="DateTime" Precision="3" />
+          <Property Name="cv_id" Type="Int32" />
+          <NavigationProperty Name="Cv" Relationship="DataQuickJobModel.FK_SubmitCv_Cvs" FromRole="SubmitCv" ToRole="Cv" />
+          <NavigationProperty Name="Job" Relationship="DataQuickJobModel.FK_SubmitCv_Jobs" FromRole="SubmitCv" ToRole="Job" />
+          <NavigationProperty Name="User" Relationship="DataQuickJobModel.FK_SubmitCv_Users" FromRole="SubmitCv" ToRole="User" />
+        </EntityType>
+        <EntityType Name="SubmitJob">
+          <Key>
+            <PropertyRef Name="sj_id" />
+          </Key>
+          <Property Name="sj_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="job_id" Type="Int32" />
+          <Property Name="sj_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sj_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="cv_id" Type="Int32" />
+          <NavigationProperty Name="Cv" Relationship="DataQuickJobModel.FK_SubmitJob_Cvs" FromRole="SubmitJob" ToRole="Cv" />
+          <NavigationProperty Name="Job" Relationship="DataQuickJobModel.FK_SubmitJob_Jobs" FromRole="SubmitJob" ToRole="Job" />
+          <NavigationProperty Name="User" Relationship="DataQuickJobModel.FK_SubmitJob_Users" FromRole="SubmitJob" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Theme">
+          <Key>
+            <PropertyRef Name="theme_id" />
+          </Key>
+          <Property Name="theme_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="theme_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="theme_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="theme_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="theme_view" Type="Int32" />
+          <Property Name="theme_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="theme_active" Type="Boolean" />
+          <Property Name="theme_version" Type="Boolean" />
+          <NavigationProperty Name="Cvs" Relationship="DataQuickJobModel.FK_Cvs_Themes" FromRole="Theme" ToRole="Cv" />
+        </EntityType>
+        <EntityType Name="TypeJob">
+          <Key>
+            <PropertyRef Name="type_id" />
+          </Key>
+          <Property Name="type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type_name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Jobs" Relationship="DataQuickJobModel.FK_Jobs_Types" FromRole="TypeJob" ToRole="Job" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_email" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="user_pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_active" Type="Boolean" />
+          <Property Name="user_option" Type="Boolean" />
+          <Property Name="user_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="user_dateupdate" Type="DateTime" Precision="3" />
+          <Property Name="user_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_sex" Type="Boolean" />
+          <Property Name="user_birth" Type="DateTime" Precision="3" />
+          <Property Name="user_favourite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="role_id" Type="Int32" />
+          <Property Name="user_name" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="user_phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="employer_company" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="provice_id" Type="Int32" />
+          <Property Name="employer_banner" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_introduce" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_favourite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_amount" Type="Int32" />
+          <Property Name="user_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_pageload" Type="Boolean" />
+          <Property Name="employer_youtube" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_key" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="wp_id" Type="Int32" />
+          <Property Name="employer_addpress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="version_id" Type="Int32" />
+          <Property Name="user_deadline" Type="DateTime" Precision="3" />
+          <Property Name="employer_amoutjob" Type="Int32" />
+          <Property Name="user_bin" Type="Boolean" />
+          <Property Name="candidate_amoutcv" Type="Int32" />
+          <NavigationProperty Name="Bills" Relationship="DataQuickJobModel.FK_Bills_Users" FromRole="User" ToRole="Bill" />
+          <NavigationProperty Name="Cvs" Relationship="DataQuickJobModel.FK_Cvs_Users" FromRole="User" ToRole="Cv" />
+          <NavigationProperty Name="Groups" Relationship="DataQuickJobModel.FK_Groups_Users" FromRole="User" ToRole="Group" />
+          <NavigationProperty Name="Jobs" Relationship="DataQuickJobModel.FK_Jobs_Users" FromRole="User" ToRole="Job" />
+          <NavigationProperty Name="News" Relationship="DataQuickJobModel.FK_News_Users" FromRole="User" ToRole="News" />
+          <NavigationProperty Name="Provice" Relationship="DataQuickJobModel.FK_Users_Provices" FromRole="User" ToRole="Provice" />
+          <NavigationProperty Name="Role" Relationship="DataQuickJobModel.FK_Users_Roles" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="SubmitCvs" Relationship="DataQuickJobModel.FK_SubmitCv_Users" FromRole="User" ToRole="SubmitCv" />
+          <NavigationProperty Name="SubmitJobs" Relationship="DataQuickJobModel.FK_SubmitJob_Users" FromRole="User" ToRole="SubmitJob" />
+          <NavigationProperty Name="Version" Relationship="DataQuickJobModel.FK_Users_Versions" FromRole="User" ToRole="Version" />
+          <NavigationProperty Name="WorkPlace" Relationship="DataQuickJobModel.FK_Users_WorkPlaces" FromRole="User" ToRole="WorkPlace" />
+          <NavigationProperty Name="ViewCvs" Relationship="DataQuickJobModel.FK_ViewCvs_Users" FromRole="User" ToRole="ViewCv" />
+          <NavigationProperty Name="Ratings" Relationship="DataQuickJobModel.FK_Ratings_Users" FromRole="User" ToRole="Rating" />
+        </EntityType>
+        <EntityType Name="Version">
+          <Key>
+            <PropertyRef Name="version_id" />
+          </Key>
+          <Property Name="version_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version_name" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="DataQuickJobModel.FK_Users_Versions" FromRole="Version" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ViewCv">
+          <Key>
+            <PropertyRef Name="view_id" />
+          </Key>
+          <Property Name="view_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="view_view" Type="Int32" />
+          <Property Name="cv_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="view_dateupdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Cv" Relationship="DataQuickJobModel.FK_ViewCvs_Cvs" FromRole="ViewCv" ToRole="Cv" />
+          <NavigationProperty Name="User" Relationship="DataQuickJobModel.FK_ViewCvs_Users" FromRole="ViewCv" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Word">
+          <Key>
+            <PropertyRef Name="word_id" />
+          </Key>
+          <Property Name="word_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="word_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WorkPlace">
+          <Key>
+            <PropertyRef Name="wp_id" />
+          </Key>
+          <Property Name="wp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wp_name" Type="String" MaxLength="900" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Jobs" Relationship="DataQuickJobModel.FK_Jobs_WorkPlaces" FromRole="WorkPlace" ToRole="Job" />
+          <NavigationProperty Name="Users" Relationship="DataQuickJobModel.FK_Users_WorkPlaces" FromRole="WorkPlace" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Bills_Pakages">
+          <End Type="DataQuickJobModel.Pakage" Role="Pakage" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Bill" Role="Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pakage">
+              <PropertyRef Name="pakage_id" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="pakege_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Users">
+          <End Type="DataQuickJobModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Bill" Role="Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Categorys">
+          <End Type="DataQuickJobModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="cate_id" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cvs_Themes">
+          <End Type="DataQuickJobModel.Theme" Role="Theme" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Cv" Role="Cv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Theme">
+              <PropertyRef Name="theme_id" />
+            </Principal>
+            <Dependent Role="Cv">
+              <PropertyRef Name="theme_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cvs_Users">
+          <End Type="DataQuickJobModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Cv" Role="Cv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Cv">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitCv_Cvs">
+          <End Type="DataQuickJobModel.Cv" Role="Cv" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.SubmitCv" Role="SubmitCv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cv">
+              <PropertyRef Name="cv_id" />
+            </Principal>
+            <Dependent Role="SubmitCv">
+              <PropertyRef Name="cv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitJob_Cvs">
+          <End Type="DataQuickJobModel.Cv" Role="Cv" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.SubmitJob" Role="SubmitJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cv">
+              <PropertyRef Name="cv_id" />
+            </Principal>
+            <Dependent Role="SubmitJob">
+              <PropertyRef Name="cv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ViewCvs_Cvs">
+          <End Type="DataQuickJobModel.Cv" Role="Cv" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.ViewCv" Role="ViewCv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cv">
+              <PropertyRef Name="cv_id" />
+            </Principal>
+            <Dependent Role="ViewCv">
+              <PropertyRef Name="cv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jobs_Exps">
+          <End Type="DataQuickJobModel.Exp" Role="Exp" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Job" Role="Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exp">
+              <PropertyRef Name="exp_id" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="exp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Jobs">
+          <End Type="DataQuickJobModel.Job" Role="Job" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="job_id" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="job_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Provices">
+          <End Type="DataQuickJobModel.Provice" Role="Provice" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provice">
+              <PropertyRef Name="provice_id" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="provice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Users">
+          <End Type="DataQuickJobModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jobs_Types">
+          <End Type="DataQuickJobModel.TypeJob" Role="TypeJob" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Job" Role="Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeJob">
+              <PropertyRef Name="type_id" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jobs_Users">
+          <End Type="DataQuickJobModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Job" Role="Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jobs_WorkPlaces">
+          <End Type="DataQuickJobModel.WorkPlace" Role="WorkPlace" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Job" Role="Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkPlace">
+              <PropertyRef Name="wp_id" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="wp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitCv_Jobs">
+          <End Type="DataQuickJobModel.Job" Role="Job" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.SubmitCv" Role="SubmitCv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="job_id" />
+            </Principal>
+            <Dependent Role="SubmitCv">
+              <PropertyRef Name="job_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitJob_Jobs">
+          <End Type="DataQuickJobModel.Job" Role="Job" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.SubmitJob" Role="SubmitJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="job_id" />
+            </Principal>
+            <Dependent Role="SubmitJob">
+              <PropertyRef Name="job_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_Users">
+          <End Type="DataQuickJobModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.News" Role="News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pakages_Roles">
+          <End Type="DataQuickJobModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Pakage" Role="Pakage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Pakage">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Provices">
+          <End Type="DataQuickJobModel.Provice" Role="Provice" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provice">
+              <PropertyRef Name="provice_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="provice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Type="DataQuickJobModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitCv_Users">
+          <End Type="DataQuickJobModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.SubmitCv" Role="SubmitCv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="SubmitCv">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitJob_Users">
+          <End Type="DataQuickJobModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.SubmitJob" Role="SubmitJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="SubmitJob">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Versions">
+          <End Type="DataQuickJobModel.Version" Role="Version" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Version">
+              <PropertyRef Name="version_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="version_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_WorkPlaces">
+          <End Type="DataQuickJobModel.WorkPlace" Role="WorkPlace" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkPlace">
+              <PropertyRef Name="wp_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="wp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ViewCvs_Users">
+          <End Type="DataQuickJobModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.ViewCv" Role="ViewCv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="ViewCv">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="rating_id" />
+          </Key>
+          <Property Name="rating_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="idem" Type="Int32" />
+          <Property Name="rating_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="rating_sum" Type="Int32" />
+          <Property Name="rating_title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="rating_like" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="rating_improve" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="rating_ltpl" Type="Int32" />
+          <Property Name="rating_dthh" Type="Int32" />
+          <Property Name="rating_sqtdnv" Type="Int32" />
+          <Property Name="rating_vhct" Type="Int32" />
+          <Property Name="rating_vplv" Type="Int32" />
+          <Property Name="rating_intro" Type="Boolean" />
+          <Property Name="rating_level" Type="Boolean" />
+          <Property Name="rating_satisfied" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="rating_unsatisfied" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="DataQuickJobModel.FK_Ratings_Users" FromRole="Rating" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Ratings_Users">
+          <End Type="DataQuickJobModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataQuickJobModel.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataQuickJobModelStoreContainer" CdmEntityContainer="DataQuickJobEntities">
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Bill">
+              <MappingFragment StoreEntitySet="Bills">
+                <ScalarProperty Name="bill_orderid" ColumnName="bill_orderid" />
+                <ScalarProperty Name="bill_key" ColumnName="bill_key" />
+                <ScalarProperty Name="pakege_id" ColumnName="pakege_id" />
+                <ScalarProperty Name="bill_dealine" ColumnName="bill_dealine" />
+                <ScalarProperty Name="bill_active" ColumnName="bill_active" />
+                <ScalarProperty Name="bill_sum" ColumnName="bill_sum" />
+                <ScalarProperty Name="bill_datecreate" ColumnName="bill_datecreate" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="bill_id" ColumnName="bill_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categorys">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Category">
+              <MappingFragment StoreEntitySet="Categorys">
+                <ScalarProperty Name="cate_view" ColumnName="cate_view" />
+                <ScalarProperty Name="cate_name" ColumnName="cate_name" />
+                <ScalarProperty Name="cate_id" ColumnName="cate_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chats">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Chat">
+              <MappingFragment StoreEntitySet="Chats">
+                <ScalarProperty Name="chat_active" ColumnName="chat_active" />
+                <ScalarProperty Name="chat_key" ColumnName="chat_key" />
+                <ScalarProperty Name="chat_color" ColumnName="chat_color" />
+                <ScalarProperty Name="chat_datecreate" ColumnName="chat_datecreate" />
+                <ScalarProperty Name="chat_content" ColumnName="chat_content" />
+                <ScalarProperty Name="chat_receiver" ColumnName="chat_receiver" />
+                <ScalarProperty Name="chat_sender" ColumnName="chat_sender" />
+                <ScalarProperty Name="chat_id" ColumnName="chat_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cvs">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Cv">
+              <MappingFragment StoreEntitySet="Cvs">
+                <ScalarProperty Name="cv_submitkey" ColumnName="cv_submitkey" />
+                <ScalarProperty Name="cv_pass" ColumnName="cv_pass" />
+                <ScalarProperty Name="cv_f" ColumnName="cv_f" />
+                <ScalarProperty Name="cv_addpress" ColumnName="cv_addpress" />
+                <ScalarProperty Name="theme_id" ColumnName="theme_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="cv_deadline" ColumnName="cv_deadline" />
+                <ScalarProperty Name="cv_point" ColumnName="cv_point" />
+                <ScalarProperty Name="cv_view" ColumnName="cv_view" />
+                <ScalarProperty Name="cv_p" ColumnName="cv_p" />
+                <ScalarProperty Name="cv_bg" ColumnName="cv_bg" />
+                <ScalarProperty Name="cv_fontsize" ColumnName="cv_fontsize" />
+                <ScalarProperty Name="cv_fakeid" ColumnName="cv_fakeid" />
+                <ScalarProperty Name="cv_dateupdate" ColumnName="cv_dateupdate" />
+                <ScalarProperty Name="cv_datecreate" ColumnName="cv_datecreate" />
+                <ScalarProperty Name="cv_bin" ColumnName="cv_bin" />
+                <ScalarProperty Name="cv_option" ColumnName="cv_option" />
+                <ScalarProperty Name="cv_active" ColumnName="cv_active" />
+                <ScalarProperty Name="cv_fullname" ColumnName="cv_fullname" />
+                <ScalarProperty Name="cv_phone" ColumnName="cv_phone" />
+                <ScalarProperty Name="cv_email" ColumnName="cv_email" />
+                <ScalarProperty Name="cv_title" ColumnName="cv_title" />
+                <ScalarProperty Name="cv_referenceperson" ColumnName="cv_referenceperson" />
+                <ScalarProperty Name="cv_informatin" ColumnName="cv_informatin" />
+                <ScalarProperty Name="cv_interest" ColumnName="cv_interest" />
+                <ScalarProperty Name="cv_target" ColumnName="cv_target" />
+                <ScalarProperty Name="cv_website" ColumnName="cv_website" />
+                <ScalarProperty Name="cv_sex" ColumnName="cv_sex" />
+                <ScalarProperty Name="cv_datebirth" ColumnName="cv_datebirth" />
+                <ScalarProperty Name="cv_location" ColumnName="cv_location" />
+                <ScalarProperty Name="cv_img" ColumnName="cv_img" />
+                <ScalarProperty Name="cv_id" ColumnName="cv_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exps">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Exp">
+              <MappingFragment StoreEntitySet="Exps">
+                <ScalarProperty Name="exp_name" ColumnName="exp_name" />
+                <ScalarProperty Name="exp_id" ColumnName="exp_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Group">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="em_id" ColumnName="em_id" />
+                <ScalarProperty Name="skill" ColumnName="skill" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="provice_id" ColumnName="provice_id" />
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="group_item" ColumnName="group_item" />
+                <ScalarProperty Name="datecreate" ColumnName="datecreate" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemCvs">
+            <EntityTypeMapping TypeName="DataQuickJobModel.ItemCv">
+              <MappingFragment StoreEntitySet="ItemCvs">
+                <ScalarProperty Name="ic_fake" ColumnName="ic_fake" />
+                <ScalarProperty Name="ic_todate" ColumnName="ic_todate" />
+                <ScalarProperty Name="ic_enddate" ColumnName="ic_enddate" />
+                <ScalarProperty Name="ic_stt" ColumnName="ic_stt" />
+                <ScalarProperty Name="ic_usid" ColumnName="ic_usid" />
+                <ScalarProperty Name="ic_theme_id" ColumnName="ic_theme_id" />
+                <ScalarProperty Name="ic_fakeid" ColumnName="ic_fakeid" />
+                <ScalarProperty Name="ic_content" ColumnName="ic_content" />
+                <ScalarProperty Name="ic_mid" ColumnName="ic_mid" />
+                <ScalarProperty Name="ic_name" ColumnName="ic_name" />
+                <ScalarProperty Name="ic_id" ColumnName="ic_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jobs">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Job">
+              <MappingFragment StoreEntitySet="Jobs">
+                <ScalarProperty Name="job_textprice" ColumnName="job_textprice" />
+                <ScalarProperty Name="job_key" ColumnName="job_key" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="job_view" ColumnName="job_view" />
+                <ScalarProperty Name="job_bin" ColumnName="job_bin" />
+                <ScalarProperty Name="job_dateupdate" ColumnName="job_dateupdate" />
+                <ScalarProperty Name="job_datecreate" ColumnName="job_datecreate" />
+                <ScalarProperty Name="job_option" ColumnName="job_option" />
+                <ScalarProperty Name="job_active" ColumnName="job_active" />
+                <ScalarProperty Name="job_right" ColumnName="job_right" />
+                <ScalarProperty Name="job_request" ColumnName="job_request" />
+                <ScalarProperty Name="job_describe" ColumnName="job_describe" />
+                <ScalarProperty Name="job_phone" ColumnName="job_phone" />
+                <ScalarProperty Name="job_name" ColumnName="job_name" />
+                <ScalarProperty Name="job_datedeline" ColumnName="job_datedeline" />
+                <ScalarProperty Name="job_paystart" ColumnName="job_paystart" />
+                <ScalarProperty Name="job_payend" ColumnName="job_payend" />
+                <ScalarProperty Name="exp_id" ColumnName="exp_id" />
+                <ScalarProperty Name="job_sex" ColumnName="job_sex" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="wp_id" ColumnName="wp_id" />
+                <ScalarProperty Name="job_amout" ColumnName="job_amout" />
+                <ScalarProperty Name="job_addpress" ColumnName="job_addpress" />
+                <ScalarProperty Name="job_title" ColumnName="job_title" />
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="DataQuickJobModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="news_view" ColumnName="news_view" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="news_bin" ColumnName="news_bin" />
+                <ScalarProperty Name="news_option" ColumnName="news_option" />
+                <ScalarProperty Name="news_active" ColumnName="news_active" />
+                <ScalarProperty Name="news_dateupdate" ColumnName="news_dateupdate" />
+                <ScalarProperty Name="news_datecreate" ColumnName="news_datecreate" />
+                <ScalarProperty Name="news_genres" ColumnName="news_genres" />
+                <ScalarProperty Name="news_tags" ColumnName="news_tags" />
+                <ScalarProperty Name="cate_id" ColumnName="cate_id" />
+                <ScalarProperty Name="news_image" ColumnName="news_image" />
+                <ScalarProperty Name="news_contents" ColumnName="news_contents" />
+                <ScalarProperty Name="news_title" ColumnName="news_title" />
+                <ScalarProperty Name="news_id" ColumnName="news_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pakages">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Pakage">
+              <MappingFragment StoreEntitySet="Pakages">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="pakage_active" ColumnName="pakage_active" />
+                <ScalarProperty Name="pakage_precent" ColumnName="pakage_precent" />
+                <ScalarProperty Name="pakage_money" ColumnName="pakage_money" />
+                <ScalarProperty Name="pakage_note" ColumnName="pakage_note" />
+                <ScalarProperty Name="pakage_name" ColumnName="pakage_name" />
+                <ScalarProperty Name="pakage_id" ColumnName="pakage_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provices">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Provice">
+              <MappingFragment StoreEntitySet="Provices">
+                <ScalarProperty Name="provice_name" ColumnName="provice_name" />
+                <ScalarProperty Name="provice_id" ColumnName="provice_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubmitCvs">
+            <EntityTypeMapping TypeName="DataQuickJobModel.SubmitCv">
+              <MappingFragment StoreEntitySet="SubmitCv">
+                <ScalarProperty Name="cv_id" ColumnName="cv_id" />
+                <ScalarProperty Name="sb_update" ColumnName="sb_update" />
+                <ScalarProperty Name="sb_noteemployer" ColumnName="sb_noteemployer" />
+                <ScalarProperty Name="sb_notecandidate" ColumnName="sb_notecandidate" />
+                <ScalarProperty Name="sb_active" ColumnName="sb_active" />
+                <ScalarProperty Name="sb_datecreate" ColumnName="sb_datecreate" />
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="sb_id" ColumnName="sb_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubmitJobs">
+            <EntityTypeMapping TypeName="DataQuickJobModel.SubmitJob">
+              <MappingFragment StoreEntitySet="SubmitJob">
+                <ScalarProperty Name="cv_id" ColumnName="cv_id" />
+                <ScalarProperty Name="sj_datecreate" ColumnName="sj_datecreate" />
+                <ScalarProperty Name="sj_note" ColumnName="sj_note" />
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="sj_id" ColumnName="sj_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Themes">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Theme">
+              <MappingFragment StoreEntitySet="Themes">
+                <ScalarProperty Name="theme_version" ColumnName="theme_version" />
+                <ScalarProperty Name="theme_active" ColumnName="theme_active" />
+                <ScalarProperty Name="theme_datecreate" ColumnName="theme_datecreate" />
+                <ScalarProperty Name="theme_view" ColumnName="theme_view" />
+                <ScalarProperty Name="theme_note" ColumnName="theme_note" />
+                <ScalarProperty Name="theme_img" ColumnName="theme_img" />
+                <ScalarProperty Name="theme_name" ColumnName="theme_name" />
+                <ScalarProperty Name="theme_id" ColumnName="theme_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeJobs">
+            <EntityTypeMapping TypeName="DataQuickJobModel.TypeJob">
+              <MappingFragment StoreEntitySet="TypeJobs">
+                <ScalarProperty Name="type_name" ColumnName="type_name" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DataQuickJobModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="candidate_amoutcv" ColumnName="candidate_amoutcv" />
+                <ScalarProperty Name="user_bin" ColumnName="user_bin" />
+                <ScalarProperty Name="employer_amoutjob" ColumnName="employer_amoutjob" />
+                <ScalarProperty Name="user_deadline" ColumnName="user_deadline" />
+                <ScalarProperty Name="version_id" ColumnName="version_id" />
+                <ScalarProperty Name="employer_addpress" ColumnName="employer_addpress" />
+                <ScalarProperty Name="wp_id" ColumnName="wp_id" />
+                <ScalarProperty Name="user_key" ColumnName="user_key" />
+                <ScalarProperty Name="employer_youtube" ColumnName="employer_youtube" />
+                <ScalarProperty Name="employer_pageload" ColumnName="employer_pageload" />
+                <ScalarProperty Name="user_note" ColumnName="user_note" />
+                <ScalarProperty Name="employer_amount" ColumnName="employer_amount" />
+                <ScalarProperty Name="employer_favourite" ColumnName="employer_favourite" />
+                <ScalarProperty Name="employer_introduce" ColumnName="employer_introduce" />
+                <ScalarProperty Name="employer_logo" ColumnName="employer_logo" />
+                <ScalarProperty Name="employer_banner" ColumnName="employer_banner" />
+                <ScalarProperty Name="provice_id" ColumnName="provice_id" />
+                <ScalarProperty Name="employer_company" ColumnName="employer_company" />
+                <ScalarProperty Name="user_phone" ColumnName="user_phone" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="user_favourite" ColumnName="user_favourite" />
+                <ScalarProperty Name="user_birth" ColumnName="user_birth" />
+                <ScalarProperty Name="user_sex" ColumnName="user_sex" />
+                <ScalarProperty Name="user_img" ColumnName="user_img" />
+                <ScalarProperty Name="user_dateupdate" ColumnName="user_dateupdate" />
+                <ScalarProperty Name="user_datecreate" ColumnName="user_datecreate" />
+                <ScalarProperty Name="user_option" ColumnName="user_option" />
+                <ScalarProperty Name="user_active" ColumnName="user_active" />
+                <ScalarProperty Name="user_pass" ColumnName="user_pass" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Versions">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Version">
+              <MappingFragment StoreEntitySet="Versions">
+                <ScalarProperty Name="version_name" ColumnName="version_name" />
+                <ScalarProperty Name="version_id" ColumnName="version_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewCvs">
+            <EntityTypeMapping TypeName="DataQuickJobModel.ViewCv">
+              <MappingFragment StoreEntitySet="ViewCvs">
+                <ScalarProperty Name="view_dateupdate" ColumnName="view_dateupdate" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="cv_id" ColumnName="cv_id" />
+                <ScalarProperty Name="view_view" ColumnName="view_view" />
+                <ScalarProperty Name="view_id" ColumnName="view_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Words">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Word">
+              <MappingFragment StoreEntitySet="Words">
+                <ScalarProperty Name="word_name" ColumnName="word_name" />
+                <ScalarProperty Name="word_id" ColumnName="word_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkPlaces">
+            <EntityTypeMapping TypeName="DataQuickJobModel.WorkPlace">
+              <MappingFragment StoreEntitySet="WorkPlaces">
+                <ScalarProperty Name="wp_name" ColumnName="wp_name" />
+                <ScalarProperty Name="wp_id" ColumnName="wp_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="DataQuickJobModel.Rating">
+              <MappingFragment StoreEntitySet="Ratings">
+                <ScalarProperty Name="rating_unsatisfied" ColumnName="rating_unsatisfied" />
+                <ScalarProperty Name="rating_satisfied" ColumnName="rating_satisfied" />
+                <ScalarProperty Name="rating_level" ColumnName="rating_level" />
+                <ScalarProperty Name="rating_intro" ColumnName="rating_intro" />
+                <ScalarProperty Name="rating_vplv" ColumnName="rating_vplv" />
+                <ScalarProperty Name="rating_vhct" ColumnName="rating_vhct" />
+                <ScalarProperty Name="rating_sqtdnv" ColumnName="rating_sqtdnv" />
+                <ScalarProperty Name="rating_dthh" ColumnName="rating_dthh" />
+                <ScalarProperty Name="rating_ltpl" ColumnName="rating_ltpl" />
+                <ScalarProperty Name="rating_improve" ColumnName="rating_improve" />
+                <ScalarProperty Name="rating_like" ColumnName="rating_like" />
+                <ScalarProperty Name="rating_title" ColumnName="rating_title" />
+                <ScalarProperty Name="rating_sum" ColumnName="rating_sum" />
+                <ScalarProperty Name="rating_datecreate" ColumnName="rating_datecreate" />
+                <ScalarProperty Name="idem" ColumnName="idem" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="rating_id" ColumnName="rating_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DataQuickJobModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

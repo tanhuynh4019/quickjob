@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý tin yêu thích";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section id="services" class="text-dark" ng-app="myApp">
+    <div class="container" ng-controller="myCtrl">
+        <div class="row flex-center h-100">
+            <div class="col-xl-9">
+                <div class="row h-100" style="background-color: white">
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ui search">
+                                    <div class="ui icon input w-100">
+                                        <input class="prompt" style="border-radius: 0px 0px 0px 0px" type="text" placeholder="Tên công ty, việc làm,vị trí..." ng-model="txtSearch">
+                                        <i class="search icon"></i>
+                                    </div>
+                                    <div class="results"></div>
+                                </div>
+                                <p class="mt-2">Có <b>{{(list | filter: txtSearch).length}}</b> kết quả</p>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="border" ng-show="(list | filter: txtSearch).length == 0">
+                                   <div style="padding: 10px">
+                                       <center>
+                                           <b>Không có kết quả?</b>
+                                       </center>
+                                   </div>
+                                </div>
+                                <div class=" text-dark rounded mt-3" ng-show="(list | filter: txtSearch).length != 0">
+                                    <table class="table mt-3 text-dark table-hover" style="font-size: 12px; cursor: pointer">
+                                        <tbody>
+                                            <tr ng-repeat="list in list | filter: txtSearch" class="{{list.color}}">
+                                                <td><img src="~/Images/Employers/{{list.logo}}" style="width: 50px; height: 50px; border-radius: 50%" /></td> 
+                                                
+                                                <td>
+
+                                                    {{list.company}}
+                                                    <br /> <b>Công việc: </b> {{list.namejob}}
+                                                    <br /> <b>Lương:</b>   {{list.textprice}}     {{list.start}}   triệu   {{list.end}}  triệu
+
+                                                </td>
+                                                
+                                                <td>Lưu ngày: {{list.date}}</td> 
+                                                
+                                                <td>
+                                                    
+                                                    <a href="/View/DetailsJob?id={{list.idjob}}"><i class="fa fa-eye text-primary">Xem</i></a>  &nbsp;
+                                                    <a href="/Users/CancelFavouriteDetails?id={{list.id}}"><i class="fa fa-trash text-danger"> Xóa</i></a> 
+                                                    
+                                                </td>
+                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.Action("All", "Users")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/Users/JsonIndexFavouriteAll"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+            $scope.count = $scope.list.length;
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>

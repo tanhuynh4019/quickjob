@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Model.EF.Job>
+
+@{
+    ViewBag.Title = "Quản lý tin tuyển dụng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var stt = 1;
+}
+<link href="~/Content/LayoutAdmin/vendors/simple-datatables/style.css" rel="stylesheet" />
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            Quản lý việc làm nhà tuyển dụng <br /> <a href="/Admin/JobsAdmin/Create" class="btn btn-success"><i class="fa fa-plus-circle"></i>Thêm tin tuyển dụng</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <td>Mã</td>
+                        <td >Tiêu đề</td>
+                        <td>Nghành nghề</td>
+                        @*<td>Tỉnh thành</td>*@
+                        @*<td>Thông tin</td>*@
+                        <td>Số lượng đơn CV</td>
+                        <td>Lượt xem</td>
+                        @*<td>Ngày tạo</td>*@
+                        <td>Tình trạng</td>
+                        <td>Hoạt động</td>
+                        <td>Ngày hết hạn</td>
+                        <td>Ngày cập nhật</td>
+                        <td>Tùy chọn</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderByDescending(n=>n.job_datecreate))
+                    {
+                        var catecount = 1;
+                        <tr>
+                            <td>@item.job_id</td>
+                            <td>@item.job_title</td>
+                            <td>
+                                @foreach (var cate in item.Groups.Where(t => t.category_id != null))
+                                {
+                                    <span>@(catecount == item.Groups.Where(t => t.category_id != null).Count() ? cate.Category.cate_name : cate.Category.cate_name + " | ")</span>
+                                    catecount++;
+                                }
+                            </td>
+                            <td>@item.SubmitCvs.Count()</td>
+                            <td>@item.job_view</td>
+                            @*<td>
+                                    <b>Hình thức: </b>@item.TypeJob.type_name <br />
+                                    <b>Cấp bậc: </b>@item.WorkPlace.wp_name <br />
+                                    <b>Kinh nghiệm: </b>@item.Exp.exp_name <br />
+                                    <b>Giới tính: </b>@(item.job_sex == true ? "Name" : "Nữ") <br />
+                                    <b>Số lượng: </b>@item.job_amout <br />
+                                </td>*@
+                            <td>
+                                <span class="badge @(item.job_active == true ? "bg-success" : "bg-danger")">@(item.job_active == true ? "Hoạt động" : "Ngừng")</span>
+                            </td>
+                            <td>
+                                <span class="badge @(item.job_option == true ? "bg-success" : "bg-danger")">@(item.job_option == true ? "Hiển thị" : "Tắt")</span>
+                            </td>
+                            <td>@item.job_datedeline</td>
+                            <td>@(item.job_dateupdate != null ? item.job_dateupdate.Value.ToLongDateString() : item.job_datecreate.Value.ToLongDateString())</td>
+                            <td>
+                                <a href="/Admin/JobsAdmin/Details/@item.job_id"><i class="fa fa-eye"></i></a> |
+                                <a href="#" onclick="remove(@item.job_id)"><i class="fa fa-trash"></i></a> |
+                                <a href="/Admin/JobsAdmin/Edit?id=@item.job_id"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                        stt++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+<script src="~/Content/LayoutAdmin/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+
+    $('#table1 tbody').on('click', 'i.fa.fa-trash', function () {
+        $(this).closest('tr').remove();
+    });
+</script>
+
+
+<script>
+    function remove(id) {
+        $.ajax({
+            type: "POST",
+            url: "/Admin/JobsAdmin/Remove?id=" + id,
+            contentType: "json",
+            success: function (response) {
+                if (response) {
+                    alert("Xóa thành công!");
+                }
+                else {
+                    alert("Có lỗi ngoại lệ!");
+                }
+            }
+        })
+    }
+</script>

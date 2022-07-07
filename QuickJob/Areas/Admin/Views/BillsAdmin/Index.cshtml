@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Model.EF.Bill>
+
+@{
+    ViewBag.Title = "Hóa đơn ứng viên";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.bill_datecreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bill_sum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bill_active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bill_dealine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bill_key)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bill_orderid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pakage.pakage_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.user_email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.bill_datecreate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bill_sum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bill_active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bill_dealine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bill_key)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bill_orderid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pakage.pakage_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.user_email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.bill_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.bill_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.bill_id })
+        </td>
+    </tr>
+}
+
+</table>

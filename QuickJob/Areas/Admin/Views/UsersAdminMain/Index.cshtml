@@ -1,0 +1,214 @@
+﻿@model IEnumerable<Model.EF.User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutQuickNews.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.user_email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_pass)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_option)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_datecreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_dateupdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_img)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_sex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_birth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_favourite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employer_company)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employer_banner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employer_logo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employer_introduce)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employer_favourite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employer_amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employer_pageload)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employer_youtube)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_key)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employer_addpress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_deadline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employer_amoutjob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_bin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.candidate_amoutcv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Provice.provice_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role.role_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Version.version_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkPlace.wp_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_pass)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_option)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_datecreate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_dateupdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_img)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_sex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_birth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_favourite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employer_company)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employer_banner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employer_logo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employer_introduce)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employer_favourite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employer_amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employer_pageload)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employer_youtube)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_key)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employer_addpress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_deadline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employer_amoutjob)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_bin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.candidate_amoutcv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Provice.provice_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Role.role_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Version.version_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkPlace.wp_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.user_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.user_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.user_id })
+        </td>
+    </tr>
+}
+
+</table>

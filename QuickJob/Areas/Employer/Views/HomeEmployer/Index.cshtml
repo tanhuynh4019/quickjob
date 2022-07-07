@@ -1,0 +1,257 @@
+﻿@using QuickJob.Function
+@using Microsoft.Ajax.Utilities;
+@using Model.EF
+@{
+    DataQuickJobEntities db = new DataQuickJobEntities();
+    var fu = new FunctionController();
+    ViewBag.Title = "QuickJob Employer";
+    Layout = "~/Areas/Employer/Views/Shared/_Layout.cshtml";
+
+    List<Cv> cv = db.Cvs.ToList();
+}
+@if (fu.CookieEm() != null)
+{
+    var id = fu.CookieIDEm();
+    List<Job> job = db.Jobs.Where(n => n.user_id == id.user_id).ToList();
+
+    <section class="section-services section-t8" ng-app="myApp">
+        <div class="container" ng-controller="myCtrl">
+            <div class="row">
+                <div class="col-md-12 mt-3 ">
+                    <div class=" border">
+                        <div style="padding: 20px">
+                            <div class="title-box">
+                                <h5 style="font-size: 18px" class="title-a">Thống kê</h5>
+                                <hr />
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <b style="font-size: 17px">Tổng số ứng viên</b>
+                                    <div class="ui statistics">
+                                        <div class="gray statistic">
+                                            <div class="value text-center">
+                                                @cv.Count()
+                                            </div>
+                                            <div class="label">
+                                                Ứng viên
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <b style="font-size: 17px">Cập nhật 1 tháng gần nhất</b>
+                                    <div class="ui statistics">
+                                        <div class="red statistic">
+                                            <div class="value">
+                                                @cv.Where(n=>n.cv_datecreate < n.cv_datecreate.Value.AddMonths(1)).Count()
+                                            </div>
+                                            <div class="label">
+                                                Ứng viên
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <b style="font-size: 17px">Cập nhật hôm nay</b>
+                                    <div class="ui statistics">
+                                        <div class="green statistic">
+                                            <div class="value">
+                                                @cv.Where(n => n.cv_datecreate.Value.ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy")).Count()
+                                            </div>
+                                            <div class="label">
+                                                Ứng viên
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <br />
+                                    <b style="font-size: 17px">Ứng viên hôm nay</b>
+                                    <br />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                    <img src="~/Images/Cvs/blankprofile_large.png" style="width: 50px; height: 50px; border-radius: 50%" />
+                                </div>
+                                <div class="col-lg-12 mt-5">
+                                    <center>
+                                        <a href="/Employer/CvsEmployer/Index" class="ui red button"><i class="fa fa-search">&nbsp;</i>Tìm ứng viên</a>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-services">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mt-3 ">
+                    <div class=" border">
+                        <div style="padding: 20px">
+                            <div class="title-box">
+                                <h5 style="font-size: 18px" class="title-a">Tin tuyển dụng</h5>
+                                <hr />
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 mt-5">
+                                    <center>
+                                        <p style="font-size: 18px">Bạn đang có <b class="text-danger">@(id.employer_amoutjob - job.Count)</b> tin tuyển dụng MIỄN PHÍ.</p>
+                                        @if (id.employer_amoutjob - job.Count == 0)
+                                        {
+                                            <a class="ui red button" href="/Employer/JobsEmployer/Create">Bạn đã đạt giới hạn đăng! Nâng cấp ngay</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="ui red button" href="/Employer/JobsEmployer/Create">Đăng tin tuyển dụng</a>
+                                        }
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-services">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mt-3 ">
+                    <div class=" border">
+                        <div style="padding: 20px">
+                            <div class="title-box">
+                                <h5 style="font-size: 18px" class="title-a">Các vị trí ứng tuyển</h5>
+                                <hr />
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 mt-5">
+                                    @foreach (var item in db.Cvs.DistinctBy(n=>n.cv_location.ToLower()).OrderByDescending(n => n.cv_datecreate))
+                                    {
+                                        <button class="ui secondary basic button mt-2">@item.cv_location</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope, $http) {
+            $http({
+                method: "GET",
+                url: "/Employer/StaticEmployer/JsonStatic"
+            }).then(function mySuccess(response) {
+                $scope.list = response.data;
+            }, function myError(response) {
+                $scope.list = response.statusText;
+            });
+        });
+    </script>
+}
+else
+{
+    <div class="intro intro-carousel">
+        <div id="carousel" class="owl-carousel owl-theme">
+            <div class="carousel-item-a intro-item bg-image" style="background-image: url('../../../../Images/Employers/pexels-pixabay-416405.jpg');">
+                <div class="overlay overlay-a"></div>
+                <div class="intro-content display-table">
+                    <div class="table-cell">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="intro-body">
+                                        <p class="intro-title-top">
+                                            Tìm kiếm và đăng tin nhanh chóng
+                                        </p>
+                                        <h1 class="intro-title mb-4">
+                                            <span class="color-b">2000 </span> Ứng viên
+                                            <br> Đang chờ bạn
+                                        </h1>
+                                        <p class="intro-subtitle intro-price">
+                                            <a href="#"><span class="price-a">Tìm ứng viên</span></a>
+                                            <a href="#"><span class="price-a">Đăng tuyển</span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item-a intro-item bg-image" style="background-image: url(../../../../Images/Employers/pexels-anna-shvets-5325054.jpg)">
+                <div class="overlay overlay-a"></div>
+                <div class="intro-content display-table">
+                    <div class="table-cell">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="intro-body">
+                                        <p class="intro-title-top">
+                                            Tìm kiếm và đăng tin nhanh chóng
+                                        </p>
+                                        <h1 class="intro-title mb-4">
+                                            <span class="color-b">Đăng bài </span> Ứng tuyển
+                                            <br> Miển phí
+                                        </h1>
+                                        <p class="intro-subtitle intro-price">
+                                            <a href="#"><span class="price-a">Tìm ứng viên</span></a>
+                                            <a href="#"><span class="price-a">Đăng tuyển</span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item-a intro-item bg-image" style="background-image: url(../../../../Images/Employers/pexels-andrea-piacquadio-3760529.jpg)">
+                <div class="overlay overlay-a"></div>
+                <div class="intro-content display-table">
+                    <div class="table-cell">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="intro-body">
+                                        <p class="intro-title-top">
+                                            Tìm kiếm và đăng tin nhanh chóng
+                                        </p>
+                                        <h1 class="intro-title mb-4">
+                                            <span class="color-b">Công cụ </span> Tìm ứng viên
+                                            <br> Tuyệt vời
+                                        </h1>
+                                        <p class="intro-subtitle intro-price">
+                                            <a href="#"><span class="price-a">Tìm ứng viên</span></a>
+                                            <a href="#"><span class="price-a">Đăng tuyển</span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

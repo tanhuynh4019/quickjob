@@ -1,0 +1,131 @@
+﻿@using QuickJob.Function;
+@using Model.EF;
+@{
+    DataQuickJobEntities db = new DataQuickJobEntities();
+    var fu = new FunctionController();
+    var id = fu.CookieIDEm();
+    ViewBag.Title = "PersonalPage";
+    Layout = "~/Areas/Employer/Views/Shared/_Layout.cshtml";
+}
+@{ 
+    List<Provice> Provice = db.Provices.ToList();
+}
+<section class="section-services section-t8">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-3 ">
+                <div class=" border" id="top">
+                    <div style="padding: 20px">
+                        <div class="title-box">
+                            <h5 style="font-size: 18px" class="title-a">Thông tin công ty</h5>
+                            <hr />
+                            @if(id.employer_pageload == null)
+                            {
+                                <p class="text-danger">Để sử dụng tất cả dịch vụ của QuickJob như Xem thông tin CV, đăng bài tuyển, các thao tác tìm kiếm CV thì hãy đăng ký thông tin công ty để được QuickJob xét duyệt. Các thông tin này sẽ được hiển thị lên trang chủ tìm việc</p>
+                            }
+                            else if (id.employer_pageload == false)
+                            {
+                                <p class="text-danger">QuickJob đang xét duyệt tin của bạn! Hiện tại bạn có thể đăng bài tuyển và tìm kiếm ứng viên</p>
+                            }
+                            else
+                            {
+
+                            }
+                        </div>
+                        <form class="ui form mt-3" method="post" enctype="multipart/form-data">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="field">
+                                <label>Tên công ty <b class="text-danger">*</b></label>
+                                <input placeholder="Tên công ty" value="@id.employer_company" name="employer_company" type="text">
+                            </div>
+
+                            <div class="field">
+                                <label>Logo <b class="text-danger">*</b></label>
+                                <input placeholder="Logo công ty" name="logo" type="file">
+                            </div>
+
+                            <div class="field">
+                                <label>Banner <b class="text-danger">*</b></label>
+                                <input placeholder="Banner" name="banner" type="file">
+                                <p class="text-danger">Mặc định nểu bỏ trống sẽ lấy banner của QuickJob</p>
+                            </div>
+
+                            <div class="field">
+                                <label>Số lượng thành viên <b class="text-danger">*</b></label>
+                                <input placeholder="Số lượng thành viên" value="@id.employer_amount" name="employer_amount" type="text">
+                            </div>
+
+                            <div class="field">
+                                <label>Địa chỉ chính <b class="text-danger">*</b></label>
+                                <input placeholder="Địa chỉ chính" value="@id.employer_addpress" name="employer_addpress" type="text">
+                            </div>
+
+                            <div class="field">
+                                <label>Tỉnh thành <b class="text-danger">*</b></label>
+                                <select name="provice_id" class="ui dropdown fluid  search">
+                                    <option value="">Chọn tỉnh thành</option>
+                                    @foreach (var item in Provice.OrderBy(n => n.provice_name))
+                                    {
+                                        <option value="@item.provice_id">@item.provice_name</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label>Giới thiệu <b class="text-danger">*</b></label>
+                                <textarea name="employer_introduce" id="employer_introduce">@id.employer_introduce</textarea>
+                                <script>
+                                    ClassicEditor
+                                        .create(document.querySelector('#employer_introduce'))
+                                        .catch(error => {
+                                            console.error(error);
+                                        });
+                                </script>
+                            </div>
+
+                            <div class="field">
+                                <label>Quyền lợi <b class="text-danger">*</b></label>
+                                <textarea name="employer_favourite" id="employer_favourite">@id.employer_favourite</textarea>
+                                <script>
+                                    ClassicEditor
+                                        .create(document.querySelector('#employer_favourite'))
+                                        .catch(error => {
+                                            console.error(error);
+                                        });
+                                </script>
+                            </div>
+
+                            <div class="field">
+                                <label>Link giới thiệu Youtube <b class="text-danger">*</b></label>
+                                <textarea name="employer_youtube" class="form-control">@id.employer_youtube</textarea>
+                            </div>
+                            <center>
+                                <button class="ui red button" type="submit">Cập nhật thông tin công ty</button>
+                            </center>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable, .ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
+        height: 300px;
+    }
+</style>
+<script>
+    $('.dropdown')
+        .dropdown({
+            // you can use any ui transition
+            placeholder: 'true'
+        })
+        ;
+    $('.tag.example .ui.dropdown')
+        .dropdown({
+            allowAdditions: true
+        })
+        ;
+</script>

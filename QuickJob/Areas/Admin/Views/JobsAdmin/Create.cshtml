@@ -1,0 +1,405 @@
+﻿@using QuickJob.Function;
+@using Model.EF;
+@model Model.EF.Job
+
+@{
+    var fu = new FunctionController();
+    DataQuickJobEntities db = new DataQuickJobEntities();
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    List<Category> categories = db.Categorys.ToList();
+    List<Provice> provices = db.Provices.ToList();
+    List<WorkPlace> workPlaces = db.WorkPlaces.ToList();
+    List<TypeJob> types = db.TypeJobs.ToList();
+    List<Exp> exps = db.Exps.ToList();
+
+    var id = fu.CookieIDAd();
+}
+<section class="section-services section-t8">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-3 ">
+                <div class=" border" id="top">
+                    <div style="padding: 20px">
+                        <div class="title-box">
+                            <h5 style="font-size: 18px" class="title-a">Tạo tin tuyển dụng</h5>
+                            <hr />
+                        </div>
+                        <form class="ui form" method="post">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="field">
+                                <label>Tiêu đề <b class="text-danger">*</b></label>
+                                <p>Viết ngắn gọn, chính xác vị trí và công việc cần tuyển. Không sử dụng các từ như [HN], lương cao, tuyển gấp,...</p>
+                                <input placeholder="VD: Nhân viên kinh doanh, kỹ sư lập trình c#" name="job_title" type="text">
+                            </div>
+
+                            <div class="field">
+                                <label>Nghành<b class="text-danger">*</b></label>
+                                <p>Lựa chọn tối đã 3 ngành nghề liên quan đến vị trí tuyển dụng này</p>
+                                <select name="cate" multiple="" class="ui dropdown fluid search">
+                                    @foreach (var item in categories.OrderBy(n => n.cate_name))
+                                    {
+                                        <option value="@item.cate_id">@item.cate_name</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label>Địa chỉ làm việc <b class="text-danger">*</b></label>
+                                <p>Ứng viên khi đi làm, sẽ làm việc tại địa chỉ này</p>
+                                <input placeholder="25/5 Hiệp An, Bình Dương" name="job_addpress" type="text">
+                            </div>
+
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Nơi làm việc<b class="text-danger">*</b></label>
+                                    <p>Lựa chọn tối đa 5 địa điểm</p>
+                                    <select name="provice" multiple="" class="ui dropdown fluid  search">
+                                        <option value="">Chọn tỉnh thành</option>
+                                        @foreach (var item in provices.OrderBy(n => n.provice_name))
+                                        {
+                                            <option value="@item.provice_id">@item.provice_name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label>Số lượng</label>
+                                    <p>Để trống mục này nếu không giới hạn số lượng tuyển</p>
+                                    <input placeholder="0" value="" name="job_amout" type="number">
+                                </div>
+                            </div>
+
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Cấp bậc<b class="text-danger">*</b></label>
+                                    <select name="wp_id" class="ui dropdown fluid  search">
+                                        @foreach (var item in workPlaces)
+                                        {
+                                            <option value="@item.wp_id">@item.wp_name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label>Loại hình làm việc <b class="text-danger">*</b></label>
+                                    <select name="type_id" class="ui dropdown fluid  search">
+                                        @foreach (var item in types)
+                                        {
+                                            <option value="@item.type_id">@item.type_name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Giới tính</label>
+                                    <select name="job_sex" class="ui dropdown fluid">
+                                        <option value="">Không yêu cầu</option>
+                                        <option value="true">Nam</option>
+                                        <option value="false">Nữ</option>
+
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label>Kinh nghiệm</label>
+                                    <select name="exp_id" class="ui dropdown fluid  search">
+                                        @foreach (var item in exps)
+                                        {
+                                            <option value="@item.exp_id">@item.exp_name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="two fields">
+                                <div class="field" onclick="show()">
+                                    <label>Lương</label>
+                                    <select onchange="show()" name="job_textprice" id="job_textprice" class="ui dropdown fluid">
+                                        <option value="">Thỏa thuận</option>
+                                        <option value="Từ">Từ</option>
+                                        <option value="Lên đến">Lên đến</option>
+                                        <option value="Trong khoảng">Trong khoảng</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label>(Đơn vị VNĐ)</label>
+                                    <div class="row">
+                                        <div class="col-lg-6" id="past1" style="display: none">
+                                            <input placeholder="0 triệu" value="" name="job_paystart" type="number">
+                                        </div>
+                                        <div class="col-lg-6" id="past2" style="display: none">
+                                            <input placeholder="0 triệu" value="" name="job_payend" type="number">
+                                        </div>
+                                    </div>
+                                </div>
+                                <script>
+                                    function show() {
+                                        var check = document.getElementById("job_textprice").value;
+                                        if (check == "Từ") {
+                                            document.getElementById("past1").style = "";
+                                            document.getElementById("past2").style = "display: none";
+                                        }
+                                        else if (check == "Lên đến") {
+                                            document.getElementById("past1").style = "";
+                                            document.getElementById("past2").style = "display: none";
+                                        }
+                                        else if (check == "Trong khoảng") {
+                                            document.getElementById("past1").style = "";
+                                            document.getElementById("past2").style = "";
+                                        }
+                                        else {
+                                            document.getElementById("past1").style = "display: none";
+                                            document.getElementById("past2").style = "display: none";
+                                        }
+                                    }
+                                </script>
+                            </div>
+
+                            <hr />
+
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Hạn chót nộp hồ sơ <b class="text-danger">*</b></label>
+                                    <p>Sau ngày này tin tuyển dụng sẽ không được hiển thị</p>
+                                    <input placeholder="0" value="" name="job_datedeline" type="date">
+                                </div>
+                                <div class="field">
+                                    <label>Tên người nhận hồ sơ<b class="text-danger">*</b></label>
+                                    <p>
+                                        Tên người sẽ nhận hồ sơ ứng tuyển để người nộ hồ sơ tiện xưng hô
+                                    </p>
+                                    <input placeholder="Tên xưng hô" style="height: 43px" value="@id.user_name" name="job_name" type="text">
+                                </div>
+                            </div>
+
+                            <div class="two fields tag example ui dropdown">
+                                <div class="field">
+                                    <label>Email nhận hồ sơ <b class="text-danger">*</b></label>
+                                    <p>Hồ sơ ứng tuyển được gửi về email này. </p>
+                                    <div style="height: 43px" class="ui fluid multiple search selection dropdown">
+                                        <input value="@id.user_email" name="job_email" type="hidden">
+                                        <i class="dropdown icon"></i>
+                                        <div class="default text">Skills</div>
+                                        <div class="menu">
+                                            <div class="item" data-value="@id.user_email">@id.user_email</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Điện thoại<b class="text-danger">*</b></label>
+                                    <p>
+                                        Bạn nên ghi chính xác để ứng viên có thể liên hệ khi cần thiết
+                                    </p>
+                                    <input placeholder="Số điện thoại" style="height: 43px" value="@id.user_phone" name="job_phone" type="text">
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="field">
+                                <label>Mô tả công việc <b class="text-danger">*</b></label>
+                                <p>Mô tả công việc phải làm dựa theo vị trí ứng tuyển</p>
+                                <textarea name="job_describe" id="job_describe"></textarea>
+                                <script>
+                                    ClassicEditor
+                                        .create(document.querySelector('#job_describe'))
+                                        .catch(error => {
+                                            console.error(error);
+                                        });
+                                </script>
+                            </div>
+                            <div class="field">
+                                <label>Yêu cầu ứng viên <b class="text-danger">*</b></label>
+                                <p>Các kỹ năng chuyên môn của ứng viên để đáp ứng nhu cầu công việc, các kỹ năng được ưu tiên của ứng viên... vv</p>
+                                <textarea name="job_request" id="job_request"></textarea>
+                                <script>
+                                    ClassicEditor
+                                        .create(document.querySelector('#job_request'))
+                                        .catch(error => {
+                                            console.error(error);
+                                        });
+                                </script>
+                            </div>
+                            <div class="field">
+                                <label>Quyền lợi ứng viên <b class="text-danger">*</b></label>
+                                <p>Các quyền lợi ứng viên được hưởng khi được nhận vào công ty như chế độ đào tạo, bảo hiểm, nghỉ mát, hoa hồng.. vv</p>
+                                <textarea name="job_right" id="job_right"></textarea>
+                                <script>
+                                    ClassicEditor
+                                        .create(document.querySelector('#job_right'))
+                                        .catch(error => {
+                                            console.error(error);
+                                        });
+                                </script>
+                            </div>
+
+                            <div class="field tag example ui dropdown w-100">
+                                <label>Kỹ năng</label>
+                                <p>Bạn có thể chọn nhiều hơn 1 giá trị hoặc để trống nếu không cần thiết</p>
+                                <div style="height: 43px" class="ui fluid multiple search selection dropdown">
+                                    <input value="" name="job_email" type="hidden" class="w-100">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Nhập kỹ năng</div>
+                                </div>
+                            </div>
+                            <center>
+                                <button onclick="window.location.href='#Top'" type="submit" class="ui red button">Đăng tin</button>
+                            </center>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable, .ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
+        height: 300px;
+    }
+</style>
+<script>
+    $('.ui.form')
+        .form({
+            inline: true,
+            on: 'blur',
+            fields: {
+                job_title: {
+                    identifier: 'job_title',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Tiêu để việc làm không để trống'
+                        },
+                        {
+                            type: 'minLength[5]',
+                            prompt: 'Tiêu để việc làm phải trên 5 ký tự'
+                        },
+                        {
+                            type: 'maxLength[1000]',
+                            prompt: 'Tiêu để việc làm không vượt quá 1000 ký tự'
+                        }
+                    ]
+                },
+                cate: {
+                    identifier: 'cate',
+                    rules: [
+                        {
+                            type: 'minCount[1]',
+                            prompt: 'Chọn ít nhất 3 nghành nghề'
+                        },
+                        {
+                            type: 'maxCount[3]',
+                            prompt: 'Chọn nghành nghề không vượt quá 3'
+                        }
+                    ]
+                },
+                wp_id: {
+                    identifier: 'wp_id',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng chọn cấp bậc tuyển dụng'
+                        }
+                    ]
+                },
+                type_id: {
+                    identifier: 'type_id',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng chọn loại hình làm việc'
+                        }
+                    ]
+                },
+                exp_id: {
+                    identifier: 'exp_id',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng chọn kinh nghiệm'
+                        }
+                    ]
+                },
+                job_datedeline: {
+                    identifier: 'job_datedeline',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng chọn ngày hết hạn hiển thị tin tuyển dụng'
+                        }
+                    ]
+                },
+                job_addpress: {
+                    identifier: 'job_addpress',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Địa chỉ không để trống'
+                        }
+                    ]
+                },
+                job_name: {
+                    identifier: 'job_name',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Tên xưng hô không để trống'
+                        }
+                    ]
+                },
+                job_name: {
+                    identifier: 'job_email',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Email nhận hồ sơ không để trống'
+                        }
+                    ]
+                },
+                job_phone: {
+                    identifier: 'job_phone',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Số điện thoại không để trống'
+                        }
+                    ]
+                },
+                job_describe: {
+                    identifier: 'job_describe',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Mô tả công việc không để trống'
+                        }
+                    ]
+                },
+                job_request: {
+                    identifier: 'job_request',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Yêu cầu ứng viên không để trống'
+                        }
+                    ]
+                }
+            }
+        })
+        ;
+</script>
+<script>
+    $('.dropdown')
+        .dropdown({
+            // you can use any ui transition
+            placeholder: 'true'
+        })
+        ;
+    $('.tag.example .ui.dropdown')
+        .dropdown({
+            allowAdditions: true
+        })
+        ;
+</script>

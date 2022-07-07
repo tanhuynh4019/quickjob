@@ -1,0 +1,103 @@
+﻿@using Model.EF;
+@using QuickJob.Function;
+@using Common
+@model Pakage
+@{
+    ViewBag.Title = "Xác nhận thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var coo = new FunctionController();
+    var id = coo.CookieID();
+
+    var money = Model.pakage_money * (1 - (float)Model.pakage_precent / 100);
+}
+<section class="bg-100" id="country" ng-app="myApp">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mx-auto align-items-center text-dark">
+                <div class="row d-flex justify-content-center pb-5">
+                    <div class="col-sm-5 col-md-5 ml-1" style="font-size: 16px">
+                        <div class="py-4 d-flex flex-row">
+                            <h5><span class="fa fa-check-square-o"></span><b>@Model.pakage_name</b> | </h5><span class="pl-2">Thanh toán nhanh chóng</span>
+                        </div>
+                        <strike><h4 class="green">Giá gốc: @Model.pakage_money.Value.ToString("#,###") VNĐ</h4></strike>
+                        <h4 class="text-danger">Giá khuyến mãi: <b>@money.Value.ToString("#,###")</b> VNĐ / 12 tháng</h4>
+                        <div class="d-flex pt-2">
+                            <div>
+                                <p><b></b></p>
+                            </div>
+                        </div>
+                        <hr />
+                        <h3>Bước 1: Xác nhận gói:</h3>
+                        <p class="mt-2">
+                            <b>Tên gói: </b> @Model.pakage_name
+                            <br />
+                            <b>Nâng cấp cho: </b> @id.user_email
+                            <br />
+                            <b>Với giá: </b> @money.Value.ToString("#,###") VNĐ trong <b>12</b> tháng
+                            <br />
+                            <b>Ngày hết hạn dự tính </b> @DateTime.Now.AddYears(1)
+                            <br />
+                            <b>Ngày bắt đầu dự tính </b> @DateTime.Now
+                        </p>
+                        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+                        <h3>Bước 2: Chọn hình thức thanh toán</h3>
+                        <b class="text-danger"><i class="fa fa-bell">&nbsp;</i> Bấm vào hình thức sẽ tự động thanh toán</b>
+                        <button class="w-100 bg-white mt-3"  style="border: 2px solid  #ae2070; font-size: 15px" onclick="window.location.href = '/Pays/PayMomo?id=@Model.pakage_id'">
+                            <div style="padding: 10px">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <img src="~/Images/Users/logo.png" class="w-100" style="height: 100px" />
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h3 class="text-left">Thanh toán bằng ví MOMO</h3>
+                                        <div class="text-left">
+                                            Quý khách vui lòng cài đặt Ví MoMo trước khi thanh toán. <a target="_blank" href="https://momo.vn/huong-dan/huong-dan-tai-va-cai-dat-vi-momo"><u>Hướng dẫn</u></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                        <div class="rounded bg-light d-flex mt-3">
+                            <div class="p-2">QuickJob đảm bảo mọi chức năng của ứng viên. Sau khi nâng cấp, QuickJob sẽ tăng cường khả năng kiếm việc làm đồng thời ứng viên cũng sẽ sở hữu được nhiều trải nghiệm tuyệt vời cùng QuickJob</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-4 offset-md-1 mobile">
+                        <div class="bg-light rounded d-flex flex-column border rounded">
+                            <div style="padding: 10px">
+                                <div class="p-2 ml-3">
+                                    <h4>Bạn được gì khi nâng cấp</h4>
+                                </div>
+                                <div class="p-2 d-flex">
+                                    <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Sử dụng tất cả các mẫu CV cao cấp</div>
+                                </div>
+                                <div class="p-2 d-flex">
+                                    <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Tải nhanh Cv mà không phải chờ đợi.</div>
+                                </div>
+                                <div class="p-2 d-flex">
+                                    <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Tải không giới hạn CV</div>
+                                </div>
+                                <div class="p-2 d-flex">
+                                    <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Tạo và quán lý tối đa 10 CV</div>
+                                </div>
+                                <div class="p-2 d-flex">
+                                    <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Ưu tiên nhận việc làm tốt.</div>
+                                </div>
+                                <div class="p-2 d-flex">
+                                    <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Lưu trữ CV mãi mãi.</div>
+                                </div>
+                                <div class="p-2 d-flex">
+                                    <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Sử dụng chức năng chấm điểm CV tối ưu</div>
+                                </div>
+                                <div class="p-2 d-flex">
+                                    <div class="col-12"><i class="fa fa-check-circle text-success">&nbsp;</i>Được sử dụng các phiên bản mới của QuickJob</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

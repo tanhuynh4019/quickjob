@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "AttentionEmployer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="services" class="text-dark" ng-app="myApp">
+    <div class="container" ng-controller="myCtrl">
+        <div class="row flex-center h-100">
+            <div class="col-xl-9">
+                <div class="row h-100" style="background-color: white">
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="border text-dark rounded">
+                                    <p style="padding: 10px">
+                                        <b>NHÀ TUYỂN DỤNG CHÚ Ý</b> <br />
+                                        <span class="text-danger">Bạn được nhà tuyển dụng chọn cho công việc đề cử. Nhà tuyển xem hồ sơ và chọn việc làm thích hơp cho bạn. Nếu chấp nhận hãy liên hệ với nhà tuyển dụng hoặc dùng QuickChat để nhắn tin ngay.</span>
+                                    </p>
+                                    <table class="table text-dark table-bordered" style=" cursor: pointer; font-size: 12px" id="displayAttentionEmployer">
+                                        
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.Action("All", "Users")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $(function () {
+            // Proxy created on the fly
+            var cus = $.connection.cvHub;
+            // Declare a function on the job hub so the server can invoke it
+            cus.client.displayAttentionEmployer = function () {
+                getData();
+            };
+            // Start the connection
+            $.connection.hub.start();
+            getData();
+        });
+        function getData() {
+            var $tbl = $('#displayAttentionEmployer');
+            $.ajax({
+                url: '/View/GetAttentionEmployer',
+                type: 'GET',
+                datatype: 'json',
+                success: function (data) {
+                    $tbl.empty();
+                    $.each(data.list, function (i, model) {
+                        $tbl.append
+                        (
+                            '<tr>' +
+                                '<td width="50%">' +
+                                    '<div class="row">' +
+                                        '<div class="col-lg-3">' +
+                                           ' <img style="width: 80px; height: 100px" src="/Images/Employers/'+model.logo+'" />'+
+                                        '</div>' +
+                                        '<div class="col-lg-9">' +
+                                            '<div>Công ty: '+model.company+'</div>' +
+                                            '<div class="text-danger">'+model.title+'</div>' +
+                                            '<div>Lương: '+model.textpeice+' '+model.paystart+'triệu '+model.payend+'triệu</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</td>' +
+                                '<td width="50%">' +
+                                    '<br /><br /><b>CV đã xem</b> <br />' +
+                                                'Tên: '+model.fullname+' <br />' +
+                                                'Chuyên nghành: '+model.location+' <br /> <hr/>' +
+                                    '<a class="ui red label">Xem thông tin</a>' +
+                                    '<a class="ui blue label">QuickChat</a> <br><br>' +
+                                '</td>' +
+                            '</tr>'
+                        );
+                    });
+                }
+            });
+        }
+    });
+</script>

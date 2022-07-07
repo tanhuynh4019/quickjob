@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Model.EF.WorkPlace>
+
+@{
+    ViewBag.Title = "Quản lý chức vụ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/LayoutAdmin/vendors/simple-datatables/style.css" rel="stylesheet" />
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            Quản lý chức vụ việc làm <br />
+            <br />
+            <a href="/Admin/WorkPlacesAdmin/Create" class="btn btn-danger"><i class="fa fa-plus-circle"></i>Thêm chức vụ việc làm</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <td>Mã</td>
+                        <td>Kinh nghiệm</td>
+                        <td>Tùy chọn</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderBy(n => n.wp_name))
+                    {
+                        <tr>
+                            <td>@item.wp_id</td>
+                            <td>@item.wp_name</td>
+                            <td>
+                                <a href="/Admin/WorkPlacesAdmin/Delete/@item.wp_id" onclick=""><i class="fa fa-trash"></i></a> |
+                                <a href="/Admin/WorkPlacesAdmin/Edit/@item.wp_id"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+<script src="~/Content/LayoutAdmin/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+
+    $('#table1 tbody').on('click', 'i.fa.fa-trash', function () {
+        $(this).closest('tr').remove();
+    });
+</script>

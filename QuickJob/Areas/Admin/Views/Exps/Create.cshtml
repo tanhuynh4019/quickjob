@@ -1,0 +1,41 @@
+﻿@model Model.EF.Exp
+
+@{
+    ViewBag.Title = "Thêm kinh nghiệm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            @ViewBag.Title <br />
+            <br />
+            <a class="btn btn-danger" href="/Admin/Exps/Index"><i class="fa fa-arrow-circle-left"></i>&nbsp;Trở về</a>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <b>Kinh nghiệm</b>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.exp_name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.exp_name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Thêm kinh nghiệm" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</section>
+

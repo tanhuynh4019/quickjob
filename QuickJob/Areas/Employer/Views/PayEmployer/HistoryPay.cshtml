@@ -1,0 +1,59 @@
+﻿@using Model.EF;
+@model List<Bill>
+@{
+    ViewBag.Title = "HistoryPay";
+    Layout = "~/Areas/Employer/Views/Shared/_Layout.cshtml";
+}
+<section class="intro-single">
+    <center><h3>Lịch sử thanh toán</h3></center>
+</section>
+<!--/ Intro Single End /-->
+<!--/ News Grid Star /-->
+<section class="news-grid grid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <tr class="bg-dark font-weight-bold text-white">
+                        <td>Mã hóa đơn</td>
+                        <td>Tên gói thanh toán</td>
+                        <td>Giá</td>
+                        <td>Tình trạng</td>
+                        <td>Ngày giao dịch</td>
+                    </tr>
+                    @if (Model.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="4">
+                                <h5 class="font-weight-bold text-danger mt-3">Chưa có hóa đơn nào</h5>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>HDTT#@item.bill_id</td>
+                                <td>@item.Pakage.pakage_name</td>
+                                <td>@item.bill_sum.Value.ToString("#,##") VNĐ</td>
+                                <td>
+                                    @if (@item.bill_active == true)
+                                    {
+                                        <b class="text-success">Thành công</b>
+                                    }
+                                    else
+                                    {
+                                        <b class="text-danger">Thất bại</b>
+                                    }
+                                </td>
+                                <td>@item.bill_datecreate</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+

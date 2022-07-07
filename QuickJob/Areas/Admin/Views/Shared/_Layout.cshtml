@@ -1,0 +1,86 @@
+﻿@using QuickJob.Function;
+@{ 
+    var fu = new FunctionController();
+    if(fu.CookieAd() == null)
+    {
+        Response.Redirect("/Admin/UsersAdmin/Login");
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet" />
+    <script src="~/Content/Semantic-UI-CSS-master/semantic.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/LayoutAdmin/css/bootstrap.css">
+
+    <link rel="stylesheet" href="~/Content/LayoutAdmin/vendors/iconly/bold.css">
+
+    <link rel="stylesheet" href="~/Content/LayoutAdmin/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/Content/LayoutAdmin/css/app.css">
+    <link rel="shortcut icon" href="~/Content/LayoutAdmin/images/favicon.svg" type="image/x-icon">
+    <link href="~/Content/fontawesome-free-5.15.3-web/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo">
+                            <a href="/Admin/HomeAdmin/Index">QuickJobAdmin</a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    @Html.Action("Menu", "ViewAdmin", new {key = ViewBag.Title })
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+            <div class="page-content">
+                @RenderBody()
+            </div>
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2021 &copy; Mazer</p>
+                    </div>
+                    <div class="float-end">
+                        <p>
+                            Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="~/Content/LayoutAdmin/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/Content/LayoutAdmin/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/LayoutAdmin/vendors/apexcharts/apexcharts.js"></script>
+    <script src="~/Content/LayoutAdmin/js/pages/dashboard.js"></script>
+
+    <script src="~/Content/LayoutAdmin/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js" integrity="sha512-DedNBWPF0hLGUPNbCYfj8qjlEnNE92Fqn7xd3Sscfu7ipy7Zu33unHdugqRD3c4Vj7/yLv+slqZhMls/4Oc7Zg==" crossorigin="anonymous"></script>
+</body>
+
+</html>

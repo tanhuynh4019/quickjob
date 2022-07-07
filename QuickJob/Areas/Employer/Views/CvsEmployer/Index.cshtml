@@ -1,0 +1,130 @@
+﻿@model IEnumerable<Model.EF.Cv>
+@using Microsoft.Ajax.Utilities;
+@using Model.EF;
+@{
+    ViewBag.Title = "Tìm kiếm ứng viên";
+    Layout = "~/Areas/Employer/Views/Shared/_Layout.cshtml";
+    DataQuickJobEntities db = new DataQuickJobEntities();
+
+
+    List<Cv> cvs = db.Cvs.OrderByDescending(n => n.cv_location).ToList();
+}
+
+<section class="intro-single">
+</section>
+<section class="property-grid grid" ng-app="myApp">
+    <div class="container" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-lg-3 shadow">
+                <div class="">
+                    <br />
+                    <b>Tìm kiếm hồ sơ</b>
+                    <div class="ui icon input w-100">
+                        <input type="text" placeholder="Vị trí ứng tuyển..." ng-model="txtSearch.location">
+                        <i class="inverted circular search link icon"></i>
+                    </div>
+                    <br />
+                    <select class="form-control mt-3" style="height: 40px" ng-model="txtSearch.rank">
+                        <option value="">Tất cả bằng cấp</option>
+                        <option value="Đại học">Đại học</option>
+                        <option value="Cao đẳng">Cao đẳng</option>
+                        <option value="Kinh tế">Kinh tế</option>
+                    </select>
+                    <select class="form-control mt-3" style="height: 40px" ng-model="txtSearch.sex">
+                        <option value="">Tất cả giới tính</option>
+                        <option value="nam">Nam</option>
+                        <option value="nữ">Nữ</option>
+                    </select>
+                    <select class="form-control mt-3" style="height: 40px" ng-model="txtSearch.location2">
+                        <option value="">Tất cả vị trí</option>
+                        @foreach (var item in db.Cvs.DistinctBy(n => n.cv_location.ToLower()).OrderByDescending(n => n.cv_datecreate))
+                        {
+                            <option value="@item.cv_location">@item.cv_location</option>
+                        }
+                    </select>
+                    <select class="form-control mt-3" style="height: 40px">
+                        <option value="">Tất cả hồ sơ</option>
+                        <option value="">Hồ sơ tốt</option>
+                        <option value="">Hồ sơ bình thường</option>
+                    </select>
+                    <hr />
+                    <b>Các vị trí ứng tuyển</b> <br />
+                    @foreach (var item in db.Cvs.DistinctBy(n => n.cv_location.ToLower()).OrderByDescending(n => n.cv_datecreate))
+                    {
+                        <button class="ui secondary basic button mt-2">@item.cv_location</button>
+                    }
+                    <br />
+                    <br />
+                </div>
+            </div>
+            <div class="col-lg-9 border">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div style="padding: 5px">
+                            <h5>Có hơn <b>{{count}}</b> hồ sơ đang chờ bạn </h5>
+                            <a href="#"><i class="fa fa-cog">&nbsp;</i>Cài đặt hiển thị việc làm (Ưu tiên hiển thị)</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-12" ng-show="(list | filter: txtSearch).length == 0">
+                        <h5 class="text-center mt-5">Không có dữ liệu</h5>
+                    </div>
+                    <div class="col-md-3 mt-3" ng-repeat="list in list | filter: txtSearch" ng-show="(list | filter: txtSearch).length != 0">
+                        <div class="card-box-a card-shadow">
+                            <div class="img-box-a">
+                                <img src="~/Images/Cvs/{{list.img}}" style="width: 100%; height: 250px" alt="" class="img-a img-fluid">
+                            </div>
+                            <div class="card-overlay">
+                                <div class="card-overlay-a-content">
+                                    <div class="card-header-a">
+                                        <h2 class="card-title-a">
+                                            <a href="#">
+                                                {{list.name}}
+                                            </a>
+                                        </h2>
+                                    </div>
+                                    <div class="card-body-a">
+                                        <div class="price-box d-flex">
+                                            <span class="price-a">{{list.location}}</span>
+                                        </div>
+                                        <a href="/Employer/CvsEmployer/DetailsCvs?id={{list.id}}" class="link-a">
+                                            Xem hồ sơ này
+                                            <span class="ion-ios-arrow-forward"></span>
+                                        </a>
+                                    </div>
+                                    <div class="card-footer-a">
+                                        <ul class="card-info d-flex justify-content-around">
+                                            <li>
+                                                <h4 class="card-info-title">Giới tính</h4>
+                                                <span>
+                                                    {{list.sex}}
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <h4 class="card-info-title">Lượt xem</h4>
+                                                <span>0</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/Employer/CvsEmployer/JsonIndex"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+            $scope.count = $scope.list.length;
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>

@@ -1,0 +1,86 @@
+﻿@using QuickJob.Function;
+@{ 
+    var fu = new FunctionController();
+}
+<nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+                aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <a class="navbar-brand text-brand" href="/Employer/HomeEmployer/Index">QuickJob<span class="color-b">Employer</span></a>
+        <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
+                data-target="#navbarTogglerDemo01" aria-expanded="false">
+            <span class="fa fa-search" aria-hidden="true"></span>
+        </button>
+        <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/Employer/HomeEmployer/Index">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">Giới thiệu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Employer/PayEmployer/Index">Báo giá</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="blog-grid.html">Liên hệ</a>
+                </li>
+                @if (fu.CookieEm() != null)
+                {
+                    var id = fu.CookieIDEm();
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user">&nbsp;</i>Tài khoản: @id.user_name
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="property-single.html">Mã NTD: #12212</a>
+                            @if (id.version_id == 3 || id.version_id == 4)
+                            {
+                                <a class="dropdown-item"><span class="ui green label w-100"><center>Tài khoản cao cấp</center></span></a>
+                            }
+                            else if (id.version_id == 5)
+                            {
+                                <a class="dropdown-item"><span class="ui orange label w-100"><center>Tài khoản Pro</center></span></a>
+                            }
+                            else if (id.version_id == 6)
+                            {
+                                <a class="dropdown-item"><span class="ui red label w-100"><center>Tài khoản Max pro</center></span></a>
+                            }
+                            else
+                            {
+                                <a class="dropdown-item"><span class="ui grey label w-100"><center>Tài khoản miển phí</center></span></a>
+                            }
+                            <a class="dropdown-item" href="/Employer/PayEmployer/HistoryPay"><i class="fa fa-history">&nbsp;</i>Danh sách đơn hàng</a>
+                            <a class="dropdown-item" href="agents-grid.html">Thông tin cá nhân</a>
+                            <a class="dropdown-item" href="/Employer/JobsEmployer/Index"><i class="fa fa-briefcase">&nbsp;</i>Quản lý tin tuyển dụng</a>
+                            <a class="dropdown-item" href="/Employer/UsersEmployer/PersonalPage"><i class="fa fa-building">&nbsp;</i>Thông tin công ty</a>
+                            <a class="dropdown-item" href="agent-single.html">Lịch sử xem CV</a>
+                            <a class="dropdown-item" href="/Employer/Submit/Index"><i class="fa fa-hand-grab-o">&nbsp;</i>Ứng viên nộp hồ sơ</a>
+                            <a class="dropdown-item" href="/Employer/PayEmployer/Index"><i class="fa fa-arrow-circle-o-up">&nbsp;</i>Nâng cấp tài khoản</a>
+                            <a class="dropdown-item" href="agent-single.html">Đổi mật khẩu</a>
+                            <a class="dropdown-item" href="@Url.Action("LogOut","UsersEmployer")"><i class="fa fa-sign-out">&nbsp;</i>Đăng xuất</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Chat/IndexEmployer"><i class="fa fa-comment"></i></a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Employer/UsersEmployer/Login">Đăng nhập</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
+                data-target="#navbarTogglerDemo01" aria-expanded="false">
+            <span class="fa fa-search" aria-hidden="true"></span>
+        </button>
+    </div>
+</nav>

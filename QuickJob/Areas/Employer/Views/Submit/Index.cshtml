@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Ứng viên nộp hồ sơ";
+    Layout = "~/Areas/Employer/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section-services section-t8" ng-app="myapp">
+    <div class="container" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-md-12 mt-3 ">
+                <div class=" border" id="top">
+                    <div style="padding: 20px">
+                        <div class="title-box">
+                            <h5 style="font-size: 18px" class="title-a">Ứng viên nộp hồ sơ (Có <span id="count"></span> đang nộp)</h5>
+                            <hr />
+                        </div>
+                        <table class="table" style="cursor: pointer" id="displaySubmitEmployer">
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(function () {
+        // Proxy created on the fly
+        var cus = $.connection.cvHub;
+        // Declare a function on the job hub so the server can invoke it
+        cus.client.displaySubmitEmployer = function () {
+            getData();
+        };
+        // Start the connection
+        $.connection.hub.start();
+        getData();
+    });
+    function getData() {
+        var $tbl = $('#displaySubmitEmployer');
+        $.ajax({
+            url: '/Employer/Submit/GetViewCvEmployer',
+            type: 'GET',
+            datatype: 'json',
+            success: function (data) {
+                $tbl.empty();
+                $.each(data.list, function (i, model) {
+                    $tbl.append
+                        (
+                            '<tr>' +
+                            '<td><img src="/Images/Cvs/' + model.imgcv + '" style="width: 50px; height: 50px;"/></td>' +
+                            '<td>' +
+                            '' + model.fullnamecv + '' +
+                            '<br/> <b>Chuyên nghành: </b> ' + model.locationcv + '' +
+                            '</td>' +
+                            '<td>' +
+                            '<b>Công việc: </b> ' + model.namejob + '' +
+                            '<br/> <b>Lương:</b> ' + model.textprice + ' ' + model.start + ' triệu ' + model.end + ' triệu ' +
+                            '</td>' +
+                            '<td>' + model.datecreate + '</td>' +
+                            '<td> <a class="ui red button" href="/Employer/Submit/Details?id=' + model.id + '">Xem hồ sơ</button> </td>' +
+                            '<td class="' + model.color + '">' + model.active + '</td>' +
+                            '<td>' +
+                            '</td>' +
+                            '</tr>'
+                        );
+                    document.getElementById("count").innerText = data.list.length;
+                });
+            }
+        });
+    }
+</script>

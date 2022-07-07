@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Model.EF.Cv>
+
+@{
+    ViewBag.Title = "Quản lý CV ứng viên";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/LayoutAdmin/vendors/simple-datatables/style.css" rel="stylesheet" />
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            Quản lý CV ứng viên
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <td>Mã</td>
+                        <td>Tên ứng viên</td>
+                        <td>Vị trí</td>
+                        @*<td>Tỉnh thành</td>*@
+                        @*<td>Thông tin</td>*@
+                        <td>Chấm điểm CV</td>
+                        <td>Lượt xem</td>
+                        <td>Mẫu CV</td>
+                        @*<td>Ngày tạo</td>*@
+                        <td>Tình trạng</td>
+                        <td>Hoạt động</td>
+                        <td>Ngày cập nhật</td>
+                        <td>Tùy chọn</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderByDescending(n=>n.cv_datebirth))
+                    {
+                        <tr>
+                            <td>@item.cv_id</td>
+                            <td>@item.cv_fullname</td>
+                            <td>@item.cv_location</td>
+                            <td>@item.cv_point</td>
+                            <td>@item.cv_view</td>
+                            <td>@item.Theme.theme_name</td>
+                            @*<td>
+                                    <b>Hình thức: </b>@item.TypeJob.type_name <br />
+                                    <b>Cấp bậc: </b>@item.WorkPlace.wp_name <br />
+                                    <b>Kinh nghiệm: </b>@item.Exp.exp_name <br />
+                                    <b>Giới tính: </b>@(item.job_sex == true ? "Name" : "Nữ") <br />
+                                    <b>Số lượng: </b>@item.job_amout <br />
+                                </td>*@
+                            <td>
+                                <span class="badge @(item.cv_active == 1 ? "bg-success" : "bg-danger")">@(item.cv_active == 1 ? "Hoạt động" : "Ngưng")</span>
+                            </td>
+                            <td>
+                                <span class="badge @(item.cv_option == true ? "bg-success" : "bg-danger")">@(item.cv_option == true ? "Hiển thị" : "Tắt")</span>
+                            </td>
+                            <td>@(item.cv_dateupdate != null ? item.cv_dateupdate.Value.ToLongDateString() : item.cv_datecreate.Value.ToLongDateString())</td>
+                            <td>
+                                <a href="/Admin/CvsAdmin/Details/@item.cv_id"><i class="fa fa-eye"></i></a> |
+                                <a href="#" onclick="remove(@item.cv_id)"><i class="fa fa-trash"></i></a> |
+                                <a href="/Admin/CvsAdmin/Edit?id=@item.cv_id"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+<script src="~/Content/LayoutAdmin/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+
+    $('#table1 tbody').on('click', 'i.fa.fa-trash', function () {
+        $(this).closest('tr').remove();
+    });
+</script>
+
+
+<script>
+    function remove(id) {
+        $.ajax({
+            type: "POST",
+            url: "/Admin/CvsAdmin/Remove?id=" + id,
+            contentType: "json",
+            success: function (response) {
+                if (response) {
+                    alert("Xóa thành công!");
+                }
+                else {
+                    alert("Có lỗi ngoại lệ!");
+                }
+            }
+        })
+    }
+</script>

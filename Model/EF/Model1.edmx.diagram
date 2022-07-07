@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1bb2b2a52e674c4888ac99142e9bebdc" Name="Diagram1" ZoomLevel="75">
+        <EntityTypeShape EntityType="DataQuickJobModel.Bill" Width="1.5" PointX="8.25" PointY="18.875" />
+        <EntityTypeShape EntityType="DataQuickJobModel.Category" Width="1.5" PointX="8.25" PointY="23.5" />
+        <EntityTypeShape EntityType="DataQuickJobModel.Chat" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataQuickJobModel.Cv" Width="1.5" PointX="10.25" PointY="5.5" />
+        <EntityTypeShape EntityType="DataQuickJobModel.Exp" Width="1.5" PointX="3" PointY="6.125" />
+        <EntityTypeShape EntityType="DataQuickJobModel.Group" Width="1.5" PointX="10.5" PointY="14.5" />
+        <EntityTypeShape EntityType="DataQuickJobModel.ItemCv" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataQuickJobModel.Job" Width="1.5" PointX="5.25" PointY="12.875" />
+        <EntityTypeShape EntityType="DataQuickJobModel.News" Width="1.5" PointX="5.25" PointY="26.875" />
+        <EntityTypeShape EntityType="DataQuickJobModel.Pakage" Width="1.5" PointX="6" PointY="21" />
+        <EntityTypeShape EntityType="DataQuickJobModel.Provice" Width="1.5" PointX="0.75" PointY="21" />
+        <EntityTypeShape EntityType="DataQuickJobModel.Role" Width="1.5" PointX="0.75" PointY="18.375" />
+        <EntityTypeShape EntityType="DataQuickJobModel.SubmitCv" Width="1.5" PointX="7.5" PointY="10.75" />
+        <EntityTypeShape EntityType="DataQuickJobModel.SubmitJob" Width="1.5" PointX="7.5" PointY="15" />
+        <EntityTypeShape EntityType="DataQuickJobModel.Theme" Width="1.5" PointX="8" PointY="7" />
+        <EntityTypeShape EntityType="DataQuickJobModel.TypeJob" Width="1.5" PointX="3" PointY="8.75" />
+        <EntityTypeShape EntityType="DataQuickJobModel.User" Width="1.5" PointX="3" PointY="11.625" />
+        <EntityTypeShape EntityType="DataQuickJobModel.Version" Width="1.5" PointX="0.75" PointY="13.125" />
+        <EntityTypeShape EntityType="DataQuickJobModel.ViewCv" Width="1.5" PointX="12.5" PointY="11.125" />
+        <EntityTypeShape EntityType="DataQuickJobModel.Word" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DataQuickJobModel.WorkPlace" Width="1.5" PointX="0.75" PointY="15.5" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Bills_Pakages" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Bills_Users" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Groups_Categorys" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Cvs_Themes" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Cvs_Users" />
+        <AssociationConnector Association="DataQuickJobModel.FK_SubmitCv_Cvs" />
+        <AssociationConnector Association="DataQuickJobModel.FK_SubmitJob_Cvs" />
+        <AssociationConnector Association="DataQuickJobModel.FK_ViewCvs_Cvs" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Jobs_Exps" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Groups_Jobs" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Groups_Provices" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Groups_Users" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Jobs_Types" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Jobs_Users" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Jobs_WorkPlaces" />
+        <AssociationConnector Association="DataQuickJobModel.FK_SubmitCv_Jobs" />
+        <AssociationConnector Association="DataQuickJobModel.FK_SubmitJob_Jobs" />
+        <AssociationConnector Association="DataQuickJobModel.FK_News_Users" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Pakages_Roles" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Users_Provices" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Users_Roles" />
+        <AssociationConnector Association="DataQuickJobModel.FK_SubmitCv_Users" />
+        <AssociationConnector Association="DataQuickJobModel.FK_SubmitJob_Users" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Users_Versions" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Users_WorkPlaces" />
+        <AssociationConnector Association="DataQuickJobModel.FK_ViewCvs_Users" />
+        <EntityTypeShape EntityType="DataQuickJobModel.Rating" Width="1.5" PointX="5.25" PointY="7.25" />
+        <EntityTypeShape EntityType="DataQuickJobModel.sysdiagram" Width="1.5" PointX="5.375" PointY="3.75" />
+        <AssociationConnector Association="DataQuickJobModel.FK_Ratings_Users" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

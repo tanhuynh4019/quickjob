@@ -1,0 +1,28 @@
+﻿@model Model.EF.WorkPlace
+
+@{
+    ViewBag.Title = "Xóa chức vụ " + Model.wp_name ;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            @ViewBag.Title <br />
+            <br />
+            <a class="btn btn-danger" href="/Admin/WorkPlacesAdmin/Index"><i class="fa fa-arrow-circle-left"></i>&nbsp;Trở về</a>
+        </div>
+        <div class="card-body">
+            <h3>Bạn có chắc muốn xóa?</h3>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-primary" />
+                </div>
+            }
+        </div>
+    </div>
+
+</section>

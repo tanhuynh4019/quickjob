@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Model.EF.Word>
+
+@{
+    ViewBag.Title = "Quản lý từ cấm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/LayoutAdmin/vendors/simple-datatables/style.css" rel="stylesheet" />
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            Quản lý từ cấm <br />
+            <br />
+            <a class="btn btn-danger" href="/Admin/WordsAdmin/Create    "><i class="fa fa-plus-circle"></i>Thêm từ cấm</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <td>Mã</td>
+                        <td>Từ cấm</td>
+                        <td>Tùy chọn</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderBy(n => n.word_name))
+                    {
+                        <tr>
+                            <td>@item.word_id</td>
+                            <td>@item.word_name</td>
+                            <td>
+                                <a href="/Admin/WordsAdmin/Delete/@item.word_id"><i class="fa fa-trash"></i></a> |
+                                <a href="/Admin/WordsAdmin/Edit/@item.word_id"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+<script src="~/Content/LayoutAdmin/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+
+    $('#table1 tbody').on('click', 'i.fa.fa-trash', function () {
+        $(this).closest('tr').remove();
+    });
+</script>

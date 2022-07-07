@@ -1,0 +1,1284 @@
+﻿@using Model.EF;
+@using QuickJob.Function;
+@model Cv
+@{
+    DataQuickJobEntities db = new DataQuickJobEntities();
+    List<ItemCv> itemCvs = db.ItemCvs.ToList();
+
+    var px = "px";
+
+}
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<link href="~/Content/fontawesome-free-5.15.3-web/css/all.min.css" rel="stylesheet" />
+<style>
+    h4 {
+        font-weight: bold;
+        font-size: 20px;
+    }
+</style>
+<body style="background-color: #525659; width: 100%; height: 1000px; padding: 0px" ng-app="myApp">
+    <div class="fixed-top sticky-top" style="height: 70px; width: 100%; background-color: rgba(0,0,0,.5)" ng-controller="myCtrl">
+        <div class="col-lg-4">
+            <h3 style="color: white">Key CV @Model.cv_fakeid.Substring(0, 6)</h3>
+        </div>
+        <div class="col-lg-4">
+            <div class="text-right" style="font-size: 20px">
+                @if (Model.cv_submitkey < 4 && Model.cv_submitkey > 0)
+                {
+                    <center>
+                        <br />
+                        <a class="btn btn-danger" ng-click="getPDF()" style="color: white; cursor: pointer"><i class="fa fa-download">&nbsp;</i>Tải PDF (Còn @Model.cv_submitkey)</a><span>&nbsp; &nbsp; &nbsp;</span>
+                    </center>
+                }
+                else
+                {
+                    <center>
+                        <br />
+                        <a style="color: white; cursor: pointer"><i class="fa fa-download">&nbsp;</i>Bạn đã đạt giới hạn tải của key này</a><span>&nbsp; &nbsp; &nbsp;</span>
+                    </center>
+                }
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="text-right" style="font-size: 20px">
+                <center>
+                    <br />
+                    <a href="/Cvs/Theme/@Model.theme_id" style="color: white"><i class="fa fa-edit">&nbsp;</i>Sửa PDF</a>
+                </center>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="col-lg-12 w-100" style="background-color: white;">
+                <div class="">
+                    @if (Model.theme_id == 5)
+                    {
+                        <style>
+                            h4 {
+                                color: white;
+                            }
+                        </style>
+                        <section id="global-settings" class="card">
+                            <div class="card-content canvas_div_pdf">
+                                <div class="card-body arial" id="f">
+                                    <div class="card-text border shadow f15" id="size">
+                                        <div class="row">
+                                            <div class="col-lg-4" style="background-color: @Model.cv_bg">
+                                                <br />
+                                                <div style="padding: 10px" class="hv1 bg-white">
+                                                    <center>
+                                                        @if (Model.cv_img == null)
+                                                        {
+                                                            <img data-toggle="modal" data-target="#img" class="cv-img file-upload-image" src="~/Images/Cvs/blankprofile_large.png" style="width: 250px; height: 250px" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img data-toggle="modal" data-target="#img" class="cv-img file-upload-image" src="~/Images/Cvs/@Model.cv_img" style="width: 250px; height: 250px" />
+                                                        }
+                                                    </center>
+                                                </div>
+
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom"><i class="fa fa-address-card">&nbsp;</i>CHỨNG CHỈ</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_CHUNGCHI))
+                                                    {
+                                                        <div class="row mt-2" style="color: white" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom"><i class="fa fa-address-card">&nbsp;</i>GIẢI THƯỞNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_GIAITHUONG))
+                                                    {
+                                                        <div class="row mt-2" style="color: white" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom"><i class="fa fa-address-card">&nbsp;</i>CÁC KỸ NĂNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_CACKYNANG))
+                                                    {
+                                                        <div class="row mt-2" style="color: white" ng-repeat="list in list">
+                                                            <div class="col-lg-4">
+                                                                <div><b>@item.ic_name</b></div>
+                                                            </div>
+                                                            <div class="col-lg-8s">
+                                                                @item.ic_mid
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                                <div style="padding: 10px" class="hv1">
+                                                    <h4 class="font-weight-bold border-bottom"><i class="fa fa-address-card">&nbsp;</i>SỞ THÍCH</h4>
+                                                    <p class="mt-2" style="color: white">
+                                                        @Model.cv_interest
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div class="bg-danger">
+                                                    <div style="padding: 10px" class="hv1">
+                                                        <center>
+                                                            <h1 class="font-weight-bold mt-1">@Model.cv_fullname</h1>
+                                                            <p>
+                                                                @Model.cv_location
+                                                            </p>
+                                                        </center>
+                                                    </div>
+                                                    <div style="padding: 10px" class="hv1">
+                                                        <table class="text-white">
+                                                            <tr>
+                                                                <td width="20%"><b><i class="fa fa-birthday-cake">&nbsp;</i>Ngày sinh: </b></td>
+                                                                <td width="60%">
+                                                                    @Model.cv_datebirth
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="20%"><b><i class="fa fa-genderless">&nbsp;</i>Giới tính: </b></td>
+                                                                <td width="60%">
+                                                                    @Model.cv_sex
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="20%"><b><i class="fa fa-phone">&nbsp;</i>Số điện thoại: </b></td>
+                                                                <td width="60%">
+                                                                    @Model.cv_phone
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="20%"><b><i class="fa fa-envelope">&nbsp;</i>Email: </b></td>
+                                                                <td width="60%">
+                                                                    @Model.cv_email
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="20%"><b><i class="fa fa-address-card">&nbsp;</i>Địa chỉ:  </b></td>
+                                                                <td width="60%">
+                                                                    @Model.cv_addpress
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="20%"><b><i class="fab fa-facebook-square">&nbsp;</i>Fakebook: </b></td>
+                                                                <td width="60%">
+                                                                    @Model.cv_website
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <div style="padding: 10px" class="hv1 mt-2">
+                                                    <h4 class="font-weight-bold border-bottom text-danger"><i class="fa fa-address-card">&nbsp;</i>MỤC TIÊU NGHỀ NGHIỆP</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_target
+                                                    </p>
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-2">
+                                                    <h4 class="font-weight-bold border-bottom text-danger"><i class="fa fa-address-card">&nbsp;</i>HỌC VẤN</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_HOCTAP))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom text-danger"><i class="fa fa-address-card">&nbsp;</i>KINH NGHIỆM LÀM VIỆC</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_KINHNGHIEMVIECLAM))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom text-danger"><i class="fa fa-address-card">&nbsp;</i>HOẠT ĐỘNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_HOATDONG))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom text-danger"><i class="fa fa-address-card">&nbsp;</i>THÔNG TIN THÊM</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_informatin
+                                                    </p>
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom text-danger"><i class="fa fa-address-card">&nbsp;</i>NGƯỜI THAM CHIẾU</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_referenceperson
+                                                    </p>
+                                                </div>
+                                                <br />
+                                                <br />
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    }
+                    else if (Model.theme_id == 4)
+                    {
+                        <style>
+                            h4{
+                                color: @Model.cv_bg;
+                            }
+                        </style>
+                        <div id="global-settings" class="">
+                            <div class="canvas_div_pdf">
+                                <div style="font-family: @Model.cv_f">
+                                    <div class="border shadow f15" id="size">
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <div style="padding: 10px" class="hv1">
+                                                    <h4 class="font-weight-bold border-bottom"><i class="fa fa-address-card">&nbsp;</i>HỌC VẤN</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_HOCTAP))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom"><i class="fa fa-address-card">&nbsp;</i>KINH NGHIỆM LÀM VIỆC</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_KINHNGHIEMVIECLAM))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom"><i class="fa fa-address-card">&nbsp;</i>HOẠT ĐỘNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_HOATDONG))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom"><i class="fa fa-address-card">&nbsp;</i>CHỨNG CHỈ</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_CHUNGCHI))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom"><i class="fa fa-address-card">&nbsp;</i>GIẢI THƯỞNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_GIAITHUONG))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom"><i class="fa fa-address-card">&nbsp;</i>CÁC KỸ NĂNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_CACKYNANG))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_mid
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom"><i class="fa fa-address-card">&nbsp;</i>THÔNG TIN THÊM</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_informatin
+                                                    </p>
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-1">
+                                                    <h4 class="font-weight-bold border-bottom"><i class="fa fa-address-card">&nbsp;</i>NGƯỜI THAM CHIẾU</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_referenceperson
+                                                    </p>
+                                                </div>
+                                                <br />
+                                                <br />
+                                            </div>
+
+                                            <div class="col-lg-4" style="background-color: @Model.cv_bg; height: 100%">
+                                                <br />
+                                                <div style="padding: 10px" class="hv1 bg-white">
+                                                    <center>
+                                                        @if (Model.cv_img == null)
+                                                        {
+                                                            <img data-toggle="modal" data-target="#img" class="cv-img file-upload-image" src="~/Images/Cvs/blankprofile_large.png" style="width: 230px; height: 250px" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img data-toggle="modal" data-target="#img" class="cv-img file-upload-image" src="~/Images/Cvs/@Model.cv_img" style="width: 230px; height: 250px" />
+                                                        }
+                                                        <h1 class="font-weight-bold mt-1" style="color: white">@Model.cv_fullname</h1>
+                                                        <p style="color: white">
+                                                            @Model.cv_location
+                                                        </p>
+                                                    </center>
+                                                </div>
+                                                <div style="padding: 10px" class="hv1">
+                                                    <table class="text-white" style="color: white">
+                                                        <tr>
+                                                            <td width="5%"><b><i class="fa fa-birthday-cake"></i> </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_datebirth
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="5%"><b><i class="fa fa-genderless"></i> </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_sex
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="5%"><b><i class="fa fa-phone"></i></b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_phone
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="5%"><b><i class="fa fa-envelope"></i> </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_email
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="5%"><b><i class="fa fa-address-card"></i> </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_addpress
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="5%"><b><i class="fab fa-facebook-square"></i> </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_website
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div style="padding: 10px;" class="hv1 mt-2">
+                                                    <h4 style=" color: white" class="font-weight-bold border-bottom text-white">MỤC TIÊU NGHỀ NGHIỆP</h4>
+                                                    <p class="mt-2" style="color: white">
+                                                        @Model.cv_target
+                                                    </p>
+                                                </div>
+                                                <div style="padding: 10px" class="hv1">
+                                                    <h4 style="color: white" class="font-weight-bold border-bottom text-white">SỞ THÍCH</h4>
+                                                    <p class="mt-2" style="color: white">
+                                                        @Model.cv_interest
+                                                    </p>
+                                                </div>
+                                                <br />
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (Model.theme_id == 3)
+                    {
+                        <section id="global-settings" class="card">
+                            <div class="card-content canvas_div_pdf">
+                                <div class="card-body arial" id="f">
+                                    <div class="card-text border shadow f15" id="size">
+                                        <div class="row hv1">
+                                            <div class="col-lg-8">
+                                                <div style="padding: 10px">
+                                                    <h1 class="font-weight-bold mt-1">@Model.cv_fullname</h1>
+                                                    <p>
+                                                        @Model.cv_location
+                                                    </p>
+                                                    <table>
+                                                        <tr>
+                                                            <td width="40%"><b>Ngày sinh: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_datebirth
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Giới tính: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_sex
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Điện thoại: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_phone
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Email: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_email
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Địa chỉ: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_addpress
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Website: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_website
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div style="padding: 10px">
+                                                    <center>
+                                                        @if (Model.cv_img == null)
+                                                        {
+                                                            <img data-toggle="modal" data-target="#img" class="cv-img file-upload-image" src="~/Images/Cvs/blankprofile_large.png" style="width: 230px; height: 250px" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img data-toggle="modal" data-target="#img" class="cv-img file-upload-image" src="~/Images/Cvs/@Model.cv_img" style="width: 230px; height: 250px" />
+                                                        }
+                                                    </center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">MỤC TIÊU NGHỀ NGHIỆP</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_target
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">HỌC VẤN</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_HOCTAP))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">KINH NGHIỆM LÀM VIỆC</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_KINHNGHIEMVIECLAM))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">HOẠT ĐỘNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_HOATDONG))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">CHỨNG CHỈ</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_CHUNGCHI))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">GIẢI THƯỞNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_GIAITHUONG))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">CÁC KỸ NĂNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_CACKYNANG))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                @item.ic_mid
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">SỞ THÍCH</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_interest
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">THÔNG TIN THÊM</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_informatin
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">NGƯỜI THAM CHIẾU</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_referenceperson
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    }
+                    else if (Model.theme_id == 2)
+                    {
+                        <section id="global-settings" class="card">
+                            <div class="card-content canvas_div_pdf">
+                                <div class="card-body arial" style="font-family: @Model.cv_f">
+                                    <div class="card-text container border shadow f15" style="font-size:@Model.cv_fontsize@px">
+                                        <div class="row hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <center>
+                                                        @if (Model.cv_img == null)
+                                                        {
+                                                            <img data-toggle="modal" data-target="#img" class="cv-img file-upload-image" src="~/Images/Cvs/blankprofile_large.png" style="width: 200px; height: 200px; border-radius: 50%" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img data-toggle="modal" data-target="#img" class="cv-img file-upload-image" src="~/Images/Cvs/@Model.cv_img" style="width: 200px; height: 200px;border-radius: 50%" />
+                                                        }
+                                                        <h1 class="font-weight-bold mt-1">@Model.cv_fullname</h1>
+                                                        <p>
+                                                            @Model.cv_location
+                                                        </p>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="col-lg-8">
+                                                <div style="padding: 10px" class="hv1">
+                                                    <h4 class="font-weight-bold border-bottom"><b style="font-size: 20px; color: green">|</b> MỤC TIÊU NGHỀ NGHIỆP</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_target
+                                                    </p>
+                                                </div>
+                                                <div style="padding: 10px" class="hv1">
+                                                    <h4 class="font-weight-bold border-bottom"><b style="font-size: 20px; color: green">|</b> HỌC VẤN</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_HOCTAP))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-3">
+                                                    <h4 class="font-weight-bold border-bottom"><b style="font-size: 20px; color: green">|</b> KINH NGHIỆM LÀM VIỆC</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_KINHNGHIEMVIECLAM))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-3">
+                                                    <h4 class="font-weight-bold border-bottom"><b style="font-size: 20px; color: green">|</b> HOẠT ĐỘNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_HOATDONG))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-3">
+                                                    <h4 class="font-weight-bold border-bottom"><b style="font-size: 20px; color: green">|</b>  THÔNG TIN THÊM</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_informatin
+                                                    </p>
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-3">
+                                                    <h4 class="font-weight-bold border-bottom"><b style="font-size: 20px; color: green">|</b>  NGƯỜI THAM CHIẾU</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_referenceperson
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div style="padding: 10px" class="hv1">
+                                                    <h4 class="font-weight-bold border-bottom"><b style="font-size: 20px; color: green">|</b> THÔNG TIN CÁ NHÂN</h4>
+                                                    <table>
+                                                        <tr>
+                                                            <td width="40%"><b>Ngày sinh: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_datebirth
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Giới tính: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_sex
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Điện thoại: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_phone
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Email: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_email
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Địa chỉ: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_addpress
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Website: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_website
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-3">
+                                                    <h4 class="font-weight-bold border-bottom"><b style="font-size: 20px; color: green">|</b>  CHỨNG CHỈ</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_CHUNGCHI))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-4">
+                                                                @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-3">
+                                                    <h4 class="font-weight-bold border-bottom"><b style="font-size: 20px; color: green">|</b>  GIẢI THƯỞNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_GIAITHUONG))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-4">
+                                                                @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-3">
+                                                    <h4 class="font-weight-bold border-bottom"><b style="font-size: 20px; color: green">|</b>  CÁC KỸ NĂNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_CACKYNANG))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-4">
+                                                                @item.ic_name
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_mid</b></div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div style="padding: 10px" class="hv1 mt-3">
+                                                    <h4 class="font-weight-bold border-bottom"><b style="font-size: 20px; color: green">|</b>  SỞ THÍCH</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_interest
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    }
+                    else
+                    {
+                        <section id="global-settings">
+                            <div class="card-content canvas_div_pdf">
+                                <div class="card-body arial" style="font-family: @Model.cv_f">
+                                    <div class="card-text border shadow f15" style="font-size: @Model.cv_fontsize@px">
+                                        <div class="row ">
+                                            <div class="col-lg-4">
+                                                <div style="padding: 10px">
+                                                    <center>
+                                                        @if (Model.cv_img == null)
+                                                        {
+                                                            <img data-toggle="modal" data-target="#img" class="cv-img file-upload-image" src="~/Images/Cvs/blankprofile_large.png" style="width: 230px; height: 250px" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img data-toggle="modal" data-target="#img" class="cv-img file-upload-image" src="~/Images/Cvs/@Model.cv_img" style="width: 230px; height: 250px" />
+                                                        }
+                                                    </center>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div style="padding: 10px">
+                                                    <h1 class="font-weight-bold mt-1">@Model.cv_fullname</h1>
+                                                    <p>
+                                                        @Model.cv_location
+                                                    </p>
+                                                    <table>
+                                                        <tr>
+                                                            <td width="40%"><b>Ngày sinh: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_datebirth
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Giới tính: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_sex
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Điện thoại: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_phone
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Email: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_email
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Địa chỉ: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_addpress
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="40%"><b>Website: </b></td>
+                                                            <td width="60%">
+                                                                @Model.cv_website
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">MỤC TIÊU NGHỀ NGHIỆP</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_target
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">HỌC VẤN</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_HOCTAP))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">KINH NGHIỆM LÀM VIỆC</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_KINHNGHIEMVIECLAM))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">HOẠT ĐỘNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_HOATDONG))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-4">
+                                                                @item.ic_todate - @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                                <div>@item.ic_mid</div>
+                                                                <div>@item.ic_content</div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">CHỨNG CHỈ</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_CHUNGCHI))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-4">
+                                                                @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">GIẢI THƯỞNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_GIAITHUONG))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-4">
+                                                                @item.ic_enddate
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_name</b></div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">CÁC KỸ NĂNG</h4>
+                                                    @foreach (var item in itemCvs.Where(n => n.ic_fake == Model.cv_fakeid && n.ic_stt == Common.Common.CV_CACKYNANG))
+                                                    {
+                                                        <div class="row mt-2" ng-repeat="list in list">
+                                                            <div class="col-lg-4">
+                                                                @item.ic_name
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div><b>@item.ic_mid</b></div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <hr />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">SỞ THÍCH</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_interest
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">THÔNG TIN THÊM</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_informatin
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 hv1">
+                                            <div class="col-lg-12">
+                                                <div style="padding: 10px">
+                                                    <h4 class="font-weight-bold border-bottom">NGƯỜI THAM CHIẾU</h4>
+                                                    <p class="mt-2">
+                                                        @Model.cv_referenceperson
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <br />
+                <br />
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        Sau <span id="time" style="font-size: 40px">20</span> sẽ tải về
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $scope.getPDF = function () {
+            var HTML_Width = $(".canvas_div_pdf").width();
+        var HTML_Height = $(".canvas_div_pdf").height();
+        var top_left_margin = 15;
+        var PDF_Width = HTML_Width + (top_left_margin * 2);
+        var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+        var canvas_image_width = HTML_Width;
+        var canvas_image_height = HTML_Height;
+
+        var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+
+        html2canvas($(".canvas_div_pdf")[0], { allowTaint: true }).then(function (canvas) {
+            canvas.getContext('2d');
+
+            console.log(canvas.height + "  " + canvas.width);
+
+
+            var imgData = canvas.toDataURL("image/jpeg", 1.0);
+            var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+            pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+
+
+            for (var i = 1; i <= totalPDFPages; i++) {
+                pdf.addPage(PDF_Width, PDF_Height);
+                pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+            }
+
+            pdf.save("@Model.cv_fullname-@Model.cv_fakeid.Substring(0,6)-cv.pdf");
+
+
+            $http({
+                method: "GET",
+                url: "/Cvs/Submitkey?key=@Model.cv_fakeid"
+            }).then(function mySuccess(response) {
+                location.reload();
+            }, function myError(response) {
+                
+            });
+            location.reload();
+
+        });
+        }
+    });
+</script>

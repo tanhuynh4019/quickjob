@@ -1,0 +1,67 @@
+﻿@model Model.EF.Pakage
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pakage</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.pakage_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pakage_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pakage_note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pakage_note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pakage_money)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pakage_money)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pakage_precent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pakage_precent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pakage_active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pakage_active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Role.role_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role.role_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.pakage_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,442 @@
+﻿@using Model.EF 
+@{
+    DataQuickJobEntities db = new DataQuickJobEntities();
+    ViewBag.Title = "Tổng quan";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    List<User> users = db.Users.ToList();
+    List<Job> jobs = db.Jobs.ToList();
+    List<Cv> cvs = db.Cvs.ToList();
+}
+<section class="row">
+    <div class="col-12 col-lg-9">
+        <div class="row">
+            <div class="col-6 col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon purple">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Ứng viên</h6>
+                                <h6 class="font-extrabold mb-0">@users.Where(n=>n.role_id == 1).Count()</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon blue">
+                                    <i class="fa fa-building"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Nhà tuyển dụng</h6>
+                                <h6 class="font-extrabold mb-0">@users.Where(n => n.role_id == 2).Count()</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon green">
+                                    <i class="fa fa-briefcase"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Tin tuyển dụng</h6>
+                                <h6 class="font-extrabold mb-0">@jobs.Where(n=>n.job_bin == false).Count()</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon red">
+                                    <i class="fa fa-address-book"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">CV</h6>
+                                <h6 class="font-extrabold mb-0">@cvs.Where(n=>n.cv_bin == false).Count()</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .cr{
+                overflow-y: auto;
+                height: 300px;
+            }
+        </style>
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Lịch sử hoạt động ứng viên</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive cr">
+                            <table class="table table-hover table-lg">
+                                <tbody>
+                                    <tr>
+                                        <td class="col-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-md">
+                                                    <img src="~/Images/Users/7d4870d1-b377-4663-8757-5a84c421060432644928_2062295167425734_7686714948314988544_o.jpg">
+                                                </div>
+                                                <p class="font-bold ms-3 mb-0">Tấn Huỳnh</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">Vừa mới tạo CV được 100 điểm!</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-md">
+                                                    <img src="~/Images/Users/7d4870d1-b377-4663-8757-5a84c421060432644928_2062295167425734_7686714948314988544_o.jpg">
+                                                </div>
+                                                <p class="font-bold ms-3 mb-0">Tấn Huỳnh</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">Vừa nâng cấp tài khoản với giá 200.000 vnđ!</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-md">
+                                                    <img src="~/Images/Users/7d4870d1-b377-4663-8757-5a84c421060432644928_2062295167425734_7686714948314988544_o.jpg">
+                                                </div>
+                                                <p class="font-bold ms-3 mb-0">Tấn Huỳnh</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">Vừa nộp CV cho công ty "FPT thành công"!</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-md">
+                                                    <img src="~/Images/Users/7d4870d1-b377-4663-8757-5a84c421060432644928_2062295167425734_7686714948314988544_o.jpg">
+                                                </div>
+                                                <p class="font-bold ms-3 mb-0">Tấn Huỳnh</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">Vừa mới tạo CV được 100 điểm!</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-md">
+                                                    <img src="~/Images/Users/7d4870d1-b377-4663-8757-5a84c421060432644928_2062295167425734_7686714948314988544_o.jpg">
+                                                </div>
+                                                <p class="font-bold ms-3 mb-0">Tấn Huỳnh</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">Vừa nâng cấp tài khoản với giá 200.000 vnđ!</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-md">
+                                                    <img src="~/Images/Users/7d4870d1-b377-4663-8757-5a84c421060432644928_2062295167425734_7686714948314988544_o.jpg">
+                                                </div>
+                                                <p class="font-bold ms-3 mb-0">Tấn Huỳnh</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">Vừa nộp CV cho công ty "FPT thành công"!</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Lịch sử hoạt động nhà tuyển dụng</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive cr">
+                            <table class="table table-hover table-lg">
+                                <tbody>
+                                    <tr>
+                                        <td class="col-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-md">
+                                                    <img src="~/Images/Employers/3807f811-5a9e-4e2b-bbbf-20e42eb378a5cong-ty-co-phan-vien-thong-fpt-5d5f5980e317c.jpg">
+                                                </div>
+                                                <p class="font-bold ms-3 mb-0">FPT</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">Vừa đăng tin tuyển dụng!</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-md">
+                                                    <img src="~/Images/Employers/3807f811-5a9e-4e2b-bbbf-20e42eb378a5cong-ty-co-phan-vien-thong-fpt-5d5f5980e317c.jpg">
+                                                </div>
+                                                <p class="font-bold ms-3 mb-0">FPT</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">Vừa mua gói cao cấp 1 với giá 300.000 vnđ thành công!</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-md">
+                                                    <img src="~/Images/Employers/3807f811-5a9e-4e2b-bbbf-20e42eb378a5cong-ty-co-phan-vien-thong-fpt-5d5f5980e317c.jpg">
+                                                </div>
+                                                <p class="font-bold ms-3 mb-0">FPT</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">Vừa chấp nhận hồ sơ của "Tấn huỳnh" thành công</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-md">
+                                                    <img src="~/Images/Employers/3807f811-5a9e-4e2b-bbbf-20e42eb378a5cong-ty-co-phan-vien-thong-fpt-5d5f5980e317c.jpg">
+                                                </div>
+                                                <p class="font-bold ms-3 mb-0">FPT</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">Vừa đăng tin tuyển dụng!</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-md">
+                                                    <img src="~/Images/Employers/3807f811-5a9e-4e2b-bbbf-20e42eb378a5cong-ty-co-phan-vien-thong-fpt-5d5f5980e317c.jpg">
+                                                </div>
+                                                <p class="font-bold ms-3 mb-0">FPT</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">Vừa mua gói cao cấp 1 với giá 300.000 vnđ thành công!</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-md">
+                                                    <img src="~/Images/Employers/3807f811-5a9e-4e2b-bbbf-20e42eb378a5cong-ty-co-phan-vien-thong-fpt-5d5f5980e317c.jpg">
+                                                </div>
+                                                <p class="font-bold ms-3 mb-0">FPT</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">Vừa chấp nhận hồ sơ của "Tấn huỳnh" thành công</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Ứng viên gần đây</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-lg">
+                                <tbody>
+                                    @foreach (var item in users.Where(n => n.role_id == 1).OrderByDescending(n=>n.user_datecreate).Take(10))
+                                    {
+                                        <tr>
+                                            <td class="col-3">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar avatar-md">
+                                                        <img src="~/Images/Users/@item.user_img">
+                                                    </div>
+                                                    <p class="font-bold ms-3 mb-0">@item.user_name</p>
+                                                </div>
+                                            </td>
+                                            <td class="col-auto">
+                                                <p class=" mb-0">Tạo lúc : @item.user_datecreate</p>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Nhà tuyển dụng gần đây</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-lg">
+                                <tbody>
+                                    @foreach (var item in users.Where(n => n.role_id == 2).OrderByDescending(n => n.user_datecreate).Take(10))
+                                    {
+                                        <tr>
+                                            <td class="col-3">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar avatar-md">
+                                                        @if (item.employer_logo == null)
+                                                        {
+                                                            <img src="~/Images/Employers/5fe65d03-55c8-4843-bc3c-ec7f0576f7f6Office Work.jpg">
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/Images/Employers/@item.employer_logo">
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="col-auto">
+                                                <p class=" mb-0">Tạo lúc : @item.user_datecreate</p>
+                                                <p>@(item.employer_company == null ? "Chưa có tên công ty" : item.employer_company)</p>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-3">
+        <div class="card">
+            <div class="card-body py-4 px-5">
+                <div class="d-flex align-items-center">
+                    <div class="avatar avatar-xl">
+                        <img src="~/Images/Users/download-admin-abuse-png-image-with-no-background-pngkeycom-admin-png-374_355.png" alt="Face 1">
+                    </div>
+                    <div class="ms-3 name">
+                        <h5 class="font-bold">Tổng số admin</h5>
+                        <h6 class="text-muted mb-0">@users.Where(n=>n.role_id == 3).Count()</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4>Thông số nhà tuyển dụng</h4>
+            </div>
+            <div class="card-content pb-4">
+                <div class="recent-message d-flex px-4 py-3">
+                    <div class="avatar avatar-lg">
+                        <img src="~/Content/LayoutAdmin/images/faces/4.jpg">
+                    </div>
+                    <div class="name ms-4">
+                        <h5 class="mb-1">Nhà tuyển dụng miển phí</h5>
+                        <h6 class="text-muted mb-0"><b>@users.Where(n => n.role_id == 2 && n.version_id == 1).Count()</b> nhà tuyển dụng</h6>
+                    </div>
+                </div>
+                <div class="recent-message d-flex px-4 py-3">
+                    <div class="avatar avatar-lg">
+                        <img src="~/Content/LayoutAdmin/images/faces/5.jpg">
+                    </div>
+                    <div class="name ms-4">
+                        <h5 class="mb-1">Nhà tuyển dụng cao cấp 1</h5>
+                        <h6 class="text-muted mb-0"><b class="text-success">@users.Where(n => n.role_id == 2 && n.version_id == 3).Count()</b> nhà tuyển dụng</h6>
+                    </div>
+                </div>
+                <div class="recent-message d-flex px-4 py-3">
+                    <div class="avatar avatar-lg">
+                        <img src="~/Content/LayoutAdmin/images/faces/1.jpg">
+                    </div>
+                    <div class="name ms-4">
+                        <h5 class="mb-1">Nhà tuyển dụng cao cấp 2</h5>
+                        <h6 class="text-muted mb-0"><b class="text-success">@users.Where(n => n.role_id == 2 && n.version_id == 4).Count()</b> nhà tuyển dụng</h6>
+                    </div>
+                </div>
+                <div class="recent-message d-flex px-4 py-3">
+                    <div class="avatar avatar-lg">
+                        <img src="~/Content/LayoutAdmin/images/faces/1.jpg">
+                    </div>
+                    <div class="name ms-4">
+                        <h5 class="mb-1">Nhà tuyển dụng Pro</h5>
+                        <h6 class="text-muted mb-0"><b class="text-warning">@users.Where(n => n.role_id == 2 && n.version_id == 5).Count()</b> nhà tuyển dụng</h6>
+                    </div>
+                </div>
+                <div class="recent-message d-flex px-4 py-3">
+                    <div class="avatar avatar-lg">
+                        <img src="~/Content/LayoutAdmin/images/faces/1.jpg">
+                    </div>
+                    <div class="name ms-4">
+                        <h5 class="mb-1">Nhà tuyển dụng MaxPro</h5>
+                        <h6 class="text-muted mb-0"><b class="text-danger">@users.Where(n => n.role_id == 2 && n.version_id == 6).Count()</b> nhà tuyển dụng</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4>Thông số ứng viên</h4>
+            </div>
+            <div class="card-content pb-4">
+                <div class="recent-message d-flex px-4 py-3">
+                    <div class="avatar avatar-lg">
+                        <img src="~/Content/LayoutAdmin/images/faces/4.jpg">
+                    </div>
+                    <div class="name ms-4">
+                        <h5 class="mb-1">Ứng viên miển phí</h5>
+                        <h6 class="text-muted mb-0"><b class="">@users.Where(n => n.role_id == 1 && n.version_id == 1).Count()</b> ứng viên</h6>
+                    </div>
+                </div>
+                <div class="recent-message d-flex px-4 py-3">
+                    <div class="avatar avatar-lg">
+                        <img src="~/Content/LayoutAdmin/images/faces/5.jpg">
+                    </div>
+                    <div class="name ms-4">
+                        <h5 class="mb-1">Ứng viên cao cấp</h5>
+                        <h6 class="text-muted mb-0"><b class="text-warning">@users.Where(n => n.role_id == 1 && n.version_id == 2).Count()</b> ứng viên</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

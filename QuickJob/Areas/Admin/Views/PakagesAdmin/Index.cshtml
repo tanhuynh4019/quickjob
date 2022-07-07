@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Model.EF.Pakage>
+
+@{
+    ViewBag.Title = "Cài đặt gói nâng cấp";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/LayoutAdmin/vendors/simple-datatables/style.css" rel="stylesheet" />
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            Quản lý các gói nâng cấp <br />
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <td>Mã</td>
+                        <td>Tên gói</td>
+                        <td>Số tiền chínhn</td>
+                        @*<td>Tỉnh thành</td>*@
+                        @*<td>Thông tin</td>*@
+                        <td>Giảm giá</td>
+                        <td>Số tiền thanh toán</td>
+                        <td>Dành cho</td>
+                        @*<td>Ngày tạo</td>*@
+                        <td>Hoạt động</td>
+                        <td>Tùy chọn</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var sum = item.pakage_money * (1 - (float)item.pakage_precent / 100);
+                        <tr>
+                            <td>@item.pakage_id</td>
+                            <td>@item.pakage_name</td>
+                            <td>
+                                @item.pakage_money.Value.ToString("#,###") vnđ
+                            </td>
+                            <td>@item.pakage_precent%</td>
+                            <td>@sum.Value.ToString("#,###") vnđ</td>
+                            <td>@item.Role.role_name</td>
+                            @*<td>
+                                    <b>Hình thức: </b>@item.TypeJob.type_name <br />
+                                    <b>Cấp bậc: </b>@item.WorkPlace.wp_name <br />
+                                    <b>Kinh nghiệm: </b>@item.Exp.exp_name <br />
+                                    <b>Giới tính: </b>@(item.job_sex == true ? "Name" : "Nữ") <br />
+                                    <b>Số lượng: </b>@item.job_amout <br />
+                                </td>*@
+                            <td>
+                                <span class="badge @(item.pakage_active == true ? "bg-success" : "bg-danger")">@(item.pakage_active == true ? "Hoạt động" : "Ngừng")</span>
+                            </td>
+                            <td>
+                                <a href="/Admin/PakagesAdmin/Details/@item.pakage_id"><i class="fa fa-eye"></i></a> |
+                                <a href="#" onclick=""><i class="fa fa-trash"></i></a> |
+                                <a href="/Admin/PakagesAdmin/Edit?id=@item.pakage_id"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+<script src="~/Content/LayoutAdmin/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+
+    $('#table1 tbody').on('click', 'i.fa.fa-trash', function () {
+        $(this).closest('tr').remove();
+    });
+</script>
+

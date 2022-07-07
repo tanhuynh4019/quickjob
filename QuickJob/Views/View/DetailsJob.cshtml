@@ -1,0 +1,389 @@
+﻿@model Model.EF.Job
+@using QuickJob.Function;
+@using Model.EF
+@{
+    DataQuickJobEntities db = new DataQuickJobEntities();
+
+    List<Job> job = db.Jobs.ToList();
+
+    var fu = new FunctionController();
+}
+@{
+    ViewBag.Title = Model.job_title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var i = 1;
+}
+
+<section id="services" class="text-dark" ng-app="myApp">
+    <div class="container" ng-controller="myCtrl">
+        <div class="row flex-center h-100">
+            <div class="col-xl-9">
+                <div class="row h-100" style="background-color: white">
+                    <div class="col-lg-3">
+                        <img class="rounded" src="~/Images/Employers/@Model.User.employer_logo" style="width: 100%; height: 200px" />
+                    </div>
+                    <div class="col-lg-6">
+                        <h4 class="text-dark">@Model.job_title</h4>
+                        <p onclick="window.location.href = '/View/DetailsEmployer?id=@Model.user_id'" style="cursor: pointer"><i class="fa fa-building"></i> @Model.User.employer_company</p>
+                        <p><i class="fa fa-map-marked-alt"></i>@Model.job_addpress</p>
+                        <p>Hạn nộp hồ sơ: @Model.job_datedeline</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <a href="#submit" class="ui green button w-100">ỨNG TUYỂN NGAY</a>
+                        @if (fu.Cookie() != null)
+                        {
+                            <button ng-show="count == 0" class="ui grey basic button w-100 mt-2" ng-click="favourite(@Model.job_id)"><i class="fa fa-box-open">&nbsp;</i>Lưu tin</button>
+                            <button ng-repeat="list in list" ng-show="count != 0" class="ui red button w-100 mt-2" ng-click="cancelfavourite(list.id)"><i class="fa fa-box">&nbsp;</i>Đã lưu</button>
+                        }
+                        else
+                        {
+                            <button data-bs-toggle="modal" data-bs-target="#login" class="ui grey basic button w-100 mt-2"><i class="fa fa-box-open">&nbsp;</i>Lưu tin</button>
+                        }
+                    </div>
+                    <div class="col-lg-12 mt-5">
+
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="border">
+                            <div style="padding: 10px">
+                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fa fa-briefcase">&nbsp;</i>Tin tuyển dụng</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link text-dark" target="_blank" role="tab" aria-controls="pills-profile" aria-selected="false" href="/View/DetailsEmployer?id=@Model.user_id"><i class="fa fa-building">&nbsp;</i>Công ty</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fa fa-search">&nbsp;</i>Việc làm cùng công ty</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                        <b>MÔ TẢ CÔNG VIỆC</b>
+                                        <p>@Html.Raw(Model.job_describe)</p>
+                                        <br />
+                                        <b>YÊU CẦU ỨNG VIÊN</b>
+                                        <p>@Html.Raw(Model.job_request)</p>
+                                        <br />
+                                        <b>QUYỀN LỢI ĐƯỢC HƯỞNG</b>
+                                        <p>@Html.Raw(Model.job_right)</p>
+                                        <hr />
+                                        <b id="submit">CÁCH THỨC ỨNG TUYỂN</b>
+                                        <p>Ứng viên nộp hồ sơ trực tuyến bằng cách bấm <b class="text-danger">Ứng tuyển ngay</b> dưới đây.</p>
+                                        <center>
+                                            @if (fu.Cookie() != null)
+                                            {
+                                                var id = fu.CookieID();
+                                                List<Cv> cv = db.Cvs.Where(n => n.user_id == id.user_id).ToList();
+                                                List<SubmitCv> submitCv = db.SubmitCvs.Where(n => n.user_id == id.user_id && n.job_id == Model.job_id).ToList();
+                                                if (submitCv.Count() == 0)
+                                                {
+                                                    <button class="ui green button" data-bs-toggle="modal" data-bs-target="#submitsubmit">ỨNG TUYỂN NGAY</button> <br />
+                                                }
+                                                else
+                                                {
+                                                    <button class="ui red button" data-bs-toggle="modal" data-bs-target="">RÚT ĐƠN</button> <br />
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <button class="ui green button" data-bs-toggle="modal" data-bs-target="#login">ỨNG TUYỂN NGAY</button> <br />
+                                            }
+                                            Hạn nộp hồ sơ: @Model.job_datedeline.Value.ToString("dd/MM/yyyy")
+                                        </center>
+                                        <hr />
+                                        <b>Nghành nghề</b>
+                                        <br />
+                                        <br />
+                                        @foreach (var item in db.Groups.Where(n => n.group_item == Common.Common.GROUP_JOB_CATEGORY && n.job_id == Model.job_id).OrderByDescending(n => n.Category.cate_name))
+                                        {
+                                            <button class="ui inverted secondary button mt-1">@item.Category.cate_name</button>
+                                        }
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                                        <div class="row justify-content-center">
+                                            @if (job.Where(n => n.job_active == true && n.job_option == true && n.job_bin == false && n.User.user_active == true && n.User.user_option == true && n.user_id == Model.user_id && n.job_id != Model.job_id).OrderByDescending(n => n.job_datecreate).ToList().Count() == 0)
+                                            {
+                                                <div class="col-lg-12">
+                                                    <center>
+                                                        <center>
+                                                            <img src="~/Images/Jobs/none.png" />
+                                                        </center>
+                                                    </center>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                foreach (var item in job.Where(n => n.job_active == true && n.job_option == true && n.job_bin == false && n.User.user_active == true && n.User.user_option == true && n.user_id == Model.user_id && n.job_id != Model.job_id).OrderByDescending(n => n.job_datecreate))
+                                                {
+                                                    <div class="col-md-6 mb-4">
+                                                        <div class="card h-100 shadow px-4 px-md-2 px-lg-3 card-span pt-4 @(item.User.version_id == 3 || item.User.version_id == 4  ? "border border-success" : item.User.version_id == 5 ? "border border-warning" : item.User.version_id == 6 ? "border border-danger" : "border")">
+                                                            <div class="text-center text-md-start card-hover">
+                                                                <div class="row">
+                                                                    <div class="col-lg-3">
+                                                                        <img class="ps-3 icons" style="border-radius: 50%; width: 60px; height: 50px" src="~/Images/Employers/@item.User.employer_logo" height="60" width="60" alt="services" />
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <b><a class="text-dark" style="text-decoration: none" href="/View/DetailsEmployer?id=@item.user_id">@(item.User.employer_company.Length < 40 ? item.User.employer_company : item.User.employer_company.Substring(0,40) + "...")</a></b>
+                                                                        <p>
+                                                                            @if (fu.Cookie() != null)
+                                                                            {
+                                                                                <span class="text-danger">@item.job_textprice @item.job_paystart triệu  @item.job_payend triệu</span>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <span class="text-danger">Đăng nhập xem lương</span>
+                                                                            }
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <h6 class="fw-light fs-1 heading-color">@(item.job_title.Length < 40 ? item.job_title : item.job_title.Substring(0,40)+"...")</h6>
+                                                                    <p>Cần tuyển: <b>@(item.job_amout == 0 ? "không giới hạn" : item.job_amout.ToString())</b> người và kinh nghiệm @item.Exp.exp_name</p>
+                                                                    <div>
+                                                                        <center>
+                                                                            @foreach (var item2 in db.Groups.Where(n => n.group_item == Common.Common.GROUP_JOB_CATEGORY && n.job_id == item.job_id).Take(3))
+                                                                            {
+                                                                                <button style="font-size: 10px" class="ui primary basic button mt-1">@item2.Category.cate_name</button>
+                                                                            }
+                                                                        </center>
+                                                                    </div>
+                                                                    <a class="btn btn-lg ps-0 pe-3 text-primary" href="/View/DetailsJob?id=@item.job_id" role="button">
+                                                                        Xem và ứng tuyển ngay
+                                                                        <svg class="bi bi-arrow-right-short" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                                                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                                                        </svg>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="">
+                            <ul class="list-group">
+                                <li class="list-group-item active" aria-current="true">Thông tin tuyển dụng</li>
+                                <li class="list-group-item text-dark"><b>Mức lương:</b> @Model.job_textprice None</li>
+                                <li class="list-group-item text-dark"><b>Hình thức làm việc:</b> @Model.TypeJob.type_name</li>
+                                <li class="list-group-item text-dark"><b>Số lượng cần tuyển:</b> @Model.job_amout người</li>
+                                <li class="list-group-item text-dark"><b>Chức vụ:</b> @Model.WorkPlace.wp_name</li>
+                                <li class="list-group-item text-dark"><b>Yêu cầu kinh nghiệm:</b> @Model.Exp.exp_name</li>
+                                <li class="list-group-item text-dark"><b>Yêu cầu giới tính:</b> @(Model.job_sex == true ? "Nam" : "Nữ")</li>
+                                <li class="list-group-item text-dark"><b>Địa điểm làm việc:</b> None</li>
+                                <li class="list-group-item text-dark"><b>Địa chỉ:</b> @Model.job_addpress</li>
+                            </ul>
+                        </div>
+                        <div class="mt-3">
+                            <ul class="list-group">
+                                <li class="list-group-item active" aria-current="true">
+                                    Việc làm liên quan
+                                </li>
+                                @foreach (var item in db.Jobs.Where(n => n.job_active == true && n.job_option == true && n.job_bin == false && n.User.user_active == true && n.User.user_option == true).OrderByDescending(n => n.job_datecreate).Take(10))
+                                {
+                                    <li class="list-group-item" aria-current="true">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <img src="~/Images/Employers/@item.User.employer_logo" style="width: 50px; height: 50px" />
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <div onclick="window.location.href = '/View/DetailsJob?id=@item.job_id'" style="cursor: pointer">@(item.job_title.Length < 20 ? item.job_title : item.job_title.Substring(0,20)+"...")</div>
+                                                <b onclick="window.location.href = '/View/DetailsEmployer?id=@item.user_id'" class="text-dark" style="font-size: 12px; cursor: pointer">@item.User.employer_company</b>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="fixed-bottom" style="border: 0px 0px 0px 0px">
+    <a href="#submit" class="ui green button w-100" style="border-radius: 0px 0px 0px 0px">Ứng tuyển ngay</a>
+</div>
+@if (fu.Cookie() != null)
+{
+    var id = fu.CookieID();
+    List<Cv> cv = db.Cvs.Where(n => n.user_id == id.user_id).ToList();
+    List<SubmitCv> submitCv = db.SubmitCvs.Where(n => n.user_id == id.user_id && n.job_id == Model.job_id).ToList();
+    <!-- Modal -->
+    <div class="modal fade" id="submitsubmit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 style="font-size: 16px" class="modal-title" id="exampleModalLabel">Ứng tuyển <b>@Model.job_title</b></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="/Cvs/SubmitCv?id=@Model.job_id">
+                    @Html.AntiForgeryToken()
+                    <div class="modal-body">
+                        <p class="text-danger">Bạn có biết! Sử dụng Cv online kèm với tính năng chấm điểm sẽ giúp kiếm được việc làm nhanh nhất.</p>
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Nộp bằng CV Online</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Tải Cv từ mấy tính</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Ứng tuyển nhanh</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            @if (cv.Count() == 0)
+                            {
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                    <p>Bạn chưa có Cv! <a href="/Cvs/IndexThemes">Tạo ngay</a></p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                    <!-- Scrollable modal -->
+                                    <p>Bạn có @cv.Count CV | <a href="">Tạo thêm</a></p>
+                                    <table class="table text-dark">
+                                        <thead>
+                                            <tr>
+                                                <td>Ảnh</td>
+                                                <td>Họ và tên</td>
+                                                <td>Thông tin</td>
+                                                <td>Tùy chọn</td>
+                                                <td>Chọn Cv</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in cv)
+                                            {
+                                                <tr>
+                                                    <td><img src="~/Images/Cvs/@item.cv_img" style="width: 50px; height: 50px" /></td>
+                                                    <td>@item.cv_fullname</td>
+                                                    <td>
+                                                        Chuyên nghành : @item.cv_location <br />
+                                                        Mã cv:
+                                                    </td>
+                                                    <td>
+                                                        <a href="">Xem</a>
+                                                    </td>
+                                                    <td>
+                                                        <center>
+                                                            <input type="radio" name="cv_id" value="@item.cv_id" @(i == 1 ? "checked" : "") />
+                                                        </center>
+                                                    </td>
+                                                </tr>
+                                                i++;
+                                            }
+                                            <tr>
+                                                <td colspan="5">
+                                                    <b>Thư giới thiệu:</b>
+                                                    <textarea class="form-control" name="sb_notecandidate" placeholder="Viết thư nhanh, ngắn gọn, đây là điểm nhấn nổi bậc để NTD chú ý"></textarea>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Nộp ngay</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope, $http) {
+            $http({
+                method: "GET",
+                url: "/Users/IndexFavourite?id=@Model.job_id"
+            }).then(function mySuccess(response) {
+                $scope.list = response.data;
+                $scope.count = $scope.list.length;
+                $scope.favourite = function (id) {
+                    $http({
+                        method: "GET",
+                        url: "/Users/Favourite?id=" + id
+                    }).then(function mySuccess(response) {
+                        $scope.list = response.data;
+                        $scope.count = $scope.list.length;
+
+                        $(document).ready(function () {
+                            $('#notesavejob').modal('show');
+                        })
+
+                    }, function myError(response) {
+                        $scope.list = response.statusText;
+                    });
+                }
+                $scope.cancelfavourite = function (id) {
+                    $http({
+                        method: "GET",
+                        url: "/Users/CancelFavourite?id=" + id
+                    }).then(function mySuccess(response) {
+                        $scope.list = response.data;
+                        $scope.count = $scope.list.length;
+
+                        $(document).ready(function () {
+                            $('#notecanceljob').modal('show');
+                        })
+
+                    }, function myError(response) {
+                        $scope.list = response.statusText;
+                    });
+                }
+            }, function myError(response) {
+                $scope.list = response.statusText;
+            });
+        });
+    </script>
+    <!-- Modal -->
+    <div class="modal fade" id="notesavejob" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-success" id="exampleModalLabel">Lưu tin thành công</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-dark">
+                    Bạn đã lưu tin "@Model.job_title" thành công! <br /> Xem quản lý <a href="/Users/IndexFavouriteAll">tại đây</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="notecanceljob" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="exampleModalLabel">Hủy tin hành công</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-dark">
+                    Bạn đã hủy tin "@Model.job_title" thành công! <br />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

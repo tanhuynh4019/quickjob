@@ -1,0 +1,137 @@
+﻿@using Model.EF;
+@model SubmitCv
+@{
+    ViewBag.Title = Model.Job.SubmitCvs;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section id="services" class="text-dark" ng-app="myApp">
+    <div class="container" ng-controller="myCtrl">
+        <div class="row flex-center h-100">
+            <div class="col-xl-9">
+                <div class="row h-100" style="background-color: white">
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="border text-dark rounded mt-3">
+                                    @if (Model.sb_active == 4)
+                                    {
+                                        <p style="padding: 10px">
+                                            <span class="text-success">Đơn của bạn đã được xét duyệt và chấp nhận.</span> <br />
+                                            <b>Thông tin từ nhà tuyển dụng:</b>
+                                            <br />
+                                            @Model.sb_noteemployer
+                                            <hr />
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <center>
+                                                        <b><i class="fa fa-phone">&nbsp;</i>SỐ ĐIỆN THOẠI</b> <br />
+                                                        @Model.Job.job_phone
+                                                    </center>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <center>
+                                                        <b><i class="fa fa-envelope">&nbsp;</i>EMAIL</b> <br />
+                                                        @Model.Job.User.user_email
+                                                    </center>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <center>
+                                                        <b><i class="fa fa-comment">&nbsp;</i>QuickJobChat</b> <br />
+                                                        <a class="ui violet label">Chat ngay</a>
+                                                    </center>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <center>
+                                                        <b><i class="fa fa-building">&nbsp;</i>Về công ty</b> <br />
+                                                        <a class="ui green label">Trang cá nhân</a>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div style="padding: 10px">
+                                                <b>Công việc của bạn</b>
+                                                <table class="table mt-3 text-dark" style="cursor: pointer">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><img src="~/Images/Employers/@Model.Job.User.employer_logo" style="width: 60px; height: 60px; border-radius: 50%" /></td>
+                                                            <td>
+                                                                @Model.Job.job_title <br />
+                                                                <b>Lương: </b> @Model.Job.job_textprice @Model.Job.job_paystart triệu @Model.Job.job_payend triệu
+                                                            </td>
+                                                            <td><a href="/View/DetailsJob?id=@Model.job_id">Xem</a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </p>
+                                    }
+                                    else if (Model.sb_active == 3)
+                                    {
+                                        <p style="padding: 10px">
+                                            <span class="text-danger">Đơn của bạn đã bị từ chối.</span> <br />
+                                            <b>Thông tin từ nhà tuyển dụng:</b>
+                                            <br />
+                                            @Model.sb_noteemployer
+                                            <hr />
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <center>
+                                                        <b><i class="fa fa-phone">&nbsp;</i>SỐ ĐIỆN THOẠI</b> <br />
+                                                        @Model.Job.job_phone
+                                                    </center>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <center>
+                                                        <b><i class="fa fa-envelope">&nbsp;</i>EMAIL</b> <br />
+                                                        @Model.Job.User.user_email
+                                                    </center>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <center>
+                                                        <b><i class="fa fa-comment">&nbsp;</i>QuickJobChat</b> <br />
+                                                        <a class="ui violet label">Chat ngay</a>
+                                                    </center>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <center>
+                                                        <b><i class="fa fa-building">&nbsp;</i>Về công ty</b> <br />
+                                                        <a class="ui green label">Trang cá nhân</a>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div style="padding: 10px">
+                                                <b>Công việc ứng tuyển</b>
+                                                <table class="table mt-3 text-dark" style="cursor: pointer">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><img src="~/Images/Employers/@Model.Job.User.employer_logo" style="width: 60px; height: 60px; border-radius: 50%" /></td>
+                                                            <td>
+                                                                @Model.Job.job_title <br />
+                                                                <b>Lương: </b> @Model.Job.job_textprice @Model.Job.job_paystart triệu @Model.Job.job_payend triệu
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p>
+                                            <div style="padding: 10px"><h2>Bạn phải chờ phản hồi từ nhà tuyển dụng.</h2></div>
+                                        </p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.Action("All", "Users")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

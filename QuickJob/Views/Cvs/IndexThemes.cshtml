@@ -1,0 +1,218 @@
+﻿@using QuickJob.Function;
+@using Model.EF
+@model List<Theme>
+@{
+    ViewBag.Title = "Mẫu CV";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var coo = new FunctionController();
+    DataQuickJobEntities db = new DataQuickJobEntities();
+}
+<section class="bg-100" ng-app="myApp">
+    <div class="container" ng-controller="myCtrl">
+        <div class="row flex-center h-100">
+            <div class="col-xl-9">
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 text-dark">
+                        <b>Tìm mẫu CV phù hợp</b>
+                        <div class="ui icon input mt-2">
+                            <input type="text" placeholder="Tên Cv..." ng-model="txtSearch.name">
+                            <i class="circular search link icon"></i>
+                        </div>
+                        <select class="ui search dropdown mt-2">
+                            <option value="">Tất cả ngôn ngữ</option>
+                            <option value="TA">Tiếng Anh</option>
+                            <option value="TV">Tiếng Việt</option>
+                            <option value="TN">Tiếng Nhật</option>
+                        </select>
+                        <select class="ui search dropdown mt-2" ng-model="txtSearch.versiton">
+                            <option value="">Tất cả phiên bản</option>
+                            <option value="true">Cao cấp</option>
+                            <option value="false">Miển phí</option>
+                        </select>
+                        <br />
+                        <br />
+                        <b>Sắp xếp</b>
+                        <div class="ui form">
+                            <div class="grouped fields">
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" name="fruit" checked="" tabindex="0" class="hidden">
+                                        <label>Mới nhất</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" name="fruit" tabindex="0" class="hidden">
+                                        <label>Dùng nhiều nhất</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h4>Danh sách mẫu CV xin việc tiếng Anh / Việt / Nhật chuẩn 2021</h4>
+                                <p>Các mẫu CV đuợc thiết kế theo chuẩn, theo các ngành nghề. Phù hợp với sinh viên và người đi làm.</p>
+                                <br />
+                            </div>
+                            <style>
+                                .hv:hover {
+                                    color: green;
+                                    font-weight: bold;
+                                }
+                            </style>
+                            <div class="col-md-4 mb-4 hv" ng-repeat="list in list | filter: txtSearch" style="cursor: pointer">
+                                @if (coo.Cookie() != null)
+                                {
+                                    var idus = coo.CookieID();
+                                    List<Cv> cvs = db.Cvs.Where(n => n.user_id == idus.user_id).ToList();
+                                    if (cvs.Count < idus.candidate_amoutcv)
+                                    {
+                                        <div class="card h-100 shadow card-span" ng-click="details(list.id)" ng-show="list.versiton == false">
+                                            <img class="card-img-top" src="~/Images/Cvs/{{list.img}}" alt="news" style="height: 272px" />
+                                            <div class="card-body">
+                                                <span class="fs--1">
+                                                    <span ng-show="list.versiton == true" class="text-danger">Cao cấp</span>
+                                                    <span ng-show="list.versiton == false">Miển phí</span>
+                                                </span>
+                                                <h5 class="fs-lg-1 my-3">{{list.name}}</h5>
+                                                <p>0 lượt dùng | {{list.view}} lượt xem</p>
+                                            </div>
+                                        </div>
+                                        if (idus.version_id == 2)
+                                        {
+                                            <div class="card h-100 shadow card-span" ng-click="details(list.id)" ng-show="list.versiton == true">
+                                                <img class="card-img-top" src="~/Images/Cvs/{{list.img}}" alt="news" style="height: 272px" />
+                                                <div class="card-body">
+                                                    <span class="fs--1">
+                                                        <span ng-show="list.versiton == true" class="text-danger">Cao cấp</span>
+                                                        <span ng-show="list.versiton == false">Miển phí</span>
+                                                    </span>
+                                                    <h5 class="fs-lg-1 my-3">{{list.name}}</h5>
+                                                    <p>0 lượt dùng | {{list.view}} lượt xem</p>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="card h-100 shadow card-span" data-bs-toggle="modal" data-bs-target="#versitontrue" ng-show="list.versiton == true">
+                                                <img class="card-img-top" src="~/Images/Cvs/{{list.img}}" alt="news" style="height: 272px" />
+                                                <div class="card-body">
+                                                    <span class="fs--1">
+                                                        <span ng-show="list.versiton == true" class="text-danger">Cao cấp</span>
+                                                        <span ng-show="list.versiton == false">Miển phí</span>
+                                                    </span>
+                                                    <h5 class="fs-lg-1 my-3">{{list.name}}</h5>
+                                                    <p>0 lượt dùng | {{list.view}} lượt xem</p>
+                                                </div>
+                                            </div>
+                                            <!-- Modal -->
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="versitontrue" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Bạn không thể sử dụng Cv cao cấp! Nâng cấp tài khoản để sử dụng full tính năng Cv và sử dụng được các mẫu cao cấp! <a href="/Pays/IndexPakage">Nâng cấp ngay</a>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="card h-100 shadow card-span" data-bs-toggle="modal" data-bs-target="#note">
+                                            <img class="card-img-top" src="~/Images/Cvs/{{list.img}}" alt="news" style="height: 272px" />
+                                            <div class="card-body">
+                                                <span class="fs--1">
+                                                    <span ng-show="list.versiton == true" class="text-danger">Cao cấp</span>
+                                                    <span ng-show="list.versiton == false">Miển phí</span>
+                                                </span>
+                                                <h5 class="fs-lg-1 my-3">{{list.name}}</h5>
+                                                <p>0 lượt dùng | {{list.view}} lượt xem</p>
+                                            </div>
+                                        </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="note" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Đạt giới hạn</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @if(idus.version_id == 2)
+                                                        {
+                                                            <span>Bạn đã đạt giới hạn 10 cv, nếu muốn có thểm CV bạn có thể tái tạo lại CV hoặc xóa bớt Cv! <a href="/Cvs/IndexCvs">Quản lý CV</a></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Bạn đã đạt giới hạn lưu trữ Cv. Vui lòng nâng cấp hoặc xóa các Cv trước để có thêm chổ chứa! Hoặc bạn có thể nâng cấp lên để có thêm 10 chỗ chứa! <a href="/Pays/IndexPakage">Nâng cấp ngay</a></span>
+                                                        }
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="card h-100 shadow card-span" data-bs-toggle="modal" data-bs-target="#login">
+                                        <img class="card-img-top" src="~/Images/Cvs/{{list.img}}" alt="news" style="height: 272px" />
+                                        <div class="card-body">
+                                            <span class="fs--1">
+                                                <span ng-show="list.versiton == true" class="text-danger">Cao cấp</span>
+                                                <span ng-show="list.versiton == false">Miển phí</span>
+                                            </span>
+                                            <h5 class="fs-lg-1 my-3">{{list.name}}</h5>
+                                            <p>0 lượt dùng | {{list.view}} lượt xem</p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- end of .container-->
+</section>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $http({
+            method: "GET",
+            url: "/Cvs/JsonIndexThemes"
+        }).then(function mySuccess(response) {
+            $scope.list = response.data;
+            $scope.details = function (id) {
+                window.location.href = '/Cvs/Theme?id=' + id;
+            }
+
+        }, function myError(response) {
+            $scope.list = response.statusText;
+        });
+    });
+</script>
+<script>
+    $('.ui.dropdown')
+        .dropdown()
+        ;
+    $('.ui.radio.checkbox')
+        .checkbox()
+        ;
+</script>

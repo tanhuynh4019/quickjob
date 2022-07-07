@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Model.EF.User>
+
+@{
+    ViewBag.Title = "Quản lý admin";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/LayoutAdmin/vendors/simple-datatables/style.css" rel="stylesheet" />
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            Quản lý admin <br />
+            <a class="btn btn-danger"><i class="fa fa-plus-circle"></i>&nbsp;Thêm admin</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <td>Mã</td>
+                        <td>Ảnh đại diện</td>
+                        <td>Tên người dùng</td>
+                        <td>Email</td>
+                        @*<td>Tỉnh thành</td>*@
+                        @*<td>Thông tin</td>*@
+                        <td>Số điện thoại</td>
+                        <td>Số lượng bình luận</td>
+                        <td>Số lượng bài viết</td>
+                        <td>Vai trò</td>
+                        @*<td>Ngày tạo</td>*@
+                        <td>Hoạt động</td>
+                        <td>Ngày cập nhật</td>
+                        <td>Tùy chọn</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderByDescending(n => n.user_datecreate))
+                    {
+                        <tr>
+                            <td>@item.user_id</td>
+                            <td><img src="~/Images/Users/@item.user_img" style="width: 70px; height: 70px" /></td>
+                            <td>@item.user_name</td>
+                            <td>@item.user_email</td>
+                            <td>@item.user_phone</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>@item.Role.role_name</td>
+                            @*<td>
+                                    <b>Hình thức: </b>@item.TypeJob.type_name <br />
+                                    <b>Cấp bậc: </b>@item.WorkPlace.wp_name <br />
+                                    <b>Kinh nghiệm: </b>@item.Exp.exp_name <br />
+                                    <b>Giới tính: </b>@(item.job_sex == true ? "Name" : "Nữ") <br />
+                                    <b>Số lượng: </b>@item.job_amout <br />
+                                </td>*@
+                            <td>
+                                <span class="badge @(item.user_active == true ? "bg-success" : "bg-danger")">@(item.user_active == true ? "Hoạt động" : "Dừng hoạt động")</span>
+                            </td>
+                            <td>@(item.user_dateupdate != null ? item.user_dateupdate.Value.ToLongDateString() : item.user_datecreate.Value.ToLongDateString())</td>
+                            <td>
+                                <a href="/Admin/CvsAdmin/Details/@item.user_id"><i class="fa fa-eye"></i></a> |
+                                <a href="#" onclick="remove(@item.user_id)"><i class="fa fa-trash"></i></a> |
+                                <a href="/Admin/CvsAdmin/Edit?id=@item.user_id"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+<script src="~/Content/LayoutAdmin/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+
+    $('#table1 tbody').on('click', 'i.fa.fa-trash', function () {
+        $(this).closest('tr').remove();
+    });
+</script>
+
+
+<script>
+    function remove(id) {
+        $.ajax({
+            type: "POST",
+            url: "/Admin/UsersAdmin/Remove?id=" + id,
+            contentType: "json",
+            success: function (response) {
+                if (response) {
+                    alert("Xóa thành công!");
+                }
+                else {
+                    alert("Có lỗi ngoại lệ!");
+                }
+            }
+        })
+    }
+</script>

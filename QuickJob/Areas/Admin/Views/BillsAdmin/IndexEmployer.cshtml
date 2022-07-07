@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Model.EF.Bill>
+
+@{
+    ViewBag.Title = "Hóa đơn nhà tuyển dụng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/LayoutAdmin/vendors/simple-datatables/style.css" rel="stylesheet" />
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            Hóa đơn ứng viên <br />
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <td>Mã</td>
+                        <td>Tài khoản</td>
+                        <td>Thông tin gói</td>
+                        <td>Số tiền thanh toán</td>
+                        @*<td>Tỉnh thành</td>*@
+                        @*<td>Thông tin</td>*@
+                        <td>Ngày hết hạn</td>
+                        <td>Ngày thanh toán</td>
+                        <td>Tình trạng</td>
+                        <td>Mã giao dịch</td>
+                        @*<td>Ngày tạo</td>*@
+                        <td>Tùy chọn</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.bill_id</td>
+                            <td>@item.User.user_email</td>
+                            <td>@item.Pakage.pakage_name</td>
+                            <td>
+                                @item.bill_sum.Value.ToString("#,###") vnđ
+                            </td>
+                            <td>@item.bill_dealine%</td>
+                            <td>@item.bill_datecreate</td>
+                            <td>
+                                <span class="badge @(item.bill_active == true ? "bg-success" : "bg-danger")">@(item.bill_active == true ? "Thành công" : "Thất bại")</span>
+                            </td>
+                            @*<td>
+                                    <b>Hình thức: </b>@item.TypeJob.type_name <br />
+                                    <b>Cấp bậc: </b>@item.WorkPlace.wp_name <br />
+                                    <b>Kinh nghiệm: </b>@item.Exp.exp_name <br />
+                                    <b>Giới tính: </b>@(item.job_sex == true ? "Name" : "Nữ") <br />
+                                    <b>Số lượng: </b>@item.job_amout <br />
+                                </td>*@
+                            <td>
+                                @item.bill_orderid
+                            </td>
+                            <td>
+                                <a href="/Admin/BillsAdmin/Details/@item.bill_id"><i class="fa fa-eye"></i></a> |
+                                <a href="#" onclick=""><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+<script src="~/Content/LayoutAdmin/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+
+    $('#table1 tbody').on('click', 'i.fa.fa-trash', function () {
+        $(this).closest('tr').remove();
+    });
+</script>
+

@@ -1,0 +1,159 @@
+﻿<ul class="menu">
+    <li class="sidebar-item @(ViewBag.Title == "Tổng quan" ? "active" : "")">
+        <a href="/Admin/HomeAdmin/Index" class='sidebar-link'>
+            <i class="bi bi-grid-fill"></i>
+            <span>Điều khiển</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item">
+        <hr />
+    </li>
+
+    <li class="sidebar-item @(ViewBag.Title == "Quản lý tin tuyển dụng" ? "active" : "")"">
+        <a href="/Admin/JobsAdmin/Index" class='sidebar-link'>
+            <i class="fa fa-briefcase"></i>
+            <span>Quản lý việc làm</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item @(ViewBag.Title == "Quản lý CV ứng viên" ? "active" : "") ">
+        <a href="/Admin/CVsAdmin/Index" class='sidebar-link'>
+            <i class="fa fa-address-book"></i>
+            <span>Quản lý CV</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item">
+        <hr />
+    </li>
+
+    <li class="sidebar-item  @(ViewBag.Title == "Quản lý admin" ? "active" : "")">
+        <a href="/Admin/UsersAdminMain/IndexAdmin" class='sidebar-link'>
+            <i class="fa fa-users-cog"></i>
+            <span>Admin</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item   @(ViewBag.Title == "Quản lý ứng viên" ? "active" : "")">
+        <a href="/Admin/UsersAdminMain/IndexCandidate" class='sidebar-link'>
+            <i class="fa fa-user"></i>
+            <span>Ứng viên</span>
+        </a>
+    </li>
+
+
+    <li class="sidebar-item   @(ViewBag.Title == "Quản lý nhà tuyển dụng" ? "active" : "")">
+        <a href="/Admin/UsersAdminMain/IndexEmployer" class='sidebar-link'>
+            <i class="fa fa-users"></i>
+            <span>Nhà tuyển dụng</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item">
+        <hr />
+    </li>
+
+    <li class="sidebar-item   @(ViewBag.Title == "Cài đặt gói nâng cấp" ? "active" : "")">
+        <a href="/Admin/PakagesAdmin/Index" class='sidebar-link'>
+            <i class="fa fa-cogs"></i>
+            <span>Cài đặt gói nâng cấp</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item   @(ViewBag.Title == "Hóa đơn ứng viên" ? "active" : "")">
+        <a href="/Admin/BillsAdmin/IndexCandidate" class='sidebar-link'>
+            <i class="fa fa-money-bill-alt"></i>
+            <span>Hóa đơn ứng viên</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item   @(ViewBag.Title == "Hóa đơn nhà tuyển dụng" ? "active" : "")">
+        <a href="/Admin/BillsAdmin/IndexEmployer" class='sidebar-link'>
+            <i class="fa fa-money-bill"></i>
+            <span>Hóa đơn nhà tuyển dụng</span>
+        </a>
+    </li>
+    <li class="sidebar-item   @(ViewBag.Title == "Thống kê tiền" ? "active" : "")">
+        <a href="/Admin/ViewAdmin/StaticPrice" class='sidebar-link'>
+            <i class="fa fa-comments-dollar"></i>
+            <span>Thống kê tiền</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item">
+        <hr />
+    </li>
+
+    <li class="sidebar-item  @(ViewBag.Title == "Cài đặt nghành nghề" ? "active" : "")">
+        <a href="/Admin/CategoriesAdmin/Index" class='sidebar-link'>
+            <i class="fa fa-cog"></i>
+            <span>Cài đặt Nghành nghề</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item  @(ViewBag.Title == "Cài đặt tỉnh thành" ? "active" : "")">
+        <a href="/Admin/ProvicesAdmin/Index" class='sidebar-link'>
+            <i class="fa fa-globe-africa"></i>
+            <span>Cài đặt tỉnh thành</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item  @(ViewBag.Title == "Cài đặt kinh nghiệm việc làm" ? "active" : "")">
+        <a href="/Admin/Exps/Index" class='sidebar-link'>
+            <i class="fa fa-arrow-up"></i>
+            <span>Cài đặt kinh nghiệm việc làm</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item  @(ViewBag.Title == "Quản lý chức vụ" ? "active" : "")">
+        <a href="/Admin/WorkPlacesAdmin/Index" class='sidebar-link'>
+            <i class="fa fa-user-lock"></i>
+            <span>Cài đặt chức vụ việc làm</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item  @(ViewBag.Title == "Quản lý hình thức việc làm" ? "active" : "")">
+        <a href="/Admin/TypeJobsAdmin/Index" class='sidebar-link'>
+            <i class="fa fa-briefcase-medical"></i>
+            <span>Cài đặt hình thức việc làm</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item  @(ViewBag.Title == "Quản lý từ cấm" ? "active" : "")">
+        <a href="/Admin/WordsAdmin/Index" class='sidebar-link'>
+            <i class="fa fa-ban"></i>
+            <span>Cài đặt từ ngữ cấm</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item">
+        <hr />
+    </li>
+
+    <li class="sidebar-item  @(ViewBag.Title == "Quản lý tin tức" ? "active" : "")">
+        <a href="/Admin/NewsAdmin/IndexNews" class='sidebar-link'>
+            <i class="fa fa-newspaper"></i>
+            <span>Quản lý tin tức</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item  @(ViewBag.Title == "Quản lý câu hỏi" ? "active" : "")">
+        <a href="/Admin/NewsAdmin/IndexQuestion" class='sidebar-link'>
+            <i class="fa fa-question-circle"></i>
+            <span>Quản lý câu hỏi</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item">
+        <hr />
+    </li>
+
+    <li class="sidebar-item  ">
+        <a href="@Url.Action("LogOut","UsersAdmin")" class='sidebar-link'>
+            <i class="fa fa-sign-out-alt"></i>
+            <span>Đăng xuất</span>
+        </a>
+    </li>
+
+</ul>
